@@ -7,6 +7,11 @@ font-family: 'Open Sans Condensed';
 .tx_branco{
     color: #fff !important;
 }
+
+.user-panel > .info{
+    position: static !inportant;
+    left: 0px !inportant;
+}
 .bk_branco{
     background-color: #fff !important;
 }
