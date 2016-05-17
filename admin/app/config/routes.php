@@ -63,53 +63,15 @@ $route['usuario/(:num)/editar'] = 'usuario/editar/$1';
 $route['usuario/(:num)/editar'] = 'usuario/editar/$1';
 $route['usuario/(:num)/excluir'] = 'usuario/excluir/$1';
 
-// Alunos
-$route['aluno'] = 'aluno/listar';
-$route['aluno/adicionar'] = 'aluno/adicionar';
-$route['aluno/(:num)/editar'] = 'aluno/editar/$1';
-$route['aluno/(:num)/excluir'] = 'aluno/excluir/$1';
 
-// Funcionario
-$route['func'] = 'funcionario/listar';
-$route['func/add'] = 'funcionario/adicionar';
-$route['func/add'] = 'funcionario/adicionar';
-$route['func/(:num)/edit'] = 'funcionario/editar/$1';
-$route['func/(:num)/exc'] = 'funcionario/excluir/$1';
-$route['func/(:num)/horario'] = 'funcionario/listarHorario/$1';
+/* Médicos*/
+$route['medico/list'] = 'medicos';
+$route['medico/add'] = 'medicos/adicionar';
+$route['medico/(:num)'] = 'medicos/editar/$1';
+$route['medico/excluir/(:num)'] = 'medicos/excluir/$1';
 
-
-// Galeria
-$route['galeria/list'] = 'galeria';
-$route['galeria/add'] = 'galeria/adicionar';
-$route['galeria/(:num)'] = 'galeria/editar/$1';
-$route['galeria/(:num)/excluir'] = 'galeria/excluir/$1';
-$route['galeria/desativar/(:num)'] = 'galeria/desativar/$1';
-$route['galeria/ativar/(:num)'] = 'galeria/ativar/$1';
-
-// Galeria imagens
-$route['galeria/(:num)/imagens'] = 'galeria/adicionarimagem/$1';
-$route['galeria/(:num)/imagens/ativar/(:num)'] = 'galeria/ativarImagem/$1/$2';
-$route['galeria/(:num)/imagens/desativar/(:num)'] = 'galeria/desativarImagem/$1/$2';
-$route['galeria/(:num)/imagens/excluir/(:num)'] = 'galeria/excluirImagem/$1/$2';
-
-// banner
-$route['banner/list'] = 'banner';
-$route['banner/desativar/(:num)'] = 'banner/desativar/$1';
-$route['banner/ativar/(:num)'] = 'banner/ativar/$1';
-$route['banner/(:num)'] = 'banner/editar/$1';
-$route['banner/(:num)/excluir'] = 'banner/excluir/$1';
-
-// NOticias
-$route['noticia/list'] = 'noticias';
-$route['noticia/add'] = 'noticias/adicionar';
-$route['noticia/desativar/(:num)'] = 'noticias/desativar/$1';
-$route['noticia/ativar/(:num)'] = 'noticias/ativar/$1';
-$route['noticia/(:num)'] = 'noticias/editar/$1';
-$route['noticia/excluir/(:num)'] = 'noticias/excluir/$1';
-
-// Contato
-$route['contatos'] = 'contato/listar';
-$route['contato/(:num)'] = 'contato/exibir/$1';
-$route['contato/(:num)/excluir'] = 'contato/excluir/$1';
-
-
+/* Pacientes*/
+$route['paciente/list'] = 'pacientes';
+$route['paciente/add'] = 'pacientes/adicionar';
+$route['paciente/(:num)'] = 'pacientes/editar/$1';
+$route['paciente/excluir/(:num)'] = 'pacientes/excluir/$1';

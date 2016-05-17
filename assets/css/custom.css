@@ -8,14 +8,17 @@ font-family: 'Open Sans Condensed';
     color: #fff !important;
 }
 
-.user-panel > .info{
-    position: static !inportant;
-    left: 0px !inportant;
+.user-panel>.info{
+    position: static !important;
+    left: 0px !important;
+    height: 60px !important;
 }
 .bk_branco{
     background-color: #fff !important;
 }
 .conteudo{
+    
+    
     padding: 60px 15px;
 }
 #evento a:hover .item_evento {

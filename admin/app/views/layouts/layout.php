@@ -30,6 +30,8 @@
         <link href="<?php echo base_url('assets') ?>/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet"/>
         <!-- Theme style -->
         <link href="<?php echo base_url('assets') ?>/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+        
+         <link href="<?php echo base_url('assets') ?>/css/custom.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -117,10 +119,10 @@
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="<?php echo base_url('assets') ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-                        </div>
-                        <div class="pull-left info">
+                         <!--<div class="pull-left image" >
+                           <img src="<?php echo base_url('assets') ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                        </div>-->
+                        <div class="pull-left info" >
                             <p><?php echo $usuario->username; ?></p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
@@ -129,7 +131,26 @@
 
                     <ul class="sidebar-menu">
                         <li class="header">Menu Principal</li>
+                        
                         <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user"></i> <span>Médicos</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo site_url('medico/add') ?>"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
+                                <li><a href="<?php echo site_url('medico/list') ?>"><i class="fa fa-list"></i> Listar</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user"></i> <span>Pacientes</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo site_url('paciente/add') ?>"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
+                                <li><a href="<?php echo site_url('paciente/list') ?>"><i class="fa fa-list"></i> Listar</a></li>
+                            </ul>
+                        </li>
+                        <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-image"></i> <span>Banners</span> <i class="fa fa-angle-left pull-right"></i>
                             </a>
@@ -155,7 +176,7 @@
                                 <li><a href="<?php echo site_url('galeria') ?>/add"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
                                 <li><a href="<?php echo site_url('galeria') ?>/list"><i class="fa fa-list"></i> Listar</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-files-o"></i>
@@ -197,9 +218,12 @@
 
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
-                    <b>Version</b> 2.0
+                    <b>Versão</b> 04.055.16
                 </div>
-                <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2016 
+                    <a href="fatecourinhos.edu.br">Sistema de ambulatório Médico (FATEC)</a>
+                    .</strong>
+                Todos os direitos reservados.
             </footer>
 
             <!-- Control Sidebar -->      

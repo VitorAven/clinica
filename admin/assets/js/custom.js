@@ -1,5 +1,7 @@
-$(document).ready(function() {
-  
-  $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
- 
+$(document).ready(function () {
+    
+    //Money Euro
+    $("[data-mask]").inputmask();
+
+
 });
