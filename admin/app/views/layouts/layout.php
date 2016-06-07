@@ -131,7 +131,16 @@
 
                     <ul class="sidebar-menu">
                         <li class="header">Menu Principal</li>
-                        
+                         <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-calendar"></i> <span>Consultas</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo site_url('consulta/add') ?>"><i class="fa fa-plus-circle"></i> Nova Consulta</a></li>
+                                <li><a href="<?php echo site_url('consulta/list') ?>"><i class="fa fa-list"></i> Listar Consultas</a></li>
+                                <li><a href="<?php echo site_url('consulta/list_free') ?>"><i class="fa fa-calendar"></i> Datas livres Consultas</a></li>
+                            </ul>
+                        </li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-user"></i> <span>Médicos</span> <i class="fa fa-angle-left pull-right"></i>
@@ -150,6 +159,7 @@
                                 <li><a href="<?php echo site_url('paciente/list') ?>"><i class="fa fa-list"></i> Listar</a></li>
                             </ul>
                         </li>
+                       
                         <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-image"></i> <span>Banners</span> <i class="fa fa-angle-left pull-right"></i>

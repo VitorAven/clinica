@@ -75,3 +75,10 @@ $route['paciente/list'] = 'pacientes';
 $route['paciente/add'] = 'pacientes/adicionar';
 $route['paciente/(:num)'] = 'pacientes/editar/$1';
 $route['paciente/excluir/(:num)'] = 'pacientes/excluir/$1';
+
+/* Consulta*/
+$route['consulta/list'] = 'consultas';
+$route['consulta/list_free'] = 'consultas/disponiveis';
+$route['consulta/add'] = 'consultas/adicionar';
+$route['consulta/(:num)'] = 'consultas/editar/$1';
+$route['consulta/excluir/(:num)'] = 'consultas/excluir/$1';

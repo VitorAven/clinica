@@ -1,85 +1,82 @@
-<?php
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
 
-class Trabalhe extends CI_Controller {
+<html>
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -  
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in 
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see http://codeigniter.com/user_guide/general/urls.html
-     */
-    public function index() {
-        $post = $this->input->post();
-        if ($post) {
-            //print_r($post);die();
-            $config1['upload_path'] = './uploads/curriculos/';
-            $config1['allowed_types'] = 'doc|pdf|docx';
+    <head>
+        <!-- Configuração de Charset -->
+        <meta charset='utf-8' />
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <!-- Título da Página -->
+        <title>Lelui</title>
+        <!-- Meta Tags -->
+        <meta name='description' content='' />
+        <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' />
+        <!-- Ícones -->
 
-            $this->load->library('upload', $config1);
+        <link rel='apple-touch-icon' href='apple-touch-icon.png' />
+        <!-- Meta Tags Open Graph -->
 
-            if (!$this->upload->do_upload()) {
-                redirect(site_url("trabalhe"));
-            } else {
-                $imgdados = $this->upload->data();
-                $curriculo = $imgdados['file_name'];
+        <meta property='og:locale' content='pt_BR' />
+        <meta property='og:url' content='http://www.lelui.com.br ' />
+        <meta property='og:title' content='lelui' />
+        <meta property='og:site_name' content='lelui' />
+        <meta property='og:description' content='lelui' />
+        <meta property='og:image' content='/facebook.jpg' />
+        <meta property='og:image:type' content='image/jpeg' />
+        <meta property='og:image:width' content='800' />
+        <meta property='og:image:height' content='600' />
 
-                // Array ( [nome] => teste [email] => teste@webzero.com.br [telefone] => (11) 11111-1111 [obj_prof] => obj prof [msg] => teste [enviar] => Enviar )
 
-                $menssagem = "Contato"
-                        . "\r\nNome: " . $post['nome']
-                        . "\r\nEmail: " . $post['email']
-                        . "\r\nTelefone: " . $post['telefone']
-                        . "\r\nEmail: " . $post['email']
-                        . "\r\nObjetivo Profissional: " . $post['obj_prof']
-                        . "\r\nMensagem: " . $post['msg']
-                        . "\r\nCurriículo: <a href='" . base_url() . $curriculo . "'>" . base_url() . $curriculo . "</a>"
-                ;
-
-                $this->load->library('email');
-                $config['protocol'] = 'smtp';
-                $config['smtp_host'] = 'smtp.hotelpousadaourinhos.com.br';
-                $config['smtp_port'] = '587';
-                $config['smtp_timeout'] = '7';
-                $config['smtp_user'] = 'contato_site@hotelpousadaourinhos.com.br';
-                $config['smtp_pass'] = '50gjjsfl4';
-                $config['charset'] = 'utf-8';
-                $config['newline'] = "\r\n";
-                $config['mailtype'] = 'html'; // or html
-                //  $config['validation'] = TRUE; // bool whether to validate email or not      
-
-                $this->email->initialize($config);
-
-                $this->email->from('contato_site@hotelpousadaourinhos.com.br', 'myname');
-                $this->email->to('vitorhugobassetto@gmail.com');
-
-                $this->email->subject('Email Test');
-                $this->email->message($mensagem);
-
-                $this->email->send();
-
-                //echo $this->email->print_debugger();
-                //Array ( [nome] => asd [tel] => asdasd [email] => asdasd [assunto] => asdasd [mensagem] => adsasd );
+        <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <style type="text/css" >
+            * {
+                margin: 0;
+                border:0;
+                padding: 0;
             }
-        }
+            body {
+                overflow:hidden;
+                background-img: Url('Pagina_Construcao.jpg');
 
-        $data['conteudo'] = 'paginas/trabalhe_view';
-        $data['item_menu'] = 7;
-        $this->load->view('layouts/layout', $data);
-    }
+            }
+            i{
+                display: inline-block;
+                color: #3B579D;
 
-}
+            }
+            .face{    text-align: center;
+                      width: 100%;
+                      top: 94%;
+                      position: absolute;
+                      font-size: 50px;
+            }
+            #content {
+                background-position: top center;
+                background-repeat: no-repeat;
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <script>
+            $(document).ready(function () {
+                height = window.screen.availHeight - 60;
+                $("#lelui").css("height", height);
+                $(document).resize(function () {
+                    height = window.screen.availHeight - 60;
+                    $("#lelui").css("height", height);
+
+                });
+
+            });
+
+        </script>
+        <div class='face'><i class="fa fa-facebook-official" aria-hidden="true"></i></div>
+        <img src='Pagina_Construcao.jpg' id="lelui" style='width: 100%' />
+    </body>
+
+</html>
