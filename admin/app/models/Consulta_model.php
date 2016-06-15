@@ -2,18 +2,53 @@
 
 class Consulta_model extends CI_Model {
 
-    function listarTodos() {
+    function listarTodosConsultas() {
         unset($query);
+        $fim = date("Y-m-d", strtotime('+30 day'));
+        $inicio = date("Y-m-d");
 
-        $query = $this->db->get('galeria')->result_array();
+        $data = getdate();
+
+        $this->db->select("consulta.*, medico.nome AS medico_nome, paciente.nome AS paciente_nome");
+        $this->db->from("consulta");
+
+        $this->db->join("pessoa AS medico", "medico.id = consulta.id_medico");
+        $this->db->join("pessoa AS paciente", "paciente.id = consulta.id_paciente");
+        $this->db->where('consulta.data <= ', $fim);
+        $this->db->where('consulta.data >= ', $inicio);
+        $this->db->order_by('consulta.data');
+        $query = $this->db->get()->result_array();
+        return $query;
+    }
+
+    function valida_consulta($post) {
+        unset($query);
+        $horario = strtotime("H:i:s", $post['hora']);
+        print_r($horario);
+        die;
+
+        $inicio = date("Y-m-d");
+
+        $data = getdate();
+
+        $this->db->select("consulta.*, medico.nome AS medico_nome, paciente.nome AS paciente_nome");
+        $this->db->from("consulta");
+
+        $this->db->join("pessoa AS medico", "medico.id = consulta.id_medico");
+        $this->db->join("pessoa AS paciente", "paciente.id = consulta.id_paciente");
+        $this->db->where('consulta.data <= ', $fim);
+        $this->db->where('consulta.data >= ', $inicio);
+        $this->db->order_by('consulta.data');
+        
+        $query = $this->db->get()->result_array();
 
         return $query;
     }
 
     function listarTodasImg($id) {
         unset($query);
-        
-        $this->db->where('id_galeria', $id);
+
+        $this->db->where('id_consulta', $id);
         $query = $this->db->get('imagens')->result_array();
 
         return $query;
@@ -27,32 +62,31 @@ class Consulta_model extends CI_Model {
 
         return $query;
     }
+
     function listar($id) {
         unset($query);
 
         $this->db->where('id', $id);
-        $query = $this->db->get('galeria')->row();
+        $query = $this->db->get('consulta')->row();
 
         return $query;
     }
 
-    function adicionar($post) {
+    function adicionar_consulta($post) {
         unset($query);
 
-        if (!$post['ativo']) {
-            $post['ativo'] = 0;
-        }
-       
-
+        //[paciente] => 1 [medico] => 11 [data] => 1992-10-31 [hora] => 12:12 
         $dados = array(
-            'nome' => $post['nome'],
-            'capa' => $post['img'],
-            'ativo' => $post['ativo']
+            'id_medico' => $post['medico'],
+            'id_paciente' => $post['paciente'],
+            'data' => $post['data'],
+            'hora' => $post['hora']
         );
-        $query = $this->db->insert('galeria', $dados);
+        $query = $this->db->insert('consulta', $dados);
 
         return $query;
     }
+
     function adicionarImg($post) {
         unset($query);
 
@@ -63,7 +97,7 @@ class Consulta_model extends CI_Model {
         $dados = array(
             'nome' => $post['nome'],
             'url' => $post['img'],
-            'id_galeria' => $post['id_galeria'],
+            'id_consulta' => $post['id_consulta'],
             'ativo' => $post['ativo']
         );
         $query = $this->db->insert('imagens', $dados);
@@ -96,7 +130,7 @@ class Consulta_model extends CI_Model {
 
 
         $this->db->where('id', $id);
-        $query = $this->db->update('galeria', $dados);
+        $query = $this->db->update('consulta', $dados);
 
         return $query;
     }
@@ -109,7 +143,7 @@ class Consulta_model extends CI_Model {
         );
 
         $this->db->where('id', $id);
-        $query = $this->db->update('galeria', $dados);
+        $query = $this->db->update('consulta', $dados);
 
         return $query;
     }
@@ -122,7 +156,7 @@ class Consulta_model extends CI_Model {
         );
 
         $this->db->where('id', $id);
-        $query = $this->db->update('galeria', $dados);
+        $query = $this->db->update('consulta', $dados);
 
         return $query;
     }
@@ -131,12 +165,11 @@ class Consulta_model extends CI_Model {
         unset($query);
 
         $this->db->where('id', $id);
-        $query = $this->db->delete('galeria');
+        $query = $this->db->delete('consulta');
 
         return $query;
     }
-    
-    
+
     function desativarImg($id) {
         unset($query);
 

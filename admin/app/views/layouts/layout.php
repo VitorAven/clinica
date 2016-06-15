@@ -138,8 +138,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('consulta/add') ?>"><i class="fa fa-plus-circle"></i> Nova Consulta</a></li>
                                 <li><a href="<?php echo site_url('consulta/list') ?>"><i class="fa fa-list"></i> Listar Consultas</a></li>
-                                <li><a href="<?php echo site_url('consulta/list_free') ?>"><i class="fa fa-calendar"></i> Datas livres Consultas</a></li>
-                            </ul>
+                               </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">

@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">Médico</label>
-                            <select name="paciente" class="form-control" id="exampleInputNome" required >
+                            <select name="medico" class="form-control" id="exampleInputNome" required >
                                 <?php foreach ($medico as $med): ?>    
                                     <option value="<?php echo $med['id']; ?>"><?php echo $med['crm'] . '---' . $med['nome'] . " " . $med['sobre_nome'] ?></option>
                                 <?php endforeach; ?>
