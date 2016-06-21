@@ -75,11 +75,11 @@
 
                                         <p>
                                             <?php echo $usuario->username; ?> - <?php echo $usuario->email; ?>
-                                            <small>Member since Nov. 2012</small>
+                                           <!-- <small>Member since Nov. 2012</small>-->
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
-                                    <li class="user-body">
+                                   <!-- <li class="user-body">
                                         <div class="col-xs-4 text-center">
                                             <a href="#">Listar Usuários</a>
                                         </div>
@@ -89,12 +89,12 @@
                                         <div class="col-xs-4 text-center">
                                             <a href="#">Listar Páginas</a>
                                         </div>
-                                    </li>
+                                    </li>-->
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
-                                        <div class="pull-left">
+                                       <!-- <div class="pull-left">
                                             <a href="#" class="btn btn-default btn-flat">Meu usuário</a>
-                                        </div>
+                                        </div>-->
                                         <div class="pull-right">
                                             <a href="<?php echo site_url('logout');?>" class="btn btn-default btn-flat">Sair</a>
                                         </div>
@@ -103,9 +103,9 @@
                             </li>
                             <!-- Control Sidebar Toggle Button -->
                             <!-- Control Sidebar Toggle Button -->
-                            <li>
+                            <!--<li>
                                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </nav>
@@ -125,7 +125,7 @@
                         <div class="pull-left info" >
                             <p><?php echo $usuario->username; ?></p>
 
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <i class="fa fa-circle text-success"></i> Online
                         </div>
                     </div>
 

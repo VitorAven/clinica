@@ -27,28 +27,28 @@
                     <div class="box-body">
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">Nome</label>
-                            <input type="text" class="form-control" id="exampleInputNome" name="nome" placeholder="Digite o Nome">
+                            <input type="text" class="form-control" id="exampleInputNome" name="nome" placeholder="Digite o Nome" required>
                         </div>
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">sobreome</label>
-                            <input type="text" class="form-control" id="exampleInputNome" name="sobre_nome" placeholder="Digite o Sobrenomeome">
+                            <input type="text" class="form-control" id="exampleInputNome" name="sobre_nome" placeholder="Digite o Sobrenomeome" required>
                         </div>
                          <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="exampleInputNome" name="dt_nasc" placeholder="">
+                            <input type="date" class="form-control" id="exampleInputNome" name="dt_nasc" placeholder="" required>
                         </div>
                          <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">RG</label>
-                            <input type="text" class="form-control" id="exampleInputNome" data-inputmask='"mask": "99.999.999-99"' name="rg" placeholder="Digite o RG" data-mask>
+                            <input type="text" class="form-control" id="exampleInputNome" data-inputmask='"mask": "99.999.999-99"' name="rg" placeholder="Digite o RG" data-mask required>
                         </div>
                         
                          <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">CPF</label>
-                            <input type="text" name="cpf" placeholder="Digite o CPF" class="form-control" data-inputmask='"mask": "999.999.999-99"' data-mask>
+                            <input type="text" name="cpf" placeholder="Digite o CPF" class="form-control" data-inputmask='"mask": "999.999.999-99"' data-mask required>
                         </div>
                          <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">CRM</label>
-                            <input type="text" name="crm" placeholder="Digite o CRM" class="form-control" >
+                            <input type="text" name="crm" placeholder="Digite o CRM" class="form-control" required>
                         </div>
                         
                       

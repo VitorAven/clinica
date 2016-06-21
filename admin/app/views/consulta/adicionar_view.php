@@ -44,11 +44,11 @@
                         </div>
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">Data da Consulta</label>
-                            <input type="date" class="form-control" id="exampleInputNome" name="data" placeholder="">
+                            <input type="date" class="form-control" id="exampleInputNome" name="data" placeholder="" required>
                         </div>
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">Hora da Consulta</label>
-                            <input type="time" class="form-control" id="exampleInputNome" name="hora" placeholder="">
+                            <input type="time" class="form-control" id="exampleInputNome" name="hora" placeholder="" required>
                         </div>
                        
 

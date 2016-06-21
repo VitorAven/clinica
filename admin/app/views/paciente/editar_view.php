@@ -27,24 +27,24 @@
                     <div class="box-body">
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">Nome</label>
-                            <input type="text" class="form-control" id="exampleInputNome" name="nome" placeholder="Digite o Nome" value="<?php echo $item->nome; ?>">
+                            <input type="text" class="form-control" id="exampleInputNome" name="nome" placeholder="Digite o Nome" value="<?php echo $item->nome; ?>" required>
                         </div>
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">sobreome</label>
-                            <input type="text" class="form-control" id="exampleInputNome" name="sobre_nome" placeholder="Digite o Sobrenomeome" value="<?php echo $item->sobre_nome; ?>">
+                            <input type="text" class="form-control" id="exampleInputNome" name="sobre_nome" placeholder="Digite o Sobrenomeome" value="<?php echo $item->sobre_nome; ?>" required>
                         </div>
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="exampleInputNome" name="dt_nasc" placeholder="" value="<?php echo $item->dt_nasc; ?>">
+                            <input type="date" class="form-control" id="exampleInputNome" name="dt_nasc" placeholder="" value="<?php echo $item->dt_nasc; ?>" required>
                         </div>
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">RG</label>
-                            <input type="text" class="form-control" id="exampleInputNome" data-inputmask='"mask": "99.999.999-99"' name="rg" placeholder="Digite o RG" data-mask value="<?php echo $item->rg; ?>">
+                            <input type="text" class="form-control" id="exampleInputNome" data-inputmask='"mask": "99.999.999-99"' name="rg" placeholder="Digite o RG" data-mask value="<?php echo $item->rg; ?>" required>
                         </div>
 
                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
                             <label for="exampleInputNome">CPF</label>
-                            <input type="text" name="cpf" placeholder="Digite o CPF" class="form-control" data-inputmask='"mask": "999.999.999-99"' data-mask value="<?php echo $item->cpf; ?>">
+                            <input type="text" name="cpf" placeholder="Digite o CPF" class="form-control" data-inputmask='"mask": "999.999.999-99"' data-mask value="<?php echo $item->cpf; ?>" required>
                         </div>
 
 
