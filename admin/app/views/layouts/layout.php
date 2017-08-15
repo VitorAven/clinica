@@ -79,7 +79,7 @@
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
-                                   <!-- <li class="user-body">
+                                   <li class="user-body">
                                         <div class="col-xs-4 text-center">
                                             <a href="#">Listar Usuários</a>
                                         </div>
@@ -89,13 +89,12 @@
                                         <div class="col-xs-4 text-center">
                                             <a href="#">Listar Páginas</a>
                                         </div>
-                                    </li>-->
+                                    </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
-                                       <!-- <div class="pull-left">
+                                       <div class="pull-left">
                                             <a href="#" class="btn btn-default btn-flat">Meu usuário</a>
-                                        </div>-->
-                                        <div class="pull-right">
+                                        </div>                                        <div class="pull-right">
                                             <a href="<?php echo site_url('logout');?>" class="btn btn-default btn-flat">Sair</a>
                                         </div>
                                     </li>
