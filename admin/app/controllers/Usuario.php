@@ -6,155 +6,110 @@ if (!defined('BASEPATH'))
 class Usuario extends CI_Controller {
 
     /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -  
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in 
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see http://codeigniter.com/user_guide/general/urls.html
+     * @author Vitor Hugo Bassetto <vitorhugobassetto@gmail.com>
+     * 
      */
-    function index() {
-        if (!$this->ion_auth->logged_in()) :
-            redirect(site_url('login'));
-        else :
-            $data['usuario'] = $this->ion_auth->user()->row();
-            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
-        endif;
-        if (!$this->ion_auth->is_admin()) :
-            redirect(site_url());
-        endif;
-        $idgrupo = 2;
-        $data['transacoes'] = $this->ion_auth->users('corretor')->result();
-        $this->layout->view('usuario/listar', $data);
-    }
+    public function index() {
 
-    function logout() {
-        if ($this->ion_auth->logged_in()) :
-            $logout = $this->ion_auth->logout();
-        endif;
-        redirect(site_url('login'));
-    }
+        if (!$this->sis_login->_isLogado()) {
+            redirect(site_url("/login"));
+        } else {
+            $data['usuario'] = $this->session->userdata;
+        }
 
-    function adicionar() {
-        if (!$this->ion_auth->logged_in()) :
-            redirect(site_url('login'));
-        else :
-            $data['usuario'] = $this->ion_auth->user()->row();
-            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
-        endif;
-        if (!$this->ion_auth->is_admin()) :
-            redirect(site_url());
-        endif;
-        $username = $this->input->post('username');
-        $nome = $this->input->post('first_name');
-        $sobrenome = $this->input->post('last_name');
-        $email = $this->input->post('email');
-        $fone = $this->input->post('phone');
-        $senha = $this->input->post('password');
-        $senha2 = $this->input->post('password_confirm');
+        try {
+            $data['titulo'] = "Usuarios";
+            $data['admin_name'] = "Usuarios";
 
-        if ($username && $email && $senha) :
-            if ($senha != $senha2) :
-                $data['mensagem'] = "As senhas não coincidem, tente novamente";
-                $this->layout->view('usuario/adicionar', $data);
-            else :
-                $additional_data = array(
-                    'first_name' => $nome,
-                    'last_name' => $sobrenome,
-                    'phone' => $fone
-                );
-                $novocorretor = $this->ion_auth->register($username, $senha, $email, $additional_data);
-                if ($novocorretor) :
-                    $data['mensagem'] = "Cadastro realizado com sucesso.";
-                else :
-                    $data['mensagem'] = "Não foi possível cadastrar. Tente novamente.";
-                endif;
-                $this->layout->view('usuario/adicionar', $data);
-            endif;
-        else :
-            $this->layout->view('usuario/adicionar', $data);
-        endif;
-    }
+            $crud = new grocery_CRUD();
 
-    function editar($id) {
-        if (!$this->ion_auth->logged_in()) :
-            redirect(site_url('login'));
-        else :
-            $data['usuario'] = $this->ion_auth->user()->row();
-            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
-        endif;
-        if (!$this->ion_auth->is_admin()) :
-            redirect(site_url());
-        endif;
-        $username = $this->input->post('username');
-        $nome = $this->input->post('first_name');
-        $sobrenome = $this->input->post('last_name');
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-        $fone = $this->input->post('phone');
-
-        $data['corretor'] = $this->ion_auth->user($id)->row();
-        if ($username || $email || $nome || $sobrenome || $fone) :
-            $dados = array(
-                'username' => $username,
-                'email' => $email,
-                'first_name' => $nome,
-                'password' => $password,
-                'last_name' => $sobrenome,
-                'phone' => $fone
+            $crud->set_theme('datatables');
+            $crud->set_table('tb_usuario');
+            $crud->set_subject('Usuarios');
+            $crud->fields(
+                    'tx_nome_usuario', 'dt_nasc_usuario', 'tx_email_usuario', 'tx_senha_usuario', 'tx_login_usuario', 'st_ativo_usuario', 'is_suporte'
             );
-            $novocorretor = $this->ion_auth->update($id, $dados);
-            if ($novocorretor) :
-                $data['mensagem'] = "Cadastro alterado com sucesso.";
-            else :
-                $data['mensagem'] = "Não foi possível alterar. Tente novamente.";
-            endif;
-            $this->layout->view('usuario/editar', $data);
-        else :
-            $this->layout->view('usuario/editar', $data);
-        endif;
+            $crud->required_fields(
+                    'tx_nome_usuario', 'dt_nasc_usuario', 'tx_email_usuario', 'tx_senha_usuario', 'tx_login_usuario', 'st_ativo_usuario'
+            );
+            $crud->columns(
+                    'tx_nome_usuario', 'dt_nasc_usuario', 'tx_email_usuario', 'st_ativo_usuario'
+            );
+            $crud->unset_read_fields(
+                    'tx_senha_usuario', 'id_cliente', 'is_suporte'
+            );
+            $crud->display_as('tx_nome_usuario', 'Nome');
+            $crud->display_as('dt_nasc_usuario', 'Data Nasc');
+            $crud->display_as('tx_email_usuario', 'Email');
+            $crud->display_as('tx_senha_usuario', 'Senha');
+            $crud->display_as('tx_login_usuario', 'Login');
+            $crud->display_as('st_ativo_usuario', 'Status');
+            $crud->field_type('tx_senha_usuario', 'password');
+            $crud->field_type('tx_email_usuario', 'email');
+            $crud->order_by('tx_nome_usuario');
+
+//            $crud->fields('nome');
+//            $crud->edit_fields('nome');
+            $crud->callback_before_insert(array($this, 'geraSenha'));
+            $crud->callback_before_update(array($this, 'geraSenha'));
+
+
+            $data['crud'] = $crud->render();
+        } catch (Exception $e) {
+            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
+        }
+
+        $this->load->view('layouts/layout', $data);
+    }
+
+    public function geraSenha($post) {
+        $post['tx_senha_usuario'] = sha1($post['tx_senha_usuario'] . sha1($post['tx_login_usuario']));
+        return $post;
     }
 
     function login() {
-        if ($this->ion_auth->logged_in()) :
-            redirect(site_url());
-        else :
-            $this->title = 'FaÃ§a o Login';
-            $login = $this->input->post('identity');
-            $senha = $this->input->post('password');
-            $remember = (bool) $this->input->post('remember');
+        try {
+            if ($this->sis_login->_isLogado()) {
+                redirect(site_url('principal'));
+            } else {
+                $this->title = 'Faça o Login';
+//echo sha1('admin123' . sha1('teste'));die();
+                if (!empty($this->input->post('login'))) {
+                    $login = $this->input->post('login');
+                    $credenciais['login'] = $login['login'];
+                    $credenciais['senha'] = $login['senha'];
+                    $credenciais['lembrar'] = empty($login['lembrar']) ? "N" : $login['lembrar'];
 
-            if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) :
-                $this->ion_auth->clear_login_attempts($this->input->post('identity'));
-                redirect(site_url());
-            else :
-                $this->ion_auth->increase_login_attempts($this->input->post('identity'));
-                $this->layout->definirTitulo('Efetue o Login');
-                $this->layout->definirLayout('layouts/login');
-                $this->layout->view('login');
-            endif;
-        endif;
+                    if ($this->sis_login->_doLogin($credenciais)) {
+                        redirect(site_url());
+                    } else {
+                        echo "<script>alert('Login ou senha invalido!');</script>";
+                        $this->layout->definirTitulo('Efetue o Login');
+                        $this->layout->definirLayout('layouts/login');
+                        $this->layout->view('login');
+                    }
+                } else {
+                    $this->layout->definirTitulo('Efetue o Login');
+                    $this->layout->definirLayout('layouts/login');
+                    $this->layout->view('login');
+                }
+            }
+        } catch (Exception $e) {
+            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
+        }
     }
 
-    function excluir($id) {
-        if (!$this->ion_auth->logged_in()) :
-            redirect(site_url('login'));
-        else :
-            $data['usuario'] = $this->ion_auth->user()->row();
-            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
-        endif;
-        if (!$this->ion_auth->is_admin()) :
-            redirect(site_url());
-        endif;
-        $this->ion_auth->delete_user($id);
-        redirect(base_url() . 'usuario');
+    function logout() {
+        try {
+            $this->session->sess_destroy();
+            redirect(site_url("/login"));
+        } catch (Exception $e) {
+            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
+        }
     }
 
 }
+
+/* End of file welcome.php */
+    /* Location: ./application/controllers/welcome.php */
+    
