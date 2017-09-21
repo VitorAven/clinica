@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Bairro extends CI_Controller {
-
+//teste
     /**
      * @author Vitor Hugo Bassetto <vitorhugobassetto@gmail.com>
      * 
