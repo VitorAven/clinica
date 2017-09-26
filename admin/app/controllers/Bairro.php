@@ -1,7 +1,6 @@
 <?php
 
-
-
+//Controller de bairros onde cria o CRUDs
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
