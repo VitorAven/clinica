@@ -32,7 +32,7 @@ class Principal extends CI_Controller {
         $data['titulo'] = "Principal";
         $data['admin_name'] = "Principal";
 
-        $this->layout->view('home_view', $data);
+        $this->layout->view('home_view', $data);  
     }
 
 }

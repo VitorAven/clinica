@@ -13,8 +13,15 @@ class Medicos extends CI_Controller {
         if (!$this->ion_auth->logged_in()) :
             redirect(site_url("login"));
         else :
-            $data['usuario'] = $this->ion_auth->user()->row();
+            $data['usuarios'] = $this->ion_auth->user()->row();
             $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+            
+            
+            
+            
+            
+            
+            
         endif;
 
         $this->load->model('pessoa_model', 'pessoa');
