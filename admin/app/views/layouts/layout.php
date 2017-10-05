@@ -1,4 +1,4 @@
-
+ 
 <!DOCTYPE html>
 <html>
     <head>
@@ -88,14 +88,14 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-                                    <span class="hidden-xs"><?php // echo $usuario->username; ?></span>
+                                    <span class="hidden-xs"><?php // echo $usuario->username;  ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
 
                                         <p>
-                                            <?php // echo $usuario->username; ?> - <?php//  echo $usuario->email; ?>
+                                            <?php // echo $usuario->username; ?> - <?php //  echo $usuario->email; ?>
                                            <!-- <small>Member since Nov. 2012</small>-->
                                         </p>
                                     </li>
@@ -143,7 +143,7 @@
                           <img src="<?php echo base_url('assets') ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                        </div>-->
                         <div class="pull-left info" >
-                            <p><?php // echo $usuario->username; ?></p>
+                            <p><?php // echo $usuario->username;  ?></p>
 
                             <i class="fa fa-circle text-success"></i> Online
                         </div>
@@ -151,6 +151,7 @@
 
                     <ul class="sidebar-menu">
                         <li class="header">Menu Principal</li>
+                      
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-plus-circle"></i> <span>Bairros</span> <i class="fa fa-angle-left pull-right"></i>
@@ -183,7 +184,7 @@
                                 <li><a href="<?php echo site_url('item') ?>"><i class="fa fa-plus-circle"></i> Gerenciar Itens</a></li>
                             </ul>
                         </li>
-                         <li class="treeview">
+                        <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-home"></i> <span>Imoveis</span> <i class="fa fa-angle-left pull-right"></i>
                             </a>
@@ -497,6 +498,6 @@
 
     <!-- custom -->
     <script src="<?php echo base_url('assets') ?>/js/custom.js"></script>
-   
+
 </body>
 </html>

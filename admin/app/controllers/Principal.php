@@ -26,7 +26,7 @@ class Principal extends CI_Controller {
         } else {
             $data['usuario'] = $this->session->userdata;
         }
-
+//teste
 
 
         $data['titulo'] = "Principal";

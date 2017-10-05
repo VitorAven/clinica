@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/layouts/layout.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Pacientes.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/config/routes.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Principal.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Bairro.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Usuario.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/models/Menu_model.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Menu.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/config/config.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/config/database.php</file>
+        </group>
     </open-files>
 </project-private>
