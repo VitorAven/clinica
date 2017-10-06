@@ -1,4 +1,10 @@
- 
+ <?php 
+// echo '<pre>';
+//print_r($this->data);
+//die();
+//$titulo = $this->data['titulo'];
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -152,46 +158,20 @@
                     <ul class="sidebar-menu">
                         <li class="header">Menu Principal</li>
                       
+                        <?php
+                        if(!empty($this->data['permissao'])):
+                        foreach($this->data['permissao'] as $per):
+                        ?>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-plus-circle"></i> <span>Bairros</span> <i class="fa fa-angle-left pull-right"></i>
+                                <i class="fa fa-plus-circle"></i> <span><?php echo $per['tx_nome_menu']?></span> <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('bairro') ?>"><i class="fa fa-plus-circle"></i> Gerenciar Bairros</a></li>
+                                <li><a href="<?php echo site_url($per['tx_nome_controler']); ?>"><i class="fa fa-plus-circle"></i> Gerenciar <?php echo $per['tx_nome_menu']?></a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-map-marker "></i> <span>Cidades</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('cidade') ?>"><i class="fa fa-plus-circle"></i> Gerenciar Cidades</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-plus-circle"></i> <span>Ruas</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('rua') ?>"><i class="fa fa-plus-circle"></i> Gerenciar Ruas</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-chain"></i> <span>Tipos de itens dos imóveis</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('item') ?>"><i class="fa fa-plus-circle"></i> Gerenciar Itens</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-home"></i> <span>Imoveis</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('imovel') ?>"><i class="fa fa-plus-circle"></i> Gerenciar Imoveis</a></li>
-                            </ul>
-                        </li>
+                        <?php endforeach;
+                                        endif;?>
                         <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-image"></i> <span>Banners</span> <i class="fa fa-angle-left pull-right"></i>

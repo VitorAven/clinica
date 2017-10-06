@@ -21,18 +21,13 @@ class Principal extends CI_Controller {
      * @see http://codeigniter.com/user_guide/general/urls.html
      */
     function index() {
-        if (!$this->sis_login->_isLogado()) {
-            redirect(site_url("/login"));
-        } else {
-            $data['usuario'] = $this->session->userdata;
-        }
-//teste
+        
+        
+        
+        $this->data['titulo'] = "Principal";
+        $this->data['admin_name'] = "Principal";
 
-
-        $data['titulo'] = "Principal";
-        $data['admin_name'] = "Principal";
-
-        $this->layout->view('home_view', $data);  
+        $this->layout->view('home_view', $this->data);
     }
 
 }

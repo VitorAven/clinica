@@ -37,8 +37,10 @@ class Sis_login {
 
     public function _doLogin($params = null) {
 
-        $usuario = current($this->ci->Usuario_model->_getUsuario($params));
-
+        $result = $this->ci->Usuario_model->_getUsuario($params);
+         $permissoes = $result['permissoes'];
+        $usuario = $result['usuario'];
+        
         /* Array ( 
          * [id_usuario] => 1 
          * [tx_nome_usuario] => teste 
@@ -50,17 +52,19 @@ class Sis_login {
          * [st_ativo_usuario] => 1 
          * [is_suporte] => 1 ) )
          */
-
-        if (!empty($usuario)) {
+             
+        if (!empty($usuario) && ($permissoes != null)) {
 
             $admin = array(
-                'sessao' => sha1(date('Y-m-d') . $usuario['tx_login_usuario']),
-                'email' => $usuario['tx_email_usuario'],
-                'nome' => $usuario['tx_nome_usuario'],
-                'id' => $usuario['id_usuario'],
-                'login' => $usuario['tx_login_usuario']
+                'sessao' => sha1(date('Y-m-d') . $usuario->tx_login_usuario),
+                'email' => $usuario->tx_email_usuario,
+                'nome' => $usuario->tx_nome_usuario,
+                'id' => $usuario->id_usuario,
+                'login' => $usuario->tx_login_usuario
             );
-            $this->ci->session->set_userdata($admin);
+            $this->ci->session->set_userdata('permissao',$permissoes);
+            $this->ci->session->set_userdata('admin',$admin);
+           
             return true;
         } else {
             return false;
@@ -88,8 +92,8 @@ class Sis_login {
     }
 
     public function _isLogado() {
-
-        if (!empty($this->ci->session->userdata('nome'))) {
+        
+        if (!empty($this->ci->session->userdata('admin'))) {
             $params = $this->ci->session->userdata;
             $usuario = current($this->ci->Usuario_model->_getUsuario($params));
             if (!empty($usuario)) {

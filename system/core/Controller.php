@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -50,47 +51,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @link		https://codeigniter.com/user_guide/general/controllers.html
  */
 class CI_Controller {
+    
+    /**
+     * Reference to the CI singleton
+     *
+     * @var	object
+     */
+    private static $instance;
+    
+    public $data;
 
-	/**
-	 * Reference to the CI singleton
-	 *
-	 * @var	object
-	 */
-	private static $instance;
+    /**
+     * Class constructor
+     *
+     * @return	void
+     */
+    public function __construct() {
+        self::$instance = & $this;
 
-	/**
-	 * Class constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct()
-	{
-		self::$instance =& $this;
+        // Assign all the class objects that were instantiated by the
+        // bootstrap file (CodeIgniter.php) to local class variables
+        // so that CI can run as one big super object.
+        foreach (is_loaded() as $var => $class) {
+            $this->$var = & load_class($class);
+        }
 
-		// Assign all the class objects that were instantiated by the
-		// bootstrap file (CodeIgniter.php) to local class variables
-		// so that CI can run as one big super object.
-		foreach (is_loaded() as $var => $class)
-		{
-			$this->$var =& load_class($class);
-		}
+        $this->load = & load_class('Loader', 'core');
+        $this->load->initialize();
+        log_message('info', 'Controller Class Initialized');
 
-		$this->load =& load_class('Loader', 'core');
-		$this->load->initialize();
-		log_message('info', 'Controller Class Initialized');
-	}
+        
+        if (!$this->sis_login->_isLogado()) {           
+            if (current_url() != site_url('Usuario/login')) {
+                redirect(site_url('Usuario/login'));
+            }
+//            die();
+// redirect(site_url("/login"));
+        } else {
+            unset($this->data);
+            $this->data['usuario'] = $this->session->userdata('admin');
+            $this->data['permissao'] = $this->session->userdata('permissao');
+        }
+    }
 
-	// --------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
-	/**
-	 * Get the CI singleton
-	 *
-	 * @static
-	 * @return	object
-	 */
-	public static function &get_instance()
-	{
-		return self::$instance;
-	}
+    /**
+     * Get the CI singleton
+     *
+     * @static
+     * @return	object
+     */
+    public static function &get_instance() {
+        return self::$instance;
+    }
 
 }

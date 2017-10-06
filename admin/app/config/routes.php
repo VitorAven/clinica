@@ -56,8 +56,10 @@ $route['404_override'] = 'principal';
 
 // Usuários
 $route['usuario'] = 'usuario';
+//$route['permissoes/usuario/[:num]'] = 'Permissoes/editarUsuario/$1';
 $route['login'] = 'usuario/login';
 $route['logout'] = 'usuario/logout';
+
 
 
 

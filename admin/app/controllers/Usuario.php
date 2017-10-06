@@ -9,17 +9,11 @@ class Usuario extends CI_Controller {
      * @author Vitor Hugo Bassetto <vitorhugobassetto@gmail.com>
      * 
      */
-    public function index() {
-
-        if (!$this->sis_login->_isLogado()) {
-            redirect(site_url("/login"));
-        } else {
-            $data['usuario'] = $this->session->userdata;
-        }
+    public function index() {       
 
         try {
-            $data['titulo'] = "Usuarios";
-            $data['admin_name'] = "Usuarios";
+            $this->data['titulo'] = "Usuarios";
+            $this->data['admin_name'] = "Usuarios";
 
             $crud = new grocery_CRUD();
 
@@ -50,16 +44,17 @@ class Usuario extends CI_Controller {
 
 //            $crud->fields('nome');
 //            $crud->edit_fields('nome');
+            $crud->add_action("Permissões", "ui-icon-image", site_url('permissoes/usuario/') . "/");
             $crud->callback_before_insert(array($this, 'geraSenha'));
             $crud->callback_before_update(array($this, 'geraSenha'));
 
 
-            $data['crud'] = $crud->render();
+             $this->data['crud'] = $crud->render();
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
 
-        $this->load->view('layouts/layout', $data);
+        $this->load->view('layouts/layout', $this->data);
     }
 
     public function geraSenha($post) {
@@ -70,29 +65,27 @@ class Usuario extends CI_Controller {
     function login() {
         try {
             if ($this->sis_login->_isLogado()) {
-                redirect(site_url('principal'));
-            } else {
-                $this->title = 'Faça o Login';
+                redirect(site_url('Principal'));
+            }
+            $this->title = 'Faça o Login';
 //echo sha1('admin123' . sha1('teste'));die();
-                if (!empty($this->input->post('login'))) {
-                    $login = $this->input->post('login');
-                    $credenciais['login'] = $login['login'];
-                    $credenciais['senha'] = $login['senha'];
-                    $credenciais['lembrar'] = empty($login['lembrar']) ? "N" : $login['lembrar'];
-
-                    if ($this->sis_login->_doLogin($credenciais)) {
-                        redirect(site_url());
-                    } else {
-                        echo "<script>alert('Login ou senha invalido!');</script>";
-                        $this->layout->definirTitulo('Efetue o Login');
-                        $this->layout->definirLayout('layouts/login');
-                        $this->layout->view('login');
-                    }
+            if (!empty($this->input->post('login'))) {
+                $login = $this->input->post('login');
+                $credenciais['login'] = $login['login'];
+                $credenciais['senha'] = $login['senha'];
+                $credenciais['lembrar'] = empty($login['lembrar']) ? "N" : $login['lembrar'];
+                if ($this->sis_login->_doLogin($credenciais)) {
+                    redirect(site_url('Principal'));
                 } else {
+                    echo "<script>alert('Login ou senha invalido!');</script>";
                     $this->layout->definirTitulo('Efetue o Login');
                     $this->layout->definirLayout('layouts/login');
                     $this->layout->view('login');
                 }
+            } else {
+                $this->layout->definirTitulo('Efetue o Login');
+                $this->layout->definirLayout('layouts/login');
+                $this->layout->view('login');
             }
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());

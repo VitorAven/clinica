@@ -30,16 +30,16 @@ class Consultas extends CI_Controller {
         if (!$this->ion_auth->logged_in()) :
             redirect(site_url("login"));
         else :
-            $data['usuario'] = $this->ion_auth->user()->row();
-            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+            $this->data['usuario'] = $this->ion_auth->user()->row();
+            $this->data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
         endif;
 
         $this->load->model('consulta_model', 'consulta');
         $this->load->model('pessoa_model', 'pessoa');
 
 
-        $data["paciente"] = $this->pessoa->listarTodosPacientes();
-        $data["medico"] = $this->pessoa->listarTodosMedicos();
+        $this->data["paciente"] = $this->pessoa->listarTodosPacientes();
+        $this->data["medico"] = $this->pessoa->listarTodosMedicos();
 
         $post = $this->input->post();
         if ($post) {
@@ -52,7 +52,7 @@ class Consultas extends CI_Controller {
 
             redirect('/consulta/list');
         }//end if
-        $this->layout->view('consulta/adicionar_view', $data);
+        $this->layout->view('consulta/adicionar_view', $this->data);
     }
 
     public function editar($id) {

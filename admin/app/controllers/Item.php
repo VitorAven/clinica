@@ -11,16 +11,11 @@ class Item extends CI_Controller {
      */
     public function index() {
 
-        if (!$this->sis_login->_isLogado()) {
-            redirect(site_url("/login"));
-        } else {
-            $data['usuario'] = $this->session->userdata;
-        }
-        
+              
         $this->load->model('Grocery_crud_model');
 //        $data=array('output' => '' , 'js_files' => array() , 'css_files' => array());
-        $data['titulo'] = "Item";
-        $data['admin_name'] = "Item";
+        $this->data['titulo'] = "Item";
+        $this->data['admin_name'] = "Item";
 
 
         try {
@@ -35,12 +30,12 @@ class Item extends CI_Controller {
 //            $crud->fields('nome');
 //            $crud->edit_fields('nome');
 
-            $data['crud'] = $crud->render();
+            $this->data['crud'] = $crud->render();
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
 
-        $this->load->view('layouts/layout', $data);
+        $this->load->view('layouts/layout', $this->data);
     }
 
 }

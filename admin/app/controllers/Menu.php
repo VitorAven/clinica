@@ -9,17 +9,11 @@ class Menu  extends CI_Controller {
      * @author Vitor Hugo Bassetto <vitorhugobassetto@gmail.com>
      * 
      */
-    public function index() {
-
-        if (!$this->sis_login->_isLogado()) {
-            redirect(site_url("/login"));
-        } else {
-            $data['usuario'] = $this->session->userdata;
-        }
+    public function index() {     
 
         try {
-            $data['titulo'] = "Menu do sistema";
-            $data['admin_name'] = "Menu";
+            $this->data['titulo'] = "Menu do sistema";
+            $this->data['admin_name'] = "Menu";
 
             $crud = new grocery_CRUD();
 
@@ -47,12 +41,12 @@ class Menu  extends CI_Controller {
            // $crud->callback_before_update(array($this, 'geraSenha'));
 
 
-            $data['crud'] = $crud->render();
+            $this->data['crud'] = $crud->render();
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
 
-        $this->load->view('layouts/layout', $data);
+        $this->load->view('layouts/layout',  $this->data);
     }
     public function getMenuExibir(){
         if (!$this->sis_login->_isLogado()) {
