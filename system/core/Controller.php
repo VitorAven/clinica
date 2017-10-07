@@ -51,15 +51,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @link		https://codeigniter.com/user_guide/general/controllers.html
  */
 class CI_Controller {
-    
+
     /**
      * Reference to the CI singleton
      *
      * @var	object
      */
     private static $instance;
-    
     public $data;
+    public $crud;
 
     /**
      * Class constructor
@@ -80,8 +80,8 @@ class CI_Controller {
         $this->load->initialize();
         log_message('info', 'Controller Class Initialized');
 
-        
-        if (!$this->sis_login->_isLogado()) {           
+
+        if (!$this->sis_login->_isLogado()) {
             if (current_url() != site_url('Usuario/login')) {
                 redirect(site_url('Usuario/login'));
             }
@@ -92,6 +92,24 @@ class CI_Controller {
             $this->data['usuario'] = $this->session->userdata('admin');
             $this->data['permissao'] = $this->session->userdata('permissao');
         }
+        $permissoes = $this->data['permissao'];
+        foreach ($permissoes as $per) {
+            $lib[] = $per['tx_nome_controler'];
+        }
+
+
+        $this->load->model('Grocery_crud_model');
+//        $data=array('output' => '' , 'js_files' => array() , 'css_files' => array());
+        $this->data['titulo'] = "Item";
+        $this->data['admin_name'] = "Item";
+        $this->crud = new grocery_CRUD();
+        
+        
+        
+        echo '<pre>';
+        print_r($lib);
+        print_r($this->router->class);
+        die();
     }
 
     // --------------------------------------------------------------------

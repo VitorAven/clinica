@@ -77,7 +77,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>Sis</b><i class="fa fa-home"></i></span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Sistema</b> Imoveis</span>
+                    <span class="logo-lg"><b>Sistema</b> Médico</span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top" role="navigation">
