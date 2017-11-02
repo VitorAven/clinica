@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 class Usuario extends CI_Controller {
 
@@ -9,7 +10,7 @@ class Usuario extends CI_Controller {
      * @author Vitor Hugo Bassetto <vitorhugobassetto@gmail.com>
      * 
      */
-    public function index() {       
+    public function index() {
 
         try {
             $this->data['titulo'] = "Usuarios";
@@ -49,7 +50,7 @@ class Usuario extends CI_Controller {
             $crud->callback_before_update(array($this, 'geraSenha'));
 
 
-             $this->data['crud'] = $crud->render();
+            $this->data['crud'] = $crud->render();
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
@@ -68,7 +69,6 @@ class Usuario extends CI_Controller {
                 redirect(site_url('Principal'));
             }
             $this->title = 'Faça o Login';
-//echo sha1('admin123' . sha1('teste'));die();
             if (!empty($this->input->post('login'))) {
                 $login = $this->input->post('login');
                 $credenciais['login'] = $login['login'];

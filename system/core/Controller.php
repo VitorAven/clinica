@@ -75,7 +75,6 @@ class CI_Controller {
         foreach (is_loaded() as $var => $class) {
             $this->$var = & load_class($class);
         }
-
         $this->load = & load_class('Loader', 'core');
         $this->load->initialize();
         log_message('info', 'Controller Class Initialized');
@@ -93,8 +92,10 @@ class CI_Controller {
             $this->data['permissao'] = $this->session->userdata('permissao');
         }
         $permissoes = $this->data['permissao'];
-        foreach ($permissoes as $per) {
-            $lib[] = $per['tx_nome_controler'];
+        if (!empty($permissoes)) {
+            foreach ($permissoes as $per) {
+                $lib[] = $per['tx_nome_controler'];
+            }
         }
 
 
@@ -103,13 +104,6 @@ class CI_Controller {
         $this->data['titulo'] = "Item";
         $this->data['admin_name'] = "Item";
         $this->crud = new grocery_CRUD();
-        
-        
-        
-        echo '<pre>';
-        print_r($lib);
-        print_r($this->router->class);
-        die();
     }
 
     // --------------------------------------------------------------------
