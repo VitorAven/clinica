@@ -38,6 +38,10 @@ class Sis_login {
     public function _doLogin($params = null) {
 
         $result = $this->ci->Usuario_model->_getUsuario($params);
+        if(empty($result)){
+            return false;            
+        }
+        
          $permissoes = $result['permissoes'];
         $usuario = $result['usuario'];
         
@@ -52,7 +56,7 @@ class Sis_login {
          * [st_ativo_usuario] => 1 
          * [is_suporte] => 1 ) )
          */
-             
+     
         if (!empty($usuario) && ($permissoes != null)) {
 
             $admin = array(
@@ -61,10 +65,9 @@ class Sis_login {
                 'nome' => $usuario->tx_nome_usuario,
                 'id' => $usuario->id_usuario,
                 'login' => $usuario->tx_login_usuario
-            );
+            );            
             $this->ci->session->set_userdata('permissao',$permissoes);
             $this->ci->session->set_userdata('admin',$admin);
-           
             return true;
         } else {
             return false;

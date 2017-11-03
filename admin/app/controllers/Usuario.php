@@ -74,6 +74,7 @@ class Usuario extends CI_Controller {
                 $credenciais['login'] = $login['login'];
                 $credenciais['senha'] = $login['senha'];
                 $credenciais['lembrar'] = empty($login['lembrar']) ? "N" : $login['lembrar'];
+
                 if ($this->sis_login->_doLogin($credenciais)) {
                     redirect(site_url('Principal'));
                 } else {

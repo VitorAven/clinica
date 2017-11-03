@@ -35,24 +35,28 @@ class Usuario_model extends CI_Model {
         }
         $this->db->where("st_ativo_usuario = 1");
         $query = $this->db->get($this->_table_name)->row();
-        if (!empty($params['senha']) && !empty($params['login'])) {
-            if (!$query->id_usuario && !$query->is_suporte) {
-                $this->db->where('tb_permissao.id_usuario = ' . $query->id_usuario);
-                $this->db->join('tb_menu', 'tb_menu.id_menu = tb_permissao.id_menu');
-                $this->db->group_by('tb_permissao.id_menu');
-                $result['permissoes'] = $this->db->get('tb_permissao')->result_array();
-                $result['teste'] = '1';
-            } elseif ($query->is_suporte) {
-                $this->db->join('tb_menu', 'tb_menu.id_menu = tb_permissao.id_menu');
-                $this->db->group_by('tb_permissao.id_menu');
-                $result['permissoes'] = $this->db->get('tb_permissao')->result_array();
-                $result['teste'] = '2';
-            } else {
-                $result['permissoes'] = null;
+        if (!empty($query)) {
+            if (!empty($params['senha']) && !empty($params['login'])) {
+                if (!$query->id_usuario && !$query->is_suporte) {
+                    $this->db->where('tb_permissao.id_usuario = ' . $query->id_usuario);
+                    $this->db->join('tb_menu', 'tb_menu.id_menu = tb_permissao.id_menu');
+                    $this->db->group_by('tb_permissao.id_menu');
+                    $result['permissoes'] = $this->db->get('tb_permissao')->result_array();
+                    $result['teste'] = '1';
+                } elseif ($query->is_suporte) {
+                    $this->db->join('tb_menu', 'tb_menu.id_menu = tb_permissao.id_menu');
+                    $this->db->group_by('tb_permissao.id_menu');
+                    $result['permissoes'] = $this->db->get('tb_permissao')->result_array();
+                    $result['teste'] = '2';
+                } else {
+                    $result['permissoes'] = null;
+                }
             }
+            $result['usuario'] = $query;
+            return $result;
+        }else{
+            return '';
         }
-        $result['usuario'] = $query;
-        return $result;
     }
 
     public function listarTodos() {

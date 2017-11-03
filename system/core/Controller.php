@@ -84,19 +84,21 @@ class CI_Controller {
             if (current_url() != site_url('Usuario/login')) {
                 redirect(site_url('Usuario/login'));
             }
-//            die();
-// redirect(site_url("/login"));
         } else {
             unset($this->data);
             $this->data['usuario'] = $this->session->userdata('admin');
             $this->data['permissao'] = $this->session->userdata('permissao');
         }
-        $permissoes = $this->data['permissao'];
-        if (!empty($permissoes)) {
-            foreach ($permissoes as $per) {
-                $lib[] = $per['tx_nome_controler'];
-            }
-        }
+
+        //echo '<pre>';
+        //print_r($this->data);
+        //die();
+        //$permissoes = $this->data['permissao'];
+        //if (!empty($permissoes)) {
+        //    foreach ($permissoes as $per) {
+        //        $lib[] = $per['tx_nome_controler'];
+        //    }
+        //}
 
 
         $this->load->model('Grocery_crud_model');
