@@ -1,6 +1,4 @@
-<?php
-$usuario = $this->data['usuario'];
-?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +22,6 @@ $usuario = $this->data['usuario'];
 
         <!-- Bootstrap time Picker -->
         <link href="<?php echo base_url('assets') ?>/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
 
         <!-- DATA TABLES -->
         <link href="<?php echo base_url('assets') ?>/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
@@ -33,8 +30,8 @@ $usuario = $this->data['usuario'];
         <link href="<?php echo base_url('assets') ?>/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet"/>
         <!-- Theme style -->
         <link href="<?php echo base_url('assets') ?>/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
-
-        <link href="<?php echo base_url('assets') ?>/css/custom.css" rel="stylesheet" type="text/css" />
+        
+         <link href="<?php echo base_url('assets') ?>/css/custom.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,19 +67,19 @@ $usuario = $this->data['usuario'];
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-                                    <span class="hidden-xs"><?php echo $usuario["nome"]; ?></span>
+                                    <span class="hidden-xs"><?php echo $usuario->username; ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
 
                                         <p>
-                                            <?php echo $usuario["nome"]; ?> - <?php echo $usuario["email"]; ?>
+                                            <?php echo $usuario->username; ?> - <?php echo $usuario->email; ?>
                                            <!-- <small>Member since Nov. 2012</small>-->
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
-                                    <li class="user-body">
+                                   <li class="user-body">
                                         <div class="col-xs-4 text-center">
                                             <a href="#">Listar Usuários</a>
                                         </div>
@@ -95,10 +92,10 @@ $usuario = $this->data['usuario'];
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
-                                        <div class="pull-left">
+                                       <div class="pull-left">
                                             <a href="#" class="btn btn-default btn-flat">Meu usuário</a>
                                         </div>                                        <div class="pull-right">
-                                            <a href="<?php echo site_url('logout'); ?>" class="btn btn-default btn-flat">Sair</a>
+                                            <a href="<?php echo site_url('logout');?>" class="btn btn-default btn-flat">Sair</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -121,11 +118,11 @@ $usuario = $this->data['usuario'];
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
-                        <!--<div class="pull-left image" >
-                          <img src="<?php echo base_url('assets') ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-                       </div>-->
+                         <!--<div class="pull-left image" >
+                           <img src="<?php echo base_url('assets') ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                        </div>-->
                         <div class="pull-left info" >
-                            <p><?php echo $usuario["nome"]; ?></p>
+                            <p><?php echo $usuario->username; ?></p>
 
                             <i class="fa fa-circle text-success"></i> Online
                         </div>
@@ -133,14 +130,14 @@ $usuario = $this->data['usuario'];
 
                     <ul class="sidebar-menu">
                         <li class="header">Menu Principal</li>
-                        <li class="treeview">
+                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-calendar"></i> <span>Consultas</span> <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('consulta/add') ?>"><i class="fa fa-plus-circle"></i> Nova Consulta</a></li>
                                 <li><a href="<?php echo site_url('consulta/list') ?>"><i class="fa fa-list"></i> Listar Consultas</a></li>
-                            </ul>
+                               </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -160,7 +157,7 @@ $usuario = $this->data['usuario'];
                                 <li><a href="<?php echo site_url('paciente/list') ?>"><i class="fa fa-list"></i> Listar</a></li>
                             </ul>
                         </li>
-
+                       
                         <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-image"></i> <span>Banners</span> <i class="fa fa-angle-left pull-right"></i>
@@ -423,13 +420,12 @@ $usuario = $this->data['usuario'];
         <!-- Demo -->
         <script src="<?php echo base_url('assets') ?>/dist/js/demo.js" type="text/javascript"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
         <!-- InputMask -->
         <script src="<?php echo base_url('assets') ?>/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
         <script src="<?php echo base_url('assets') ?>/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
         <script src="<?php echo base_url('assets') ?>/plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>
 
-
+       
         <script src="<?php echo base_url('assets') ?>/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
         <!-- bootstrap color picker -->
         <script src="<?php echo base_url('assets') ?>/plugins/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
@@ -452,81 +448,6 @@ $usuario = $this->data['usuario'];
                     "bInfo": true,
                     "bAutoWidth": false
                 });
-            });
-            function validaCpf() {
-                $.ajax({url: "<?= site_url('pessoa/validacpf'); ?>" + '/' + $('#tx_cpf').val(),
-                    success: function (result) {
-                        //alert('cpf ja existente');
-                        result = $.parseJSON(result);
-
-                        $.confirm({
-                            title: 'CPF Já existente!',
-                            content: 'Deseja carregar as informaçoes da pessoa?',
-                            buttons: {
-                                Sim: function () {
-                                    //"tx_rg":"48.760.209-00","tx_sobrenome":"borges basseto"}
-                                    $('#id_pessoa').val(result.id_pessoa);
-                                    $('#tx_nome').val(result.tx_nome);
-                                    $('#dt_nasc').val(result.dt_nasc);
-                                    $('#tx_cpf').val(result.tx_cpf);
-                                    $('#tx_rg').val(result.tx_rg);
-                                    $('#tx_sobrenome').val(result.tx_sobrenome);
-                                    $.alert('Dados Carregados com sucesso!'+result.id_pessoa);
-                                },
-                                Nao: function () {
-                                    $('#id_pessoa').val(result.id_pessoa);
-                                    $.alert('Os dados salvos irão substituir os dados atuais');
-                                },
-                            }
-                        });
-
-
-                    }, error: function (jqXHR, textStatus, errorThrown) {
-                        alert(errorThrown);
-                    },
-                    complete: function (jqXHR, textStatus) {
-//                        alert(textStatus);
-                    }
-
-                });
-
-            }
-            function retornaCidades() {
-                if ($('#id_estado').val() != '') {
-                    $.ajax({url: "<?= site_url('pessoa/retornaCidade'); ?>" + '/' + $('#id_estado').val(),
-                        success: function (result) {
-                            //alert('cpf ja existente');
-                            $('#id_cidade').html(result);
-
-                        }, error: function (jqXHR, textStatus, errorThrown) {
-                            alert(errorThrown);
-                        },
-                        complete: function (jqXHR, textStatus) {
-//                            alert(textStatus);
-                        }
-
-                    });
-                } else {
-                    $.alert({
-                        title: 'Alerta!',
-                        content: 'Selecione um estado',
-                    });
-                }
-
-            }
-            $(document).ready(function () {
-
-
-<?php
-if (!empty($populateForm)):
-    foreach ($populateForm as $key => $popForm):
-        ?>
-                        $('#<?= $key ?>').val("<?= $popForm ?>");
-
-        <?php
-    endforeach;
-endif;
-?>
             });
         </script>
     </body>

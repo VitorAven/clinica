@@ -1,25 +1,12 @@
 <?php
 
-class Pessoa_model extends CI_Model {
+class Funcionario_model extends CI_Model {
 
-    
-    function getPessoaByCpf($cpf) {
+    function listarTodosFuncionarios() {
         unset($query);
-        $this->db->select("tb_pessoa.*");
-        $this->db->from("tb_pessoa");
-        $this->db->where('tb_pessoa.tx_cpf like "' . $cpf.'"');
-        $query = $this->db->get()->result_array();
-        $query = current($query);
-        /* print_r($this->db->last_query());
-          die(); */
-        return $query;
-    }
-    
-    function listarTodosPacientes() {
-        unset($query);
-        $this->db->select("tb_pessoa.*, tb_paciente.*");
-        $this->db->from("tb_pessoa");
-        $this->db->join("tb_paciente", "tb_paciente.id_pessoa = tb_pessoa.id_pessoa");
+        $this->db->select("pessoa.*, paciente.registro");
+        $this->db->from("pessoa");
+        $this->db->join("paciente", "paciente.id_pessoa = pessoa.id");
         $query = $this->db->get()->result_array();
         /* print_r($this->db->last_query());
           die(); */

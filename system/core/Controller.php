@@ -101,12 +101,8 @@ class CI_Controller {
         //}
 
 
-        $this->load->model('Grocery_crud_model');
-//        $data=array('output' => '' , 'js_files' => array() , 'css_files' => array());
-        $this->data['titulo'] = "Item";
-        $this->data['admin_name'] = "Item";
-        $this->crud = new grocery_CRUD();
-    }
+        
+        }
 
     // --------------------------------------------------------------------
 

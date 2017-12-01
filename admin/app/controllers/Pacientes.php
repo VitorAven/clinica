@@ -10,44 +10,113 @@ class Pacientes extends CI_Controller {
      * 
      */
     public function index() {
-
-             
-        $this->load->model('Grocery_crud_model');
-//        $data=array('output' => '' , 'js_files' => array() , 'css_files' => array());
-        $this->data['titulo'] = "Item";
-        $this->data['admin_name'] = "Item";
-
-
-        try {
-            $crud = new grocery_CRUD();
-
-            $crud->set_theme('datatables');
-            $crud->set_table('tb_paciente');
-            $crud->set_subject('Cadastro de Pacientes');
-            $crud->fields('nr_registro', 'tx_nome', 'dt_nasc', 'tx_cpf', 'tx_rg', 'tx_sobrenome');
-            $crud->required_fields('nr_registro', 'tx_nome', 'dt_nasc', 'tx_cpf', 'tx_rg', 'tx_sobrenome');
-            $crud->columns('nr_registro', 'tx_nome', 'dt_nasc', 'tx_cpf', 'tx_rg', 'tx_sobrenome');
-            
-
-            $crud->display_as('nr_registro', 'Registro');
-            $crud->display_as('tx_nome', 'Nome');
-            $crud->display_as('dt_nasc', 'Data de nascimento');
-            $crud->display_as('tx_cpf', 'CPF');
-            $crud->display_as('tx_rg', 'RG');
-            $crud->display_as('tx_sobrenome', 'Sobrenome');
-            
-            
-//            $crud->fields('nome');
-//            $crud->edit_fields('nome');
-
-            $this->data['crud'] = $crud->render();
-        } catch (Exception $e) {
-            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
-        }
-
-        $this->load->view('layouts/layout', $this->data);
+        $this->load->model('pessoa_model', 'pessoa');
+        $data['lista'] = $this->pessoa->listarTodosPacientes();
+        $this->layout->view('paciente/listar_view', $data);
     }
 
+    public function adicionar() {
+        $this->load->model('pessoa_model', 'paciente');
+        $this->load->model('endereco_model', 'end');
+
+        $post = $this->input->post();
+        $data = array();
+
+        if ($post) {
+            $this->load->model('paciente_model', 'paciente');
+            
+            $salvar = $this->paciente->salvar($post);
+            redirect('/paciente/' . $salvar);
+        }
+        $estados = $this->end->getAllEstados();
+      
+        $this->data['estados'] = $estados;
+      
+        $this->layout->view('paciente/adicionar_view');
+    }
+
+    public function editar($id) {
+        if (!$this->ion_auth->logged_in()) :
+            redirect(site_url("login"));
+        else :
+            $data['usuario'] = $this->ion_auth->user()->row();
+            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+        endif;
+
+        $this->load->model('pessoa_model', 'pessoa');
+        $post = $this->input->post();
+
+        $data['item'] = $this->pessoa->listar_paciente($id);
+        //print_r($data['item']);die();
+
+        if ($post) {
+            $post['id'] = $id;
+            $salvar = $this->pessoa->editar($post);
+
+            redirect('/paciente/' . $id);
+        }//end if
+
+        $this->layout->view('paciente/editar_view', $data);
+    }
+
+    public function ativar($id = "") {
+        if (!$this->ion_auth->logged_in()) :
+
+            redirect(site_url('login'));
+        else :
+            $data['usuario'] = $this->ion_auth->user()->row();
+            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+        endif;
+
+        if ($id == "") :
+            redirect(site_url() . '/paciente/list');
+        else :
+            $this->load->model('paciente_model', 'paciente');
+
+            $alterarOrdem = $this->paciente->ativar($id);
+            redirect(site_url() . '/paciente/list');
+        endif;
+    }
+
+    public function desativar($id = "") {
+        if (!$this->ion_auth->logged_in()) :
+
+            redirect(site_url('login'));
+        else :
+            $data['usuario'] = $this->ion_auth->user()->row();
+            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+        endif;
+
+        if ($id == "") :
+            redirect(site_url() . '/noticia/list');
+        else :
+            $this->load->model('paciente_model', 'paciente');
+
+            $alterarOrdem = $this->paciente->desativar($id);
+            redirect(site_url() . '/paciente/list');
+        endif;
+    }
+
+    public function excluir($id) {
+        if (!$this->ion_auth->logged_in()) :
+            redirect(site_url('login'));
+        else :
+            $data['usuario'] = $this->ion_auth->user()->row();
+            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+        endif;
+
+        if ($id == "") :
+            redirect(site_url() . '/paciente/list');
+        else :
+            $this->load->model('pessoa_model', 'pessoa');
+
+            $alterarOrdem = $this->pessoa->excluir($id);
+
+            redirect('/paciente/list');
+        endif;
+    }
+
+  
 }
 
 /* End of file welcome.php */

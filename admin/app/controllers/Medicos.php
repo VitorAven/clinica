@@ -10,38 +10,185 @@ class Medicos extends CI_Controller {
      * 
      */
     public function index() {
+        $this->load->model('medico_model', 'medico');
+        $data['lista'] = $this->medico->listarTodosMedicos();
+        $this->layout->view('medico/listar_view', $data);
+    }
 
-             
-       
+    public function adicionar() {
+        $this->load->model('medico_model', 'medico');
+        $this->load->model('especialidade_model', 'esp');
 
-        try {
-            
+        $post = $this->input->post();
+        $data = array();
 
-            $this->crud->set_theme('datatables');
-            $this->crud->set_table('tb_medico');
-            $this->crud->set_subject('Cadastro de médicos');
-            $this->crud->fields('nr_crm', 'tx_nome', 'dt_nasc', 'tx_cpf', 'tx_rg', 'tx_sobrenome');
-            $this->crud->required_fields('nr_crm', 'tx_nome', 'dt_nasc', 'tx_cpf', 'tx_rg', 'tx_sobrenome');
-            $this->crud->columns('nr_crm', 'tx_nome', 'dt_nasc', 'tx_cpf', 'tx_rg', 'tx_sobrenome');
-            
+        if ($post) {
+            $salvar = $this->medico->salvar($post);
+            redirect('/medico/' . $salvar);
+        }
+        $especialidade = $this->esp->getAllEspecialidade();
+        $this->data['especialidades'] = $especialidade;
 
-            $this->crud->display_as('nr_crm', 'CRM');
-            $this->crud->display_as('tx_nome', 'Nome');
-            $this->crud->display_as('dt_nasc', 'Data de nascimento');
-            $this->crud->display_as('tx_cpf', 'CPF');
-            $this->crud->display_as('tx_rg', 'RG');
-            $this->crud->display_as('tx_sobrenome', 'Sobrenome');
-            
-            
-//            $crud->fields('nome');
-//            $crud->edit_fields('nome');
+        $this->layout->view('medico/adicionar_view');
+    }
 
-            $this->data['crud'] = $this->crud->render();
-        } catch (Exception $e) {
-            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
+    public function editar($id) {
+
+        $this->load->model('medico_model', 'medico');
+        $post = $this->input->post();
+
+        //pega o campo especialidades
+        $this->load->model('especialidade_model', 'esp');
+        $especialidade = $this->esp->getAllEspecialidade();
+        $this->data['especialidades'] = $especialidade;
+
+        if ($post) {
+            $salvar = $this->medico->salvar($post);
         }
 
-        $this->load->view('layouts/layout', $this->data);
+        $dadosMedico = $this->medico->listar_medico($id);
+
+        if (!empty($dadosMedico)) {
+            $dadosMedico['nr_salario'] = str_replace('.', ',', $dadosMedico['nr_salario']);
+            $data['populateForm'] = $dadosMedico;
+        }
+
+        //end if
+
+        $this->layout->view('medico/adicionar_view', $data);
+    }
+
+    public function excluir($id) {
+        if ($id == "") :
+            redirect(site_url() . '/medico/list');
+        else :
+            $this->load->model('medico_model', 'medico');
+
+            $alterarOrdem = $this->medico->excluir($id);
+
+            redirect('/medico/list');
+        endif;
+    }
+
+    //Imagem das medicos
+    public function adicionarimagem($id) {
+
+
+        $this->load->model('medico_model', 'medico');
+        $post = $this->input->post();
+        $data['id'] = $id;
+        if ($post) {
+
+            $config['upload_path'] = './assets/uploads/medico';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = '9999';
+            $config['max_width'] = "9999";
+            $config['max_height'] = "9999";
+
+            $this->load->library('upload', $config);
+            //$this->load->library('redimensiona');
+
+            if (!$this->upload->do_upload()) {
+                $data['lista'] = $this->medico->listarTodasImg($id);
+                $data['scripts'] = 'Metronic.init(); Layout.init();Demo.init(); Index.init(); Index.initDashboardDaterange(); Index.initJQVMAP(); Index.initCalendar(); Index.initCharts(); Index.initChat(); Index.initMiniCharts(); Tasks.initDashboardWidget();';
+
+                $this->layout->view('medico/' . $id . '/imagens', $data);
+            } else {
+
+                $imgdados = $this->upload->data();
+
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './assets/uploads/medico/' . $imgdados['file_name'];
+                $config['create_thumb'] = TRUE;
+                $config['new_image'] = 'tumb_' . $imgdados['file_name'];
+                $config['maintain_ratio'] = TRUE;
+                $config['thumb_marker'] = false;
+                $config['width'] = 500;
+                $config['height'] = 500;
+
+                $this->load->library('image_lib', $config);
+
+                $this->image_lib->resize();
+
+                if (!$this->image_lib->resize()) {
+                    echo $this->image_lib->display_errors();
+                    die();
+                }
+
+                $data['lista'] = $this->medico->listarTodasImg($id);
+
+                $post['img'] = $imgdados['file_name'];
+                $post['ativo'] = 1;
+                $post['id_medico'] = $id;
+                $salvarImg = $this->medico->adicionarImg($post);
+
+                redirect('medico/' . $id . '/imagens');
+            }
+        } else {
+
+            $data['lista'] = $this->medico->listarTodasImg($id);
+            $data['scripts'] = 'Metronic.init(); Layout.init();Demo.init(); Index.init(); Index.initDashboardDaterange(); Index.initJQVMAP(); 
+                            Index.initCalendar(); Index.initCharts(); Index.initChat(); Index.initMiniCharts(); Tasks.initDashboardWidget();';
+
+            $this->layout->view('medico/imagens/listar_view', $data);
+        }
+    }
+
+    public function ativarImagem($id_gal, $id) {
+        if (!$this->ion_auth->logged_in()) :
+
+            redirect(site_url('login'));
+        else :
+            $data['usuario'] = $this->ion_auth->user()->row();
+            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+        endif;
+
+        if ($id == "") :
+            redirect(site_url() . '/medico/' . $id_gal . '/imagens');
+        else :
+            $this->load->model('medico_model', 'medico');
+
+            $alterarOrdem = $this->medico->ativarImg($id);
+            redirect(site_url() . '/medico/' . $id_gal . '/imagens');
+        endif;
+    }
+
+    public function desativarImagem($id_gal, $id) {
+        if (!$this->ion_auth->logged_in()) :
+
+            redirect(site_url('login'));
+        else :
+            $data['usuario'] = $this->ion_auth->user()->row();
+            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
+        endif;
+
+        if ($id == "") :
+            redirect(site_url() . '/medico/' . $id_gal . '/imagens');
+        else :
+            $this->load->model('medico_model', 'medico');
+
+            $alterarOrdem = $this->medico->desativarImg($id);
+            redirect(site_url() . '/medico/' . $id_gal . '/imagens');
+        endif;
+    }
+
+    public function excluirImagem($id_gal, $id) {
+
+
+        if ($id == "") :
+            redirect(site_url() . '/medico/' . $id_gal . '/imagens');
+        else :
+            $this->load->model('medico_model', 'medico');
+
+            $dadosBanner = $this->medico->listarImg($id);
+            $alterarOrdem = $this->medico->excluirImg($id);
+
+            $this->load->helper('file');
+            @unlink('./assets/uploads/medico/' . $dadosBanner->url);
+            @unlink('./assets/uploads/medico/tumb_' . $dadosBanner->url);
+
+            redirect(site_url() . '/medico/' . $id_gal . '/imagens');
+        endif;
     }
 
 }

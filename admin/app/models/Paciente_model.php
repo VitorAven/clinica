@@ -1,6 +1,6 @@
 <?php
 
-class Medico_model extends CI_Model {
+class Paciente_model extends CI_Model {
 
     function salvar($post) {
         unset($query);
@@ -8,9 +8,6 @@ class Medico_model extends CI_Model {
         $medico = array();
         $funcionario = array();
         try {
-            $post['nr_salario'] = str_replace('.', '', $post['nr_salario']);
-            $post['nr_salario'] = str_replace(',', '.', $post['nr_salario']);
-
 
             $this->db->start_cache();
             if (!empty($post['tx_nome'])) {
@@ -60,10 +57,10 @@ class Medico_model extends CI_Model {
             $this->db->start_cache();
             //Adiciona o medico na tabela de Funcionarios 
             if (!empty($pessoaLastId)) {
-                $funcionario['id_pessoa'] = $pessoaLastId;
+                $paciente['id_pessoa'] = $pessoaLastId;
             }
             if (!empty($post['nr_salario'])) {
-                $funcionario['nr_salario'] = $post['nr_salario'];
+                $paciente['nr_salario'] = $post['nr_salario'];
             }
             //Setor do medico depois de fazer o cadastro de setor
             //if (!empty($post['id_especialidade1'])) {
@@ -72,9 +69,9 @@ class Medico_model extends CI_Model {
 
             if (!empty($post['id_pessoa'])) {
                 $this->db->where('id_pessoa = ' . $pessoaLastId);
-                $query = $this->db->update('tb_funcionario', $funcionario);
+                $query = $this->db->update('tb_funcionario', $paciente);
             } else {
-                $query = $this->db->insert('tb_funcionario', $funcionario);
+                $query = $this->db->insert('tb_funcionario', $paciente);
             }
             $this->db->stop_cache();
             $this->db->flush_cache();

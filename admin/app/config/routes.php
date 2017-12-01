@@ -56,11 +56,38 @@ $route['404_override'] = 'principal';
 
 // Usuários
 $route['usuario'] = 'usuario';
-//$route['permissoes/usuario/[:num]'] = 'Permissoes/editarUsuario/$1';
 $route['login'] = 'usuario/login';
 $route['logout'] = 'usuario/logout';
+$route['alterar-senha'] = 'usuario/alterarsenha';
+$route['usuario/adicionar'] = 'usuario/adicionar';
+$route['usuario/(:num)/editar'] = 'usuario/editar/$1';
+$route['usuario/(:num)/editar'] = 'usuario/editar/$1';
+$route['usuario/(:num)/excluir'] = 'usuario/excluir/$1';
 
 
+/* Médicos*/
+$route['medico/list'] = 'medicos';
+$route['medico/add'] = 'medicos/adicionar';
+$route['medico/(:num)'] = 'medicos/editar/$1';
+$route['medico/excluir/(:num)'] = 'medicos/excluir/$1';
+
+/* Pacientes*/
+$route['paciente/list'] = 'pacientes';
+$route['paciente/add'] = 'pacientes/adicionar';
+$route['paciente/(:num)'] = 'pacientes/editar/$1';
+$route['paciente/excluir/(:num)'] = 'pacientes/excluir/$1';
+
+/* Pessoa*/
+$route['pessoa/validacpf/(:any)'] = 'pessoas/validacpfajax/$1';
+$route['pessoa/retornaCidade/(:any)'] = 'pessoas/retornaCidadeajax/$1';
+//$route['paciente/add'] = 'pacientes/adicionar';
+//$route['paciente/(:num)'] = 'pacientes/editar/$1';
+//$route['paciente/excluir/(:num)'] = 'pacientes/excluir/$1';
 
 
-
+/* Consulta*/
+$route['consulta/list'] = 'consultas';
+$route['consulta/list_free'] = 'consultas/disponiveis';
+$route['consulta/add'] = 'consultas/adicionar';
+$route['consulta/(:num)'] = 'consultas/editar/$1';
+$route['consulta/excluir/(:num)'] = 'consultas/excluir/$1';
