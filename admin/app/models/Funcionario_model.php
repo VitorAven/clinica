@@ -2,137 +2,105 @@
 
 class Funcionario_model extends CI_Model {
 
-    function listarTodosFuncionarios() {
+    public function salvar($param) {
         unset($query);
-        $this->db->select("pessoa.*, paciente.registro");
-        $this->db->from("pessoa");
-        $this->db->join("paciente", "paciente.id_pessoa = pessoa.id");
-        $query = $this->db->get()->result_array();
-        /* print_r($this->db->last_query());
-          die(); */
-        return $query;
+        try {
+            $this->load->model('pessoa_model', 'pessoa');
+            $id_pessoa = $this->pessoa->adicionarPessoa($param);
+            $param['id_pessoa'] = $id_pessoa;
+            $this->adicionarFuncionario($param);
+            return $id_pessoa;
+        } catch (Exception $exc) {
+            return null;
+        }
     }
 
-    function listarTodosMedicos() {
+    public function listarTodosFuncionarios() {
         unset($query);
-        $this->db->select("tb_pessoa.*, tb_medico.*");
+        $this->db->select("tb_pessoa.*, tb_funcionario.*");
         $this->db->from("tb_pessoa");
-        $this->db->join("tb_medico", "tb_medico.id_pessoa = tb_pessoa.id_pessoa");
+        $this->db->join("tb_funcionario", "tb_funcionario.id_pessoa = tb_pessoa.id_pessoa");
         $query = $this->db->get()->result_array();
         /* print_r($this->db->last_query());
           die(); */
         return $query;
     }
-    function listar_paciente($id) {
-        unset($query);
-        $this->db->select("pessoa.*, paciente.registro");
-        $this->db->from("pessoa");
-        $this->db->join("paciente", "paciente.id_pessoa = pessoa.id");
 
-        $this->db->where('pessoa.id', $id);
-        $query = $this->db->get()->row();
+    public function adicionarFuncionario($param) {
+        $this->db->start_cache();
 
-        return $query;
+        $param['nr_salario'] = str_replace('.', '', $param['nr_salario']);
+        $param['nr_salario'] = str_replace(',', '.', $param['nr_salario']);
+        //Adiciona o medico na tabela de Funcionarios 
+        if (!empty($param['id_pessoa'])) {
+            $funcionario['id_pessoa'] = $param['id_pessoa'];
+        }
+        if (!empty($param['nr_salario'])) {
+            $funcionario['nr_salario'] = $param['nr_salario'];
+        }
+        //Setor do medico depois de fazer o cadastro de setor
+        //if (!empty($param['id_especialidade1'])) {
+        //    $medico['id_especialidade1'] = $param['id_especialidade1'];
+        //}
+
+
+        if (!empty($param['id_pessoa'])) {
+            $funPessoa = $this->getFuncionarioByIdPessoa($param['id_pessoa']);
+
+            if (!empty($funPessoa)) {
+                $this->db->where('id_pessoa = ' . $param['id_pessoa']);
+                $query = $this->db->update('tb_funcionario', $funcionario);
+            } else {
+                $query = $this->db->insert('tb_funcionario', $funcionario);
+            }
+        } else {
+            $query = $this->db->insert('tb_funcionario', $funcionario);
+        }
+        $this->db->stop_cache();
+        $this->db->flush_cache();
     }
-function listar_medico($id) {
+
+    public function getFuncionarioByIdPessoa($id_pessoa) {
+        if (empty($id_pessoa)) {
+            return null;
+        }
         unset($query);
-        $this->db->select("pessoa.*, medico.crm");
-        $this->db->from("pessoa");
-        $this->db->join("medico", "medico.id_pessoa = pessoa.id");
-
-        $this->db->where('pessoa.id', $id);
-        $query = $this->db->get()->row();
-
-        return $query;
-    }
-    private function listarUltimo() {
-        unset($query);
-        $this->db->select("pessoa.id");
-        $this->db->from("pessoa");
-        $this->db->order_by('pessoa.id', 'DESC');
-        $query = $this->db->get()->row();
-
-        return $query->id;
-    }
-
-    function adicionar_paciente($post) {
-        unset($query);
-
-       
-        $dados = array(
-            'nome' => $post['nome'],
-            'sobre_nome' => $post['sobre_nome'],
-            'dt_nasc' => $post['dt_nasc'],
-            'cpf' => $post['cpf'],
-            'rg' => $post['rg']
-        );
-        $query = $this->db->insert('pessoa', $dados);
-        $this->adicionarPaciente($post);
-        return $query;
-    }
- function adicionar_Medico($post) {
-        unset($query);
-
-       
-        $dados = array(
-            'nome' => $post['nome'],
-            'sobre_nome' => $post['sobre_nome'],
-            'dt_nasc' => $post['dt_nasc'],
-            'cpf' => $post['cpf'],
-            'rg' => $post['rg']
-        );
-        $query = $this->db->insert('pessoa', $dados);
-        $this->adicionarMedico($post);
-        return $query;
-    }
-    function adicionarPaciente($post) {
-        unset($query);
-        $id = $this->listarUltimo();
-        $registro = md5($post['sobre_nome']);
-        $dados = array(
-            'id_pessoa' => $id,
-            'registro' => $registro
-        );
-        $query = $this->db->insert('paciente', $dados);
-        ;
+        $this->db->select("tb_funcionario.*");
+        $this->db->from("tb_funcionario");
+        $this->db->where("tb_funcionario.id_pessoa = " . $id_pessoa);
+        $query = $this->db->get()->result_array();
+        /* print_r($this->db->last_query());
+          die(); */
         return $query;
     }
 
-    function adicionarMedico($post) {
+    function listar_funcionario($id_pessoa) {
         unset($query);
-        $id = $this->listarUltimo();
-        $crm = $post['crm'];
-        $dados = array(
-            'id_pessoa' => $id,
-            'crm' => $crm
-        );
-        $query = $this->db->insert('medico', $dados);
-        ;
+        $this->db->select("tb_pessoa.*, tb_funcionario.*");
+        $this->db->from("tb_pessoa");
+        $this->db->join("tb_funcionario", "tb_funcionario.id_pessoa = tb_pessoa.id_pessoa", 'left');
+        $this->db->where('tb_pessoa.id_pessoa = ' . $id_pessoa);
+        $query = $this->db->get()->result_array();
+        $query = current($query);
+        /* print_r($this->db->last_query());
+          die(); */
         return $query;
     }
 
-    function editar($post) {
-        unset($query);
-        $id = $post['id'];
-        $dados = array(
-            'nome' => $post['nome'],
-            'sobre_nome' => $post['sobre_nome'],
-            'dt_nasc' => $post['dt_nasc'],
-            'cpf' => $post['cpf'],
-            'rg' => $post['rg']
-        );
-
-        $this->db->where('id', $id);
-        $query = $this->db->update('pessoa', $dados);
-
-        return $query;
-    }
-
-    function excluir($id) {
-        unset($query);
-
-        $this->db->where('id', $id);
-        $query = $this->db->delete('pessoa');
+    public function excluir($id_pessoa) {
+        try {
+            if (empty($id_pessoa)) {
+                throw new Exception('Infome um id');
+            }
+            //exclui a Funcionario
+            $this->db->start_cache();
+            $this->db->where('id_pessoa', $id_pessoa);
+            $query = $this->db->delete('tb_funcionario');
+            $this->db->stop_cache();
+            $this->db->flush_cache();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
 
         return $query;
     }

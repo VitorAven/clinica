@@ -1,11 +1,10 @@
 <section class="content-header">
     <h1>
-        Adicionar Médico
-
+        Adicionar Funcionário
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo site_url('medico/list'); ?>">medico</a></li>
+        <li><a href="<?php echo site_url('funcionario/list'); ?>">funcionário</a></li>
         <li class="active">Adicionar</li>
     </ol>
 </section>
@@ -24,34 +23,14 @@
                 <!-- form start -->
 
                 <form role="form" method="post" action="" enctype="multipart/form-data" >
+                    <input type="hidden" value="" id="id_pessoa" name="id_pessoa">
                     <div class="box-body">
-                        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">Nome</label>
-                            <input type="text" class="form-control" id="exampleInputNome" name="tx_nome" placeholder="Digite o Nome" required>
-                        </div>
-                        <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">sobreome</label>
-                            <input type="text" class="form-control" id="exampleInputNome" name="tx_sobrenome" placeholder="Digite o Sobrenomeome" required>
-                        </div>
-                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="exampleInputNome" name="dt_nasc" placeholder="" required>
-                        </div>
-                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">RG</label>
-                            <input type="text" class="form-control" id="exampleInputNome" data-inputmask='"mask": "99.999.999-99"' name="tx_rg" placeholder="Digite o RG" data-mask required>
-                        </div>
-                        
-                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">CPF</label>
-                            <input type="text" name="tx_cpf" placeholder="Digite o CPF" class="form-control" data-inputmask='"mask": "999.999.999-99"' data-mask required>
-                        </div>
-                         <div class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">CRM</label>
-                            <input type="text" name="nr_crm" placeholder="Digite o CRM" class="form-control" required>
-                        </div>
-                        
-                      
+                        <?php
+                        $this->load->view('pessoa/formpessoa', $this);
+                        $this->load->view('funcionario/formfuncionario', $this);
+                        ?>
+
+
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">

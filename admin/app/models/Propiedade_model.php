@@ -1,73 +1,61 @@
 <?php
 
-class Medico_model extends CI_Model {
+class Propiedade_model extends CI_Model {
+
+    const _tbname = 'tb_propiedade';
+    const _pK = 'id_propiedade';
+
+    public function __construct() {
+        parent::__construct();
+    }
 
     public function salvar($post) {
-        unset($query);
-
-        $medico = array();
-        $funcionario = array();
+        unset($data);
+        $this->db->trans_start();
         try {
-           
+            if (!empty($post['id_propiedade'])) {
+                $this->db->where('id_propiedade = ' . $post['id_propiedade']);
+                $data = $this->db->update(self::_tbname, $post);
+            } else {
+                $data = $this->db->insert(self::_tbname, $post);
+            }
 
-
-            $this->load->model('pessoa_model', 'pessoa');
-            $id_pessoa = $this->pessoa->adicionarPessoa($post);
-            $post['id_pessoa'] = $id_pessoa;
-
-            $this->load->model('funcionario_model', 'funcionario');
-            $this->funcionario->adicionarFuncionario($post);
-
-            $this->adicionarMedico($post);
-
-            return $id_pessoa;
-        } catch (Exception $exc) {
-            return null;
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+            } else {
+                $this->db->trans_commit();
+            }
+        } catch (Exception $ex) {
+            return array('erro' => $ex);
         }
+        return $data;
     }
 
-    public function getEspecialidades($params = array()) {
-        
-    }
+    public function listarTodasAsPropiedades() {
+        unset($data);
+        $this->db->trans_start();
 
-    public function adicionarMedico($param) {
-        $this->db->start_cache();
-//Adiciona o medico na tabela de medicos
-        if (!empty($param['id_pessoa'])) {
-            $medico['id_pessoa'] = $param['id_pessoa'];
-        }
-        if (!empty($post['nr_crm'])) {
-            $medico['nr_crm'] = $post['nr_crm'];
-        }
-        if (!empty($post['id_especialidade1'])) {
-            $medico['id_especialidade1'] = $post['id_especialidade1'];
-        }
-        if (!empty($post['id_especialidade2'])) {
-            $medico['id_especialidade2'] = $post['id_especialidade2'];
-        }
+        try {
+            $this->db->select("*");
+            $this->db->from(self::_tbname);
+            echo '<pre>';
+            print_r($this->session->userdata());
+            die();
+            $this->db->where('id_usuario',$this->session->userdata('id'));
+            $data = $this->db->get()->result_array();
 
 
-
-        if (!empty($post['id_pessoa'])) {
-            $this->db->where('id_pessoa = ' . $post['id_pessoa']);
-            $query = $this->db->update('tb_medico', $medico);
-        } else {
-            $query = $this->db->insert('tb_medico', $medico);
+            $this->db->trans_complete();
+            if ($this->db->trans_statuss() === FALSE) {
+                $this->db->trans_rollback();
+            } else {
+                $this->db->trans_commit();
+            }
+        } catch (Exception $ex) {
+            return array('erro' => $ex);
         }
-        $this->db->stop_cache();
-        $this->db->flush_cache();
-    }
-
-    public function listarTodosMedicos() {
-        unset($query);
-        $this->db->select("tb_pessoa.*, tb_medico.*, tb_funcionario.*");
-        $this->db->from("tb_pessoa");
-        $this->db->join("tb_medico", "tb_medico.id_pessoa = tb_pessoa.id_pessoa");
-        $this->db->join("tb_funcionario", "tb_funcionario.id_pessoa = tb_pessoa.id_pessoa");
-        $query = $this->db->get()->result_array();
-        /* print_r($this->db->last_query());
-          die(); */
-        return $query;
+        return $data;
     }
 
     public function excluir($id_pessoa) {
@@ -119,14 +107,15 @@ class Medico_model extends CI_Model {
           die(); */
         return $query;
     }
+
     public function getMedicoByIdPessoa($id_pessoa) {
-        if(empty($id_pessoa)){
+        if (empty($id_pessoa)) {
             return null;
         }
         unset($query);
         $this->db->select("tb_medico.*");
         $this->db->from("tb_medico");
-        $this->db->where("tb_medico.id_pessoa = ".$id_pessoa);
+        $this->db->where("tb_medico.id_pessoa = " . $id_pessoa);
         $query = $this->db->get()->result_array();
         /* print_r($this->db->last_query());
           die(); */
@@ -134,14 +123,14 @@ class Medico_model extends CI_Model {
     }
 
     public function getMedicoByCpf($tx_cpf) {
-         if (empty($tx_cpf)) {
+        if (empty($tx_cpf)) {
             return null;
         }
         unset($query);
         $this->db->select("tb_medico.*, tb_pessoa.*");
         $this->db->from("tb_medico");
         $this->db->join("tb_pessoa", "tb_medico.id_pessoa = tb_pessoa.id_pessoa");
-        $this->db->where("tb_pessoa.tx_cpf LIKE '" .$tx_cpf."'");
+        $this->db->where("tb_pessoa.tx_cpf LIKE '" . $tx_cpf . "'");
         $query = $this->db->get()->result_array();
         /* print_r($this->db->last_query());
           die(); */
@@ -149,6 +138,5 @@ class Medico_model extends CI_Model {
     }
 
 }
-
 
 ?>

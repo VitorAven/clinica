@@ -10,53 +10,69 @@ class Pacientes extends CI_Controller {
      * 
      */
     public function index() {
-        $this->load->model('pessoa_model', 'pessoa');
-        $data['lista'] = $this->pessoa->listarTodosPacientes();
+        $this->load->model('paciente_model', 'paciente');
+        $data['lista'] = $this->paciente->listarTodosPacientes();
         $this->layout->view('paciente/listar_view', $data);
     }
 
+    public function getPacienteAjax($param) {
+        $this->load->model('paciente_model', 'paciente');
+        $paciente = $this->paciente->getPacienteByCpf($param);
+
+        if (!empty($paciente)) {
+            echo json_encode($paciente);
+        } else {
+            echo json_encode('false');
+        }
+        die();
+    }
+
     public function adicionar() {
-        $this->load->model('pessoa_model', 'paciente');
+        $this->load->model('paciente_model', 'paciente');
+
+        // pega todos os estados
         $this->load->model('endereco_model', 'end');
+        $estados = $this->end->getAllEstados();
+        $this->data['estados'] = $estados;
 
         $post = $this->input->post();
         $data = array();
 
         if ($post) {
-            $this->load->model('paciente_model', 'paciente');
-            
             $salvar = $this->paciente->salvar($post);
             redirect('/paciente/' . $salvar);
         }
-        $estados = $this->end->getAllEstados();
-      
-        $this->data['estados'] = $estados;
-      
+
         $this->layout->view('paciente/adicionar_view');
     }
 
-    public function editar($id) {
-        if (!$this->ion_auth->logged_in()) :
-            redirect(site_url("login"));
-        else :
-            $data['usuario'] = $this->ion_auth->user()->row();
-            $data['grupo'] = $this->ion_auth->get_users_groups($data['usuario']->id)->result();
-        endif;
-
-        $this->load->model('pessoa_model', 'pessoa');
+    public function editar($id_pessoa) {
+        $data['jquery'] ='';
+        $this->load->model('paciente_model', 'paciente');
         $post = $this->input->post();
 
-        $data['item'] = $this->pessoa->listar_paciente($id);
-        //print_r($data['item']);die();
+        // pega todos os estados
+        $this->load->model('endereco_model', 'end');
+        $estados = $this->end->getAllEstados();
+        $this->data['estados'] = $estados;
 
         if ($post) {
-            $post['id'] = $id;
-            $salvar = $this->pessoa->editar($post);
+            $salvar = $this->paciente->salvar($post);
+        }
 
-            redirect('/paciente/' . $id);
-        }//end if
+        $dadosPaciente = $this->paciente->listarPaciente($id_pessoa);
 
-        $this->layout->view('paciente/editar_view', $data);
+        if (!empty($dadosPaciente)) {
+            
+            $cidades = $this->retornaCidade($dadosPaciente->id_estado);
+            $data['cidades'] = $cidades;
+            $data['populateForm'] = $dadosPaciente;
+        }
+
+
+        //end if
+
+        $this->layout->view('paciente/adicionar_view', $data);
     }
 
     public function ativar($id = "") {
@@ -116,7 +132,14 @@ class Pacientes extends CI_Controller {
         endif;
     }
 
-  
+    public function retornaCidade($id_estado) {
+
+        $this->load->model('endereco_model', 'end');
+        $cidades = $this->end->getCidadesByUf($id_estado);
+
+        return $cidades;
+    }
+
 }
 
 /* End of file welcome.php */

@@ -44,8 +44,7 @@
                                                 <a href="<?php echo site_url('medico') . '/' . $li['id_pessoa']; ?>">
                                                     <button class="btn  btn-success ">Editar</button>
                                                 </a>
-                                                <a href="<?php echo site_url('medico/excluir/') . '/' . $li['id_pessoa']; ?>"><button class="btn  btn-danger ">Excluir</button></a>
-
+                                                
                                             </div>
                                         </div>
                                     </th>

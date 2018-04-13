@@ -134,12 +134,27 @@ $usuario = $this->data['usuario'];
                     <ul class="sidebar-menu">
                         <li class="header">Menu Principal</li>
                         <li class="treeview">
+                            <a href="<?php echo site_url('praga') ?>">
+                                <i class="fa fa-bug"></i> <span>Pragas</span> <i class="fa fa-angle-right pull-right"></i>
+                            </a>
+
+                        </li>
+                        <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-calendar"></i> <span>Consultas</span> <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('consulta/add') ?>"><i class="fa fa-plus-circle"></i> Nova Consulta</a></li>
                                 <li><a href="<?php echo site_url('consulta/list') ?>"><i class="fa fa-list"></i> Listar Consultas</a></li>
+                            </ul>
+                        </li>-->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-calendar"></i> <span>Funcionário</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo site_url('funcionario/add') ?>"><i class="fa fa-plus-circle"></i> Novo Funcionário</a></li>
+                                <li><a href="<?php echo site_url('funcionario/list') ?>"><i class="fa fa-list"></i> Listar Funcionários</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -442,23 +457,14 @@ $usuario = $this->data['usuario'];
         <!-- custom -->
         <script src="<?php echo base_url('assets') ?>/js/custom.js"></script>
         <script type="text/javascript">
-            $(function () {
-                $("#example1").dataTable();
-                $("#example2").dataTable({
-                    "bPaginate": true,
-                    "bLengthChange": false,
-                    "bFilter": false,
-                    "bSort": true,
-                    "bInfo": true,
-                    "bAutoWidth": false
-                });
-            });
+
             function validaCpf() {
+                var id_pessoa = '';
                 $.ajax({url: "<?= site_url('pessoa/validacpf'); ?>" + '/' + $('#tx_cpf').val(),
                     success: function (result) {
                         //alert('cpf ja existente');
                         result = $.parseJSON(result);
-
+                        id_pessoa = result.id_pessoa;
                         $.confirm({
                             title: 'CPF Já existente!',
                             content: 'Deseja carregar as informaçoes da pessoa?',
@@ -471,25 +477,20 @@ $usuario = $this->data['usuario'];
                                     $('#tx_cpf').val(result.tx_cpf);
                                     $('#tx_rg').val(result.tx_rg);
                                     $('#tx_sobrenome').val(result.tx_sobrenome);
-                                    $.alert('Dados Carregados com sucesso!'+result.id_pessoa);
+                                    $.alert('Dados Carregados com sucesso!');
                                 },
                                 Nao: function () {
                                     $('#id_pessoa').val(result.id_pessoa);
                                     $.alert('Os dados salvos irão substituir os dados atuais');
-                                },
+                                }
                             }
                         });
-
-
                     }, error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
-                    },
-                    complete: function (jqXHR, textStatus) {
+                    }, complete: function (jqXHR, textStatus) {
 //                        alert(textStatus);
                     }
-
                 });
-
             }
             function retornaCidades() {
                 if ($('#id_estado').val() != '') {
@@ -514,8 +515,16 @@ $usuario = $this->data['usuario'];
                 }
 
             }
+            function getFuncionario() {
+                alert('teste');
+            }
             $(document).ready(function () {
-
+                
+<?php
+if (!empty($jquery)) {
+    echo $jquery;
+}
+?>
 
 <?php
 if (!empty($populateForm)):

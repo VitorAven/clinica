@@ -3,17 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Pacientes.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/layouts/layout.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Medicos.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/models/Pessoa_model.php</file>
             <file>file:/C:/xampp/htdocs/clinica/admin/app/config/routes.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/models/Paciente_model.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/medico/formmedico.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/pessoa/listar_view.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/models/Endereco_model.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Pessoas.php</file>
-            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/paciente/formpaciente.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/libraries/Sis_login.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/propiedade/adicionar_view.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/propiedade/formpropiedade.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Principal.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/controllers/Propiedade.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/views/propiedade/editar_view.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/admin/app/config/autoload.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/simple_html_dom_node.php</file>
+            <file>file:/C:/xampp/htdocs/clinica/teste.php</file>
             <file>file:/C:/xampp/htdocs/clinica/admin/app/views/pessoa/formpessoa.php</file>
         </group>
     </open-files>

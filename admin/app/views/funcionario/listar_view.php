@@ -1,9 +1,8 @@
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Médico
-        <small>Listagem de Médico</small>
+        Funcionário
+        <small>Listagem de Funcionário</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -27,26 +26,23 @@
                                 <th>Nome</th>
                                 <th>RG</th>
                                 <th>CPF</th>
-                                <th>CRM</th>
                                 <th>Açoes</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($lista as $li): ?>
                                 <tr>
-                                    <th><?php echo $li['nome']; ?></th>
-                                    <th><?php echo $li['rg']; ?></th>
-                                    <th><?php echo $li['cpf']; ?></th>
-                                    <th><?php echo $li['crm']; ?></th>
+                                    <th><?php echo $li['tx_nome']; ?></th>
+                                    <th><?php echo $li['tx_rg']; ?></th>
+                                    <th><?php echo $li['tx_cpf']; ?></th>
                                     <th>
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                                                <a href="<?php echo site_url('medico') . '/' . $li['id']; ?>">
+                                                <a href="<?php echo site_url('funcionario') . '/' . $li['id_pessoa']; ?>">
                                                     <button class="btn  btn-success ">Editar</button>
                                                 </a>
-                                                <a href="<?php echo site_url('medico/excluir/') . '/' . $li['id']; ?>"><button class="btn  btn-danger ">Excluir</button></a>
-
+                                                
                                             </div>
                                         </div>
                                     </th>
