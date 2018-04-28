@@ -72,7 +72,6 @@ $route['funcionario/excluir/(:num)'] = 'funcionarios/excluir/$1';
 $route['funcionario/getfuncionario/(:any)'] = 'funcionarios/getFunByIdPessoaajax/$1';
 
 
-
 /* Propiedades*/
 $route['propiedade/list'] = 'propiedade';
 $route['propiedade/add'] = 'propiedade/adicionar';
@@ -81,8 +80,12 @@ $route['propiedade/excluir/(:num)'] = 'propiedade/excluir/$1';
 
 
 /* Praga*/
+$route['principal/pega-praga'] = 'principal/pegaPragas';
+
 $route['praga/list'] = 'praga';
 $route['praga/add'] = 'praga/adicionar';
 $route['praga/(:num)'] = 'praga/editar/$1';
 $route['praga/excluir/(:num)'] = 'praga/excluir/$1';
+
+$route['praga/page/(:num)'] = 'praga';
 
