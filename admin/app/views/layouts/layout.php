@@ -189,34 +189,7 @@ $usuario = $this->data['usuario'];
                                 <li><a href="<?php echo site_url('consulta/list') ?>"><i class="fa fa-list"></i> Listar Consultas</a></li>
                             </ul>
                         </li>-->
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-calendar"></i> <span>Funcionário</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('funcionario/add') ?>"><i class="fa fa-plus-circle"></i> Novo Funcionário</a></li>
-                                <li><a href="<?php echo site_url('funcionario/list') ?>"><i class="fa fa-list"></i> Listar Funcionários</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-user"></i> <span>Médicos</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('medico/add') ?>"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
-                                <li><a href="<?php echo site_url('medico/list') ?>"><i class="fa fa-list"></i> Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-user"></i> <span>Pacientes</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('paciente/add') ?>"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
-                                <li><a href="<?php echo site_url('paciente/list') ?>"><i class="fa fa-list"></i> Listar</a></li>
-                            </ul>
-                        </li>
-
+                      
                         <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-image"></i> <span>Banners</span> <i class="fa fa-angle-left pull-right"></i>
@@ -273,374 +246,397 @@ $usuario = $this->data['usuario'];
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <?php if (!empty($mensagem)) { ?>
-                    <div class="alert alert-<?=$mensagem['tipo']?>">
-                        <strong><?=$mensagem['titulo']?></strong> <?=$mensagem['texto']?>
+                    <div class="alert alert-<?= $mensagem['tipo'] ?>">
+                        <strong><?= $mensagem['titulo'] ?></strong> <?= $mensagem['texto'] ?>
                     </div>
-                    <?php } ?>
-                    <!-- Content Header (Page header) -->
+                <?php } ?>
+                <!-- Content Header (Page header) -->
 
 
-                    <?php echo $conteudo; ?>
+                <?php echo $conteudo; ?>
 
 
 
 
 
-                </div><!-- /.content-wrapper -->
+            </div><!-- /.content-wrapper -->
 
-                <footer class="main-footer">
-                    <div class="pull-right hidden-xs">
-                        <b>Versão</b> 04.055.16
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Versão</b> 04.055.16
+                </div>
+                <strong>Copyright &copy; 2016 
+                    <a href="fatecourinhos.edu.br">Sistema de ambulatório Médico (FATEC)</a>
+                    .</strong>
+                Todos os direitos reservados.
+            </footer>
+
+            <!-- Control Sidebar -->      
+            <aside class="control-sidebar control-sidebar-dark">                
+                <!-- Create the tabs -->
+                <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                    <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+                    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- Home tab content -->
+                    <div class="tab-pane" id="control-sidebar-home-tab">
+                        <h3 class="control-sidebar-heading">Recent Activity</h3>
+                        <ul class='control-sidebar-menu'>
+                            <li>
+                                <a href='javascript::;'>
+                                    <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                                    <div class="menu-info">
+                                        <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                        <p>Will be 23 on April 24th</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href='javascript::;'>
+                                    <i class="menu-icon fa fa-user bg-yellow"></i>
+                                    <div class="menu-info">
+                                        <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                                        <p>New phone +1(800)555-1234</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href='javascript::;'>
+                                    <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                                    <div class="menu-info">
+                                        <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+                                        <p>nora@example.com</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href='javascript::;'>
+                                    <i class="menu-icon fa fa-file-code-o bg-green"></i>
+                                    <div class="menu-info">
+                                        <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+                                        <p>Execution time 5 seconds</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul><!-- /.control-sidebar-menu -->
+
+                        <h3 class="control-sidebar-heading">Tasks Progress</h3> 
+                        <ul class='control-sidebar-menu'>
+                            <li>
+                                <a href='javascript::;'>               
+                                    <h4 class="control-sidebar-subheading">
+                                        Custom Template Design
+                                        <span class="label label-danger pull-right">70%</span>
+                                    </h4>
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                                    </div>                                    
+                                </a>
+                            </li> 
+                            <li>
+                                <a href='javascript::;'>               
+                                    <h4 class="control-sidebar-subheading">
+                                        Update Resume
+                                        <span class="label label-success pull-right">95%</span>
+                                    </h4>
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                                    </div>                                    
+                                </a>
+                            </li> 
+                            <li>
+                                <a href='javascript::;'>               
+                                    <h4 class="control-sidebar-subheading">
+                                        Laravel Integration
+                                        <span class="label label-waring pull-right">50%</span>
+                                    </h4>
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                                    </div>                                    
+                                </a>
+                            </li> 
+                            <li>
+                                <a href='javascript::;'>               
+                                    <h4 class="control-sidebar-subheading">
+                                        Back End Framework
+                                        <span class="label label-primary pull-right">68%</span>
+                                    </h4>
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                                    </div>                                    
+                                </a>
+                            </li>               
+                        </ul><!-- /.control-sidebar-menu -->         
+
+                    </div><!-- /.tab-pane -->
+                    <!-- Stats tab content -->
+                    <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+                    <!-- Settings tab content -->
+                    <div class="tab-pane" id="control-sidebar-settings-tab">            
+                        <form method="post">
+                            <h3 class="control-sidebar-heading">General Settings</h3>
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                    Report panel usage
+                                    <input type="checkbox" class="pull-right" checked />
+                                </label>
+                                <p>
+                                    Some information about this general settings option
+                                </p>
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                    Allow mail redirect
+                                    <input type="checkbox" class="pull-right" checked />
+                                </label>
+                                <p>
+                                    Other sets of options are available
+                                </p>
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                    Expose author name in posts
+                                    <input type="checkbox" class="pull-right" checked />
+                                </label>
+                                <p>
+                                    Allow the user to show his name in blog posts
+                                </p>
+                            </div><!-- /.form-group -->
+
+                            <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                    Show me as online
+                                    <input type="checkbox" class="pull-right" checked />
+                                </label>                
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                    Turn off notifications
+                                    <input type="checkbox" class="pull-right" />
+                                </label>                
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label class="control-sidebar-subheading">
+                                    Delete chat history
+                                    <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                                </label>                
+                            </div><!-- /.form-group -->
+                        </form>
+                    </div><!-- /.tab-pane -->
+                </div>
+            </aside><!-- /.control-sidebar -->
+            <!-- Add the sidebar's background. This div must be placed
+                 immediately after the control sidebar -->
+            <div class='control-sidebar-bg'></div>
+        </div><!-- ./wrapper -->
+
+        <!--<div class="modal ">-->
+        <div class="modal modal-primary img-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Praga</h4>
                     </div>
-                    <strong>Copyright &copy; 2016 
-                        <a href="fatecourinhos.edu.br">Sistema de ambulatório Médico (FATEC)</a>
-                        .</strong>
-                    Todos os direitos reservados.
-                </footer>
+                    <div class="modal-body-img">
+                        <center><img src=""  class="img-modal-destino"  width="100%" height="100%" > </center>
 
-                <!-- Control Sidebar -->      
-                <aside class="control-sidebar control-sidebar-dark">                
-                    <!-- Create the tabs -->
-                    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                        <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-
-                        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <!-- Home tab content -->
-                        <div class="tab-pane" id="control-sidebar-home-tab">
-                            <h3 class="control-sidebar-heading">Recent Activity</h3>
-                            <ul class='control-sidebar-menu'>
-                                <li>
-                                    <a href='javascript::;'>
-                                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-                                        <div class="menu-info">
-                                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-                                            <p>Will be 23 on April 24th</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='javascript::;'>
-                                        <i class="menu-icon fa fa-user bg-yellow"></i>
-                                        <div class="menu-info">
-                                            <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-                                            <p>New phone +1(800)555-1234</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='javascript::;'>
-                                        <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-                                        <div class="menu-info">
-                                            <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-                                            <p>nora@example.com</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='javascript::;'>
-                                        <i class="menu-icon fa fa-file-code-o bg-green"></i>
-                                        <div class="menu-info">
-                                            <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-                                            <p>Execution time 5 seconds</p>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul><!-- /.control-sidebar-menu -->
-
-                            <h3 class="control-sidebar-heading">Tasks Progress</h3> 
-                            <ul class='control-sidebar-menu'>
-                                <li>
-                                    <a href='javascript::;'>               
-                                        <h4 class="control-sidebar-subheading">
-                                            Custom Template Design
-                                            <span class="label label-danger pull-right">70%</span>
-                                        </h4>
-                                        <div class="progress progress-xxs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                                        </div>                                    
-                                    </a>
-                                </li> 
-                                <li>
-                                    <a href='javascript::;'>               
-                                        <h4 class="control-sidebar-subheading">
-                                            Update Resume
-                                            <span class="label label-success pull-right">95%</span>
-                                        </h4>
-                                        <div class="progress progress-xxs">
-                                            <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                                        </div>                                    
-                                    </a>
-                                </li> 
-                                <li>
-                                    <a href='javascript::;'>               
-                                        <h4 class="control-sidebar-subheading">
-                                            Laravel Integration
-                                            <span class="label label-waring pull-right">50%</span>
-                                        </h4>
-                                        <div class="progress progress-xxs">
-                                            <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                                        </div>                                    
-                                    </a>
-                                </li> 
-                                <li>
-                                    <a href='javascript::;'>               
-                                        <h4 class="control-sidebar-subheading">
-                                            Back End Framework
-                                            <span class="label label-primary pull-right">68%</span>
-                                        </h4>
-                                        <div class="progress progress-xxs">
-                                            <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                                        </div>                                    
-                                    </a>
-                                </li>               
-                            </ul><!-- /.control-sidebar-menu -->         
-
-                        </div><!-- /.tab-pane -->
-                        <!-- Stats tab content -->
-                        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
-                        <!-- Settings tab content -->
-                        <div class="tab-pane" id="control-sidebar-settings-tab">            
-                            <form method="post">
-                                <h3 class="control-sidebar-heading">General Settings</h3>
-                                <div class="form-group">
-                                    <label class="control-sidebar-subheading">
-                                        Report panel usage
-                                        <input type="checkbox" class="pull-right" checked />
-                                    </label>
-                                    <p>
-                                        Some information about this general settings option
-                                    </p>
-                                </div><!-- /.form-group -->
-
-                                <div class="form-group">
-                                    <label class="control-sidebar-subheading">
-                                        Allow mail redirect
-                                        <input type="checkbox" class="pull-right" checked />
-                                    </label>
-                                    <p>
-                                        Other sets of options are available
-                                    </p>
-                                </div><!-- /.form-group -->
-
-                                <div class="form-group">
-                                    <label class="control-sidebar-subheading">
-                                        Expose author name in posts
-                                        <input type="checkbox" class="pull-right" checked />
-                                    </label>
-                                    <p>
-                                        Allow the user to show his name in blog posts
-                                    </p>
-                                </div><!-- /.form-group -->
-
-                                <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-                                <div class="form-group">
-                                    <label class="control-sidebar-subheading">
-                                        Show me as online
-                                        <input type="checkbox" class="pull-right" checked />
-                                    </label>                
-                                </div><!-- /.form-group -->
-
-                                <div class="form-group">
-                                    <label class="control-sidebar-subheading">
-                                        Turn off notifications
-                                        <input type="checkbox" class="pull-right" />
-                                    </label>                
-                                </div><!-- /.form-group -->
-
-                                <div class="form-group">
-                                    <label class="control-sidebar-subheading">
-                                        Delete chat history
-                                        <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                                    </label>                
-                                </div><!-- /.form-group -->
-                            </form>
-                        </div><!-- /.tab-pane -->
                     </div>
-                </aside><!-- /.control-sidebar -->
-                <!-- Add the sidebar's background. This div must be placed
-                     immediately after the control sidebar -->
-                <div class='control-sidebar-bg'></div>
-            </div><!-- ./wrapper -->
+                    <div class="modal-footer">
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--</div> /.example-modal -->
 
+        <div class="example-modal">
+            <div class="modal modal-warning">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Modal Warning</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-outline confirmModal">OK</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div><!-- /.example-modal -->
 
-            <div class="example-modal">
-                <div class="modal modal-warning">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Modal Warning</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>One fine body&hellip;</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-outline confirmModal">OK</button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            </div><!-- /.example-modal -->
+        <div class="example-modal">
+            <div class="modal modal-success">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Modal Success</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-outline confirmModal">OK</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div><!-- /.example-modal -->
 
-            <div class="example-modal">
-                <div class="modal modal-success">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Modal Success</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>One fine body&hellip;</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-outline confirmModal">OK</button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            </div><!-- /.example-modal -->
+        <div class="example-modal">
+            <div class="modal modal-danger">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Modal Danger</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-outline confirmModal">OK</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div><!-- /.example-modal -->
 
-            <div class="example-modal">
-                <div class="modal modal-danger">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Modal Danger</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>One fine body&hellip;</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-outline confirmModal">OK</button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            </div><!-- /.example-modal -->
+        <script type="text/javascript">
 
-            <script type="text/javascript">
-
-                function validaCpf() {
-                    var id_pessoa = '';
-                    $.ajax({url: "<?= site_url('pessoa/validacpf'); ?>" + '/' + $('#tx_cpf').val(),
+            function validaCpf() {
+                var id_pessoa = '';
+                $.ajax({url: "<?= site_url('pessoa/validacpf'); ?>" + '/' + $('#tx_cpf').val(),
+                    success: function (result) {
+                        //alert('cpf ja existente');
+                        result = $.parseJSON(result);
+                        id_pessoa = result.id_pessoa;
+                        $.confirm({
+                            title: 'CPF Já existente!',
+                            content: 'Deseja carregar as informaçoes da pessoa?',
+                            buttons: {
+                                Sim: function () {
+                                    //"tx_rg":"48.760.209-00","tx_sobrenome":"borges basseto"}
+                                    $('#id_pessoa').val(result.id_pessoa);
+                                    $('#tx_nome').val(result.tx_nome);
+                                    $('#dt_nasc').val(result.dt_nasc);
+                                    $('#tx_cpf').val(result.tx_cpf);
+                                    $('#tx_rg').val(result.tx_rg);
+                                    $('#tx_sobrenome').val(result.tx_sobrenome);
+                                    $.alert('Dados Carregados com sucesso!');
+                                },
+                                Nao: function () {
+                                    $('#id_pessoa').val(result.id_pessoa);
+                                    $.alert('Os dados salvos irão substituir os dados atuais');
+                                }
+                            }
+                        });
+                    }, error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }, complete: function (jqXHR, textStatus) {
+                        //                        alert(textStatus);
+                    }
+                });
+            }
+            function retornaCidades() {
+                if ($('#id_estado').val() != '') {
+                    $.ajax({url: "<?= site_url('pessoa/retornaCidade'); ?>" + '/' + $('#id_estado').val(),
                         success: function (result) {
                             //alert('cpf ja existente');
-                            result = $.parseJSON(result);
-                            id_pessoa = result.id_pessoa;
-                            $.confirm({
-                                title: 'CPF Já existente!',
-                                content: 'Deseja carregar as informaçoes da pessoa?',
-                                buttons: {
-                                    Sim: function () {
-                                        //"tx_rg":"48.760.209-00","tx_sobrenome":"borges basseto"}
-                                        $('#id_pessoa').val(result.id_pessoa);
-                                        $('#tx_nome').val(result.tx_nome);
-                                        $('#dt_nasc').val(result.dt_nasc);
-                                        $('#tx_cpf').val(result.tx_cpf);
-                                        $('#tx_rg').val(result.tx_rg);
-                                        $('#tx_sobrenome').val(result.tx_sobrenome);
-                                        $.alert('Dados Carregados com sucesso!');
-                                    },
-                                    Nao: function () {
-                                        $('#id_pessoa').val(result.id_pessoa);
-                                        $.alert('Os dados salvos irão substituir os dados atuais');
-                                    }
-                                }
-                            });
+                            $('#id_cidade').html(result);
+
                         }, error: function (jqXHR, textStatus, errorThrown) {
                             alert(errorThrown);
-                        }, complete: function (jqXHR, textStatus) {
-    //                        alert(textStatus);
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            //                            alert(textStatus);
                         }
+
+                    });
+                } else {
+                    $.alert({
+                        title: 'Alerta!',
+                        content: 'Selecione um estado',
                     });
                 }
-                function retornaCidades() {
-                    if ($('#id_estado').val() != '') {
-                        $.ajax({url: "<?= site_url('pessoa/retornaCidade'); ?>" + '/' + $('#id_estado').val(),
-                            success: function (result) {
-                                //alert('cpf ja existente');
-                                $('#id_cidade').html(result);
 
-                            }, error: function (jqXHR, textStatus, errorThrown) {
-                                alert(errorThrown);
-                            },
-                            complete: function (jqXHR, textStatus) {
-    //                            alert(textStatus);
-                            }
-
-                        });
-                    } else {
-                        $.alert({
-                            title: 'Alerta!',
-                            content: 'Selecione um estado',
-                        });
-                    }
-
-                }
-                /**
-                 * Comment
-                 */
-                function modalOpen(modal, mensagem, titulo) {
-                    $('.modal-' + modal).modal('show');
-                    $('.modal-' + modal + ' .modal-body').html(mensagem);
-                    $('.modal-' + modal + ' .modal-title').html(titulo);
-                }
-                /**
-                 * Comment
-                 */
-                function modalClose(modal) {
-                    $('.modal-' + modal).modal('hide');
-                }
-                $(document).ready(function () {
-
-
-    <?php
-    if (!empty($jquery)) {
-        echo $jquery;
-    }
-
-    if (!empty($danger)) {
-        echo "$('.modal-danger').modal();";
-        echo "$('.modal-danger .modal-body').html({$danger['texto']});";
-        echo "$('.modal-danger .modal-title').modal({$danger['titulo']});";
-    }
-    if (!empty($alerta)) {
-        echo "$('.modal-warning').modal();";
-        echo "$('.modal-warning .modal-body').html({$alerta['texto']});";
-        echo "$('.modal-warning .modal-title').html({$alerta['titulo']});";
-    }
-    if (!empty($sucess)) {
-        echo "$('.modal-success').modal();";
-        echo "$('.modal-successs .modal-body').html({$sucess['texto']});";
-        echo "$('.modal-successs .modal-title').html({{$sucess['texto']}});";
-    }
-
-    function percorreArray($array, $tx_caminho) {
-        foreach ($array as $ind => $arr) {
-            if (is_array($arr)) {
-                $tx_caminho .=$ind . '-';
-                percorreArray($arr, $tx_caminho);
-            } else {
-                ?>
-                                $('#<?= $tx_caminho . $ind ?>').val("<?= $arr ?>");
-                <?php
             }
+            /**
+             * Comment
+             */
+            function modalOpen(modal, mensagem, titulo) {
+                $('.modal-' + modal).modal('show');
+                $('.modal-' + modal + ' .modal-body').html(mensagem);
+                $('.modal-' + modal + ' .modal-title').html(titulo);
+            }
+            /**
+             * Comment
+             */
+            function modalClose(modal) {
+                $('.modal-' + modal).modal('hide');
+            }
+            $(document).ready(function () {
+
+
+<?php
+if (!empty($jquery)) {
+    echo $jquery;
+}
+
+if (!empty($danger)) {
+    echo "$('.modal-danger').modal();";
+    echo "$('.modal-danger .modal-body').html({$danger['texto']});";
+    echo "$('.modal-danger .modal-title').modal({$danger['titulo']});";
+}
+if (!empty($alerta)) {
+    echo "$('.modal-warning').modal();";
+    echo "$('.modal-warning .modal-body').html({$alerta['texto']});";
+    echo "$('.modal-warning .modal-title').html({$alerta['titulo']});";
+}
+if (!empty($sucess)) {
+    echo "$('.modal-success').modal();";
+    echo "$('.modal-successs .modal-body').html({$sucess['texto']});";
+    echo "$('.modal-successs .modal-title').html({{$sucess['texto']}});";
+}
+
+function percorreArray($array, $tx_caminho) {
+    foreach ($array as $ind => $arr) {
+        if (is_array($arr)) {
+            $tx_caminho .=$ind . '-';
+            percorreArray($arr, $tx_caminho);
+        } else {
+            ?>
+                            $('#<?= $tx_caminho . $ind ?>').val("<?= $arr ?>");
+            <?php
         }
     }
+}
 
-    if (!empty($populateForm)) {
-        percorreArray($populateForm, '');
-    }
-    ?>
+if (!empty($populateForm)) {
+    percorreArray($populateForm, '');
+}
+?>
+                $('.img_listagem').click(function () {
+                    console.log($(this).attr('src'));
+                    $('.img-modal-destino').attr('src', $(this).attr('src'));
+                    $('.img-modal').modal('show');
+                });
             });
         </script>
     </body>

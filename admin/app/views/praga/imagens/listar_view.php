@@ -3,13 +3,12 @@
 <section class="content-header">
     <h1>
         Galeria 
-        <small>Listagem de banners</small>
+        <small>Listagem de imagens das pragas</small>
     </h1>
     <ol class="breadcrumb">
-         <li><a href="<?php echo site_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="<?php echo site_url('galeria/list');?>">Galeria</a></li>
+        <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo site_url('praga'); ?>">Pragas</a></li>
         <li class="active">Imagens</li>
-        <li class="active">Listagem</li>
     </ol>
 </section>
 
@@ -27,14 +26,10 @@
                 <form role="form" method="post" action="" enctype="multipart/form-data" >
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="exampleInputNome">Nome</label>
-                            <input type="text" class="form-control" id="exampleInputNome" name="nome" placeholder="Digite o nome do banner">
-                        </div>
-                        
-                        <div class="form-group">
                             <label for="exampleInputFile">Selecione o arquivo</label>
                             <input type="file" name="userfile"  id="exampleInputFile" >
                             <p class="help-block"></p>
+                            <input type="hidden" name="praga[id_praga]" id="praga-id_praga">
                         </div>
                         <!--<div class="checkbox">
                             <label>
@@ -43,8 +38,11 @@
                         </div>-->
                     </div><!-- /.box-body -->
 
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    <div class="box-footer"> 
+                        <a href="<?php echo site_url('praga'); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span>Voltar</a>
+
+                        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-open"></span>Enviar</button>
+
                     </div>
                 </form>
             </div><!-- /.box -->
@@ -57,49 +55,48 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Nome</th>
+
                                 <th>IMG</th>
                                 <th>Açoes</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($lista as $li): ?>
+                            <?php
+//                            echo '<pre>';
+//                            print_r($lista);
+//                            die();
+                            ?>
+                            <?php foreach ($lista as $li) { ?>
                                 <tr>
-                                    <th><?php echo $li['nome']; ?></th>
-                                    <th><img src="<?php echo base_url("assets/uploads/galeria") . "/tumb_" . $li['url']; ?>" width="100px" height="100px"></th>
                                     <th>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <a href="<?php echo site_url('galeria/'.$id.'/imagens/excluir/') . '/' . $li['id']; ?>"><button class="btn btn-danger ">Excluir</button></a>
-                                    <?php if ($li['ativo'] == 0): ?>
-                                        <a href="<?php echo site_url('galeria/'.$id.'/imagens/ativar/') . '/' . $li['id']; ?>">
-                                            <button class="btn  btn-primary ">Ativar</button>
-                                        </a>
-                                    <?php endif; ?>
-                                    <?php if ($li['ativo'] == 1): ?>
-                                        <a href="<?php echo site_url('galeria/'.$id.'/imagens/desativar/') . '/' . $li['id']; ?>">
-                                            <button class="btn  btn-warning ">Desativar</button>
-                                        </a>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            </th>
-                            </tr>
-                        <?php endforeach; ?>
+                                        <img src="<?php echo base_url("/assets/img/praga") . "/" . $li['tx_url']; ?>" width="100px" height="100px" class="img_listagem" style="cursor: zoom-in">
+                                    </th>
+                                    <th>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a href="<?php echo site_url('praga/imagens/' . $id_praga . '/excluir/') . '/' . $li['id_imgpraga']; ?>"><button class="btn btn-danger ">Excluir</button></a>
+
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Nome</th>
-                                <th>URL</th>
+                                <th>Imagens</th>
                                 <th>
-
+                                    Açoes
                                 </th>
                             </tr>
+
                         </tfoot>
                     </table>
+
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+

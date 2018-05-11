@@ -80,15 +80,7 @@ class CI_Controller {
         log_message('info', 'Controller Class Initialized');
 
 
-        if (!$this->sis_login->_isLogado()) {
-            if (current_url() != site_url('Usuario/login')) {
-                redirect(site_url('Usuario/login'));
-            }
-        } else {
-            unset($this->data);
-            $this->data['usuario'] = $this->session->userdata('admin');
-            $this->data['permissao'] = $this->session->userdata('permissao');
-        }
+
 
         //echo '<pre>';
         //print_r($this->data);
@@ -99,10 +91,7 @@ class CI_Controller {
         //        $lib[] = $per['tx_nome_controler'];
         //    }
         //}
-
-
-        
-        }
+    }
 
     // --------------------------------------------------------------------
 

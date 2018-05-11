@@ -99,7 +99,7 @@
                                 <th>Identificacao</th>
                                 <th>Nome comum</th>
                                 <th>Nome cientifico</th>
-                                <th>Açoes</th>
+                                <th colspan="3">Açoes</th>
                             </tr>
                         </tfoot>
                     </table>

@@ -4,6 +4,12 @@ class Praga_model extends CI_Model {
 
     const _tbname = 'tb_praga';
     const _pK = 'id_praga';
+    const _ind = array(
+        '(string)' => 'tx_nomecientifico',
+        '(string)' => 'tx_nomecomum',
+        '(string)' => 'tx_descricao',
+        '(int)' => 'id_pagina'
+    );
 
     public function __construct() {
         parent::__construct();
@@ -71,8 +77,18 @@ class Praga_model extends CI_Model {
         try {
             $this->db->select("*");
             $this->db->from(self::_tbname);
-            if (!empty($params['id_praga'])) {
-                $this->db->where('id_praga', $params['id_praga']);
+            if (!empty($params[self::_pK])) {
+                $this->db->where(self::_pK, $params[self::_pK]);
+            }    
+             //pega todos os campos default
+            foreach (self::_ind as $type => $indice){
+                 if (!empty($params[$indice])) {
+                     if($type =='(string)'){
+                         $this->db->like($indice, (string)$params[$indice]);
+                     }elseif($type=='(int)'){
+                         $this->db->where($indice, (int)$params[$indice]);
+                     }
+                 }
             }
 
             if (!empty($params['tx_nomepraga'])) {
@@ -84,10 +100,10 @@ class Praga_model extends CI_Model {
                 $this->db->order_by($params['order']);
             }
 
-            if (!empty($params['page_ini']) && !empty($params['page_fim'])) {
-                $this->db->limit($params['page_ini'], $params['page_fim']);
-            }elseif(!empty($params['page_fim'])){
-                $this->db->limit($params['page_fim']);
+            if (!empty($params['page']) && !empty($params['page_fim'])) {
+                $this->db->limit($params['page'],$params['page_fim']);
+            } elseif (!empty($params['page'])) {
+                $this->db->limit($params['page']);
             }
             if (!empty($params['limit'])) {
                 $this->db->limit($params['limit']);
@@ -98,7 +114,7 @@ class Praga_model extends CI_Model {
                 echo '<pre>';
                 print_r($this->db->last_query());
                 die();
-            }
+            } 
         } catch (Exception $ex) {
             return array('erro' => $ex);
         }
