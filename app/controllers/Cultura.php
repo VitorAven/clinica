@@ -37,6 +37,9 @@ class Cultura extends CI_Controller {
 //        $this->load->view('layouts/home', $this->data);
         $this->layout->view('layouts/home', $this->data);
     }
+    function cadastrapergunta($param) {
+        
+    }
 
     function milho() {
 
