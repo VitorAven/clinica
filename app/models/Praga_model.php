@@ -13,7 +13,9 @@ class Praga_model extends CI_Model {
         'st_soja' => '(int)',
         'st_arroz' => '(int)',
         'st_feijao' => '(int)',
-        'st_algodao' => '(int)'
+        'st_algodao' => '(int)',
+        'nr_acesso' => '(int)'
+        
     );
 
     public function __construct() {
@@ -86,7 +88,7 @@ class Praga_model extends CI_Model {
                 $this->db->where(self::_pK, $params[self::_pK]);
             }
             //pega todos os campos default
-            foreach (self::_ind as $indice =>$type ) {
+            foreach (self::_ind as $indice => $type) {
                 if (!empty($params[$indice])) {
                     if ($type == '(string)') {
                         $this->db->like($indice, (string) $params[$indice]);
@@ -114,6 +116,14 @@ class Praga_model extends CI_Model {
             }
 
             $data = $this->db->get()->result_array();
+            if (!empty($params[self::_pK])) {
+                if (count($data) == 1) {
+                    $dataPraga = current($data);
+                    $dataUp['nr_acesso'] = $dataPraga['nr_acesso'] + 1;
+                    $dataUp['id_praga'] = $dataPraga['id_praga'];
+                    $this->salvar($dataUp);
+                }
+            }
             if (!empty($params['debug'])) {
                 echo '<pre>';
                 print_r($this->db->last_query());
@@ -129,11 +139,11 @@ class Praga_model extends CI_Model {
         try {
             $this->db->select("COUNT(id_praga) AS qtn");
             $this->db->from(self::_tbname);
-              if (!empty($params[self::_pK])) {
+            if (!empty($params[self::_pK])) {
                 $this->db->where(self::_pK, $params[self::_pK]);
             }
             //pega todos os campos default
-            foreach (self::_ind as $indice =>$type ) {
+            foreach (self::_ind as $indice => $type) {
                 if (!empty($params[$indice])) {
                     if ($type == '(string)') {
                         $this->db->like($indice, (string) $params[$indice]);

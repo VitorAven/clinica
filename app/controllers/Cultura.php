@@ -37,8 +37,23 @@ class Cultura extends CI_Controller {
 //        $this->load->view('layouts/home', $this->data);
         $this->layout->view('layouts/home', $this->data);
     }
-    function cadastrapergunta($param) {
-        
+
+    function cadastrapergunta() {
+        $params = $this->input->get(null, true);
+        $this->load->model('Pergunta_model', 'pergunta');
+
+        $pertunta = $params;
+        $pertunta['dt_pergunta'] = date('Y-m-d H:i:s');
+
+       
+        if (!empty($pertunta['id_praga'])) {
+            $this->pergunta->salvar($pertunta);
+         
+            json_encode($pertunta);
+        } else {
+            $data['danger'] = 'Salvo com sucesso, aguarde até reposta via email.';
+            json_encode($pertunta);
+        }
     }
 
     function milho() {

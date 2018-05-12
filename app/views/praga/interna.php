@@ -59,22 +59,22 @@ $praga = current($praga);
                 </section>
             </div>
             <div id="sidebar1" class="form-group col-lg-6  col-md-6 col-sm-12 col-xs-12" >
-                <form id="pergunta_validate" name="pergunta_validate">
-                    <input type="hidden" value="<?php echo $praga['id_praga']; ?>" name="pergunta[id_pragas]" id="pegunta-id_praga">
+                <form id="pergunta_validate" name="pergunta_validate" method="post">
+                    <input type="hidden" value="<?php echo $praga['id_praga']; ?>" name="pergunta[id_praga]" id="pergunta-id_praga">
                     <div class="form-group col-lg-12  col-md-12 col-sm-12 col-xs-12">
                         <label for="exampleInputNome">Nome completo</label>
                         <input type="text" class="form-control" id="pergunta-tx_nome" name="pergunta[tx_nome]" placeholder="Digite seu nome completo" value="" required>
                     </div>
                     <div class="form-group col-lg-12  col-md-12 col-sm-12 col-xs-12">
                         <label for="exampleInputNome">Email</label>
-                        <input type="email" class="form-control validate[email]" id="pergunta-tx_email" name="pergunta[tx_email]" placeholder="Digite seu email" value="" required>
+                        <input type="email" class="form-control validate[tx_email]" id="pergunta-tx_email" name="pergunta[tx_email]" placeholder="Digite seu email" value="" required>
                     </div>
                     <div class="form-group col-lg-12  col-md-12 col-sm-12 col-xs-12">
                         <label for="exampleInputNome">Pergunta</label>
-                        <textarea class="form-control" id="praga-tx_pergunta" name="pergunta[tx_pergunta]" placeholder="Digite sua pergunta" value="" style="min-height: 150px;" required></textarea>
+                        <textarea class="form-control" id="pergunta-tx_pergunta" name="pergunta[tx_pergunta]" placeholder="Digite sua pergunta" value="" style="min-height: 150px;" required></textarea>
                     </div>
                     <div class="form-group col-lg-offset-8 col-lg-4  col-md-4 col-sm-4 col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Enviar pergunta</button>
+                        <button type="button" onclick="enviarPergunta();" class="btn btn-primary btn-block btn-flat">Enviar pergunta</button>;
                     </div>
                 </form>
 
@@ -100,6 +100,48 @@ $praga = current($praga);
 
 </div>
 <script>
+    /**
+     * Comment
+     */
+    function enviarPergunta() {
+//        console.log($('#pergunta_validate').submit());
+        if ($('#pergunta-tx_nome').val() == '') {
+            modalOpen('success', 'Digite seu nome', '<h2>Atenção!</h2>');
+
+            $('#pergunta-tx_nome').focus();
+        } else if ($('#pergunta-tx_email').val() == '') {
+            modalOpen('success', 'Digite seu Email', '<h2>Atenção!</h2>');
+            $('#pergunta-tx_email').focus();
+        } else if ($('#pergunta-tx_pergunta').val() == '') {
+            modalOpen('success', 'Digite sua pergunta', '<h2>Atenção!</h2>');
+            $('#pergunta-tx_pergunta').focus();
+        } else {
+            $.ajax({url: "<?php echo site_url('cultura/cadastrapergunta') ?>",
+                data: {
+                    id_praga: $('#pergunta-id_praga').val(),
+                    tx_nome: $('#pergunta-tx_nome').val(),
+                    tx_email: $('#pergunta-tx_email').val(),
+                    tx_pergunta: $('#pergunta-tx_pergunta').val(),
+                },
+                success: function (result) {
+                    $('#pergunta-id_praga').val('');
+                    $('#pergunta-tx_nome').val('');
+                    $('#pergunta-tx_email').val('');
+                    $('#pergunta-tx_pergunta').val('');
+
+                }, error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                },
+                complete: function (jqXHR, textStatus) {
+                    modalOpen('success', 'Sua pergunta foi salva com sucesso. <br> Aguarde a resposta por email', '<h2>Atenção!</h2>');
+                }
+
+            });
+        }
+
+//        modalOpen('success', 'Sua pergunta foi salva com sucesso. <br> Aguarde a resposta por email', '<h2>Atenção!</h2>');
+
+    }
 //    $(function () {
 //        $('.carousel').carousel({
 //            interval: 2000
