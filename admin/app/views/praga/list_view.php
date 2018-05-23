@@ -50,7 +50,7 @@
                                 <th style="width: 20px;">ID</th>
                                 <th>Nome cientifico</th>
                                 <th style="width: 120px;">Nome comum</th>
-                                <th colspan="3" style="width: 120px;">Açoes</th>
+                                <th colspan="2" style="width: 120px;">Açoes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
                                     </th>
-                                    <th>
+<!--                                    <th>
                                         <div class="row">
                                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                 <a href="<?php echo site_url('praga') . '/' . $li['id_praga']; ?>" class="btn  btn-success "> 
@@ -89,7 +89,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                    </th>
+                                    </th>-->
                                 </tr>
                             <?php endforeach; ?>
 

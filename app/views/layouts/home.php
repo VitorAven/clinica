@@ -51,34 +51,7 @@
                     </p>
                 </section>
             </div>
-            <div id="sidebar1" class="3u">
-                <section>
-                    <header>
-                        <h2>Sidebar #1</h2>
-                    </header>
-                    <ul class="default alt">
-                        <li class="fa fa-angle-right"><a href="#">Vestibulum luctus venenatis dui</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Integer rutrum nisl in mi</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Etiam malesuada rutrum enim</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Aenean elementum facilisis ligula</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Ut tincidunt elit vitae augue</a></li>
-                    </ul>
-                </section>
-            </div>
-            <div id="sidebar2" class="3u">
-                <section>
-                    <header>
-                        <h2>Sidebar #2</h2>
-                    </header>
-                    <ul class="default alt">
-                        <li class="fa fa-angle-right"><a href="#">Integer rutrum nisl in mi</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Etiam malesuada rutrum enim</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Aenean elementum facilisis ligula</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Ut tincidunt elit vitae augue</a></li>
-                        <li class="fa fa-angle-right"><a href="#">Sed quis odio sagittis leo vehicula</a></li>
-                    </ul>
-                </section>
-            </div>
+           
         </div>
 
     </div>

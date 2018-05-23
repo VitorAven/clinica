@@ -94,7 +94,7 @@ $usuario = $this->data['usuario'];
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>Sis</b>A.</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Sistema</b> Ambulatório</span>
+                    <span class="logo-lg"><b>Sistema</b> AgroHelp</span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top" role="navigation">
@@ -177,6 +177,12 @@ $usuario = $this->data['usuario'];
                         <li class="treeview">
                             <a href="<?php echo site_url('praga') ?>">
                                 <i class="fa fa-bug"></i> <span>Pragas</span> <i class="fa fa-angle-right pull-right"></i>
+                            </a>
+
+                        </li>
+                          <li class="treeview">
+                            <a href="<?php echo site_url('pergunta') ?>">
+                                <i class="fa fa-question"></i> <span>Perguntas</span> <i class="fa fa-angle-right pull-right"></i>
                             </a>
 
                         </li>
@@ -266,7 +272,7 @@ $usuario = $this->data['usuario'];
                     <b>Versão</b> 04.055.16
                 </div>
                 <strong>Copyright &copy; 2016 
-                    <a href="fatecourinhos.edu.br">Sistema de ambulatório Médico (FATEC)</a>
+                    <a href="fatecourinhos.edu.br">AgroHelp (FATEC)</a>
                     .</strong>
                 Todos os direitos reservados.
             </footer>

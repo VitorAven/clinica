@@ -112,7 +112,7 @@
                             </header>
                             <ul class="default">
                                 <?php foreach ($cincoMaispragasMilho as $pragas) { ?>
-                                    <li class="fa fa-angle-right"><a href="<?= site_url('praga').'/' . $pragas['id_praga'] ?>"><?= $pragas['tx_nomecientifico'].'-'.$pragas['nr_acesso']?></a></li>
+                                    <li class="fa fa-angle-right"><a href="<?= site_url('praga').'/' . $pragas['id_praga'] ?>"><?= $pragas['tx_nomecientifico']?></a></li>
                                 <?php } ?>
                             </ul>
                         </section>
@@ -120,11 +120,11 @@
                     <div id="fbox2" class="3u">
                         <section>
                             <header>
-                                <h2>PMais acessadas da soja</h2>
+                                <h2>Mais acessadas da soja</h2>
                             </header>
                            <ul class="default">
                                 <?php foreach ($cincoMaispragasSoja as $pragas) { ?>
-                                    <li class="fa fa-angle-right"><a href="<?= site_url('praga') .'/' . $pragas['id_praga'] ?>"><?= $pragas['tx_nomecientifico'] .'-'.$pragas['nr_acesso']?></a></li>
+                                    <li class="fa fa-angle-right"><a href="<?= site_url('praga') .'/' . $pragas['id_praga'] ?>"><?= $pragas['tx_nomecientifico'] ?></a></li>
                                 <?php } ?>
                             </ul>
                         </section>

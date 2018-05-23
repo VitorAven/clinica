@@ -2,9 +2,7 @@
 
     <!-- Featured -->
     <div class="container">
-        <header>
-            <h2>Soja</h2>
-        </header>
+       
         <div class="row">
 
             <div id="main">
@@ -12,7 +10,7 @@
                 <!-- Featured -->
                 <div class="container">
                     <header>
-                        <h2>Listagem das pragas</h2>
+                        <h2>Listagem das pragas da soja</h2>
                     </header>
                     <div class="row">
                         <?php foreach ($pragas as $pra):
