@@ -1,4 +1,4 @@
-<?php
+d<?php
 
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
@@ -13,43 +13,13 @@ class Usuario extends CI_Controller {
     public function index() {
 
         try {
-            $this->data['titulo'] = "Usuarios";
-            $this->data['admin_name'] = "Usuarios";
+            $data['titulo'] = 'Pergunta';
+            $this->load->model('Pergunta_model', 'pergunta');
+            $post = $this->input->post();
 
-            $crud = new grocery_CRUD();
-
-            $crud->set_theme('datatables');
-            $crud->set_table('tb_usuario');
-            $crud->set_subject('Usuarios');
-            $crud->fields(
-                    'tx_nome_usuario', 'dt_nasc_usuario', 'tx_email_usuario', 'tx_senha_usuario', 'tx_login_usuario', 'st_ativo_usuario', 'is_suporte'
-            );
-            $crud->required_fields(
-                    'tx_nome_usuario', 'dt_nasc_usuario', 'tx_email_usuario', 'tx_senha_usuario', 'tx_login_usuario', 'st_ativo_usuario'
-            );
-            $crud->columns(
-                    'tx_nome_usuario', 'dt_nasc_usuario', 'tx_email_usuario', 'st_ativo_usuario'
-            );
-            $crud->unset_read_fields(
-                    'tx_senha_usuario', 'id_cliente', 'is_suporte'
-            );
-            $crud->display_as('tx_nome_usuario', 'Nome');
-            $crud->display_as('dt_nasc_usuario', 'Data Nasc');
-            $crud->display_as('tx_email_usuario', 'Email');
-            $crud->display_as('tx_senha_usuario', 'Senha');
-            $crud->display_as('tx_login_usuario', 'Login');
-            $crud->display_as('st_ativo_usuario', 'Status');
-            $crud->field_type('tx_senha_usuario', 'password');
-            $crud->field_type('tx_email_usuario', 'email');
-            $crud->order_by('tx_nome_usuario');
-
-//            $crud->fields('nome');
-//            $crud->edit_fields('nome');
-            $crud->add_action("Permissões", "ui-icon-image", site_url('permissoes/usuario/') . "/");
-            $crud->callback_before_insert(array($this, 'geraSenha'));
-            $crud->callback_before_update(array($this, 'geraSenha'));
-
-
+            echo '<pre>';
+            print_r($post);
+            die();
             $this->data['crud'] = $crud->render();
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
@@ -69,7 +39,14 @@ class Usuario extends CI_Controller {
                 redirect(site_url('Principal'));
             }
             $this->title = 'Faça o Login';
-            if (!empty($this->input->post('login'))) {
+            $post = $this->input->post();
+            $dataLogin = array();
+            if (!empty($post)) {
+//                echo '<pre>';
+//                print_r($post);
+//                die();
+            }
+            if (!empty($post['login'])) {
                 $login = $this->input->post('login');
                 $credenciais['login'] = $login['login'];
                 $credenciais['senha'] = $login['senha'];
@@ -83,11 +60,36 @@ class Usuario extends CI_Controller {
                     $this->layout->definirLayout('layouts/login');
                     $this->layout->view('login');
                 }
-            } else {
-                $this->layout->definirTitulo('Efetue o Login');
-                $this->layout->definirLayout('layouts/login');
-                $this->layout->view('login');
+            } elseif (!empty($post['usuario'])) {//cadastro de um novo voluntario
+                $voluntario = $post['usuario'];
+
+                if ($voluntario['tx_senha_usuario'] == $voluntario['tx_senha_usuario_rep']) {
+                    unset($voluntario['tx_senha_usuario_rep']);
+                    $dataVol = $voluntario;
+                    $dataVol['tx_senha_usuario'] = sha1($voluntario['tx_senha_usuario'] . sha1($voluntario['tx_email_usuario']));
+                    $dataVol['is_suporte'] = 0;
+                    $dataVol['st_ativo_usuario'] = 1;
+                    $dataVol['tx_login_usuario'] = $voluntario['tx_email_usuario'] ;
+                    
+                    $this->load->model('Usuario_model', 'usuario');
+
+                    $existeEmailCad = $this->usuario->getDataGrid(array('tx_email_usuario'=>$voluntario['tx_email_usuario']));
+                    
+                    if(!empty($existeEmailCad)){
+                        $dataLogin['danger'] = array('texto'=>'Email já cadastrado', 'titulo'=> 'Erro');
+                    }else{
+                        $this->usuario->salvar($dataVol);
+                        $dataLogin['success'] = array('texto'=>'Cadastrado com sucesso, aguarde a confirmação por email', 'titulo'=> 'Sucesso!');
+                    }
+                    
+                } else {
+                   $dataLogin['danger'] = array('texto'=>'erro', 'titulo'=> 'Erro');
+                }
+               
             }
+            $this->layout->definirTitulo('Efetue o Login');
+            $this->layout->definirLayout('layouts/login');
+            $this->layout->view('login', $dataLogin);
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }

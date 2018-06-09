@@ -42,7 +42,7 @@
 
                     <!-- Logo -->
                     <div id="logo">
-                        <h1><a href="#">AgroHelp</a></h1>
+                        <h1><a href="<?php echo site_url(); ?>">AgroHelp</a></h1>
                         <span>Desenvolvido por Vitor</span>
                     </div>
 
@@ -56,7 +56,7 @@
                         <li class=" milhoMenu"><a href="<?php echo site_url('cultura/milho') ?>">Milho</a></li>
                         <li class=" sojaMenu"><a href="<?php echo site_url('cultura/soja') ?>">Soja</a></li>
                         <li class=" sobreMenu"><a href="<?php echo site_url('sobre') ?>">sobre</a></li>
-                        <li class=" cadMenu"><a href="<?php echo site_url('cadastre') ?>">Cadastre-se</a></li>
+                        <li class=" cadMenu"><a href="<?php echo base_url('admin') ?>">Cadastre-se</a></li>
                     </ul>
                 </nav>
             </div>

@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Perguntas extends CI_Controller {
+class Pergunta extends CI_Controller {
 
     /**
      * @author Vitor Hugo Bassetto <vitorhugobassetto@gmail.com>
@@ -14,15 +14,15 @@ class Perguntas extends CI_Controller {
 //warning, success, danger
 
         $this->load->model('Pergunta_model', 'pergunta');
-        $dataPragas = array();
+        $dataPergunta = array();
         $params = $this->input->post(null, true);
         if (!empty($params['pergunta'])) {
-            $dataPragas = $params['pergunta'];
+            $dataPergunta = $params['pergunta'];
         }
 //        echo '<pre>';
-//        print_r($dataPragas);
+//        print_r($dataPergunta);
 //        die();
-        $qtnRegistros = $this->pergunta->maxRegisters($dataPragas);
+        $qtnRegistros = $this->pergunta->maxRegisters($dataPergunta);
 
 
         $this->load->library('pagination');
@@ -38,11 +38,11 @@ class Perguntas extends CI_Controller {
         }
 
         $this->pagination->initialize($config);
-//        $dataPragas['debug'] = true;
-        $dataPragas['page_fim'] = $pagina;
-        $dataPragas['page'] =  $config['per_page'];
-        $dataPragas['order'] = 'id_pergunta DESC';
-        $perguntas = $this->pergunta->getDataGrid($dataPragas);
+//        $dataPergunta['debug'] = true;
+        $dataPergunta['page_fim'] = $pagina;
+        $dataPergunta['page'] = $config['per_page'];
+        $dataPergunta['order'] = 'id_pergunta DESC';
+        $perguntas = $this->pergunta->getDataGrid($dataPergunta);
 
 //        $data['jquery'] = " $('.adicinarNovaPraga').click(function(){
 //       console.log('teste');
@@ -76,27 +76,20 @@ class Perguntas extends CI_Controller {
     public function editar($id_pergunta) {
 //        $data['mensagem'] = array('tipo' => 'success', 'titulo' => 'Sucesso!', 'texto' => 'Registro excluido com sucesso!');
 
-        $data['titulo'] = 'Praga';
-        $this->load->model('Praga_model', 'pergunta');
+        $data['titulo'] = 'Pergunta';
+        $this->load->model('Pergunta_model', 'pergunta');
         $post = $this->input->post();
-
-        //pega o campo especialidades
-        $this->load->model('ImgPraga_model', 'img');
-//        $this->data['especialidades'] = $especialidade;
 
         if ($post) {
             $salvar = $this->pergunta->salvar($post['pergunta']);
             $data['mensagem'] = array('tipo' => 'success', 'titulo' => 'Sucesso!', 'texto' => 'Registro excluido com sucesso!');
         }
 
-        $dadosPraga['pergunta'] = current($this->pergunta->getDataGrid(array('id_pergunta' => $id_pergunta, 'limit' => 1)));
-
-        if (!empty($dadosPraga)) {
-            $data['populateForm'] = $dadosPraga;
+        $dadosPergunta['pergunta'] = current($this->pergunta->getDataGrid(array('id_pergunta' => $id_pergunta, 'limit' => 1)));
+        $dadosPergunta['pergunta']['dt_pergunta'] = date('d/m/Y H:i:s', strtotime($dadosPergunta['pergunta']['dt_pergunta']));
+        if (!empty($dadosPergunta)) {
+            $data['populateForm'] = $dadosPergunta;
         }
-
-
-        //end if
 
         $this->layout->view('pergunta/form_view', $data);
     }

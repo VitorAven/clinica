@@ -89,3 +89,10 @@ $route['praga/excluir/(:num)'] = 'praga/excluir/$1';
 
 $route['praga/page/(:num)'] = 'praga';
 
+
+$route['pergunta/list'] = 'pergunta';
+$route['pergunta/add'] = 'pergunta/adicionar';
+$route['pergunta/(:num)'] = 'pergunta/editar/$1';
+$route['pergunta/excluir/(:num)'] = 'pergunta/excluir/$1';
+
+$route['pergunta/page/(:num)'] = 'pergunta';

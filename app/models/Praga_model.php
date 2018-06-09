@@ -137,7 +137,7 @@ class Praga_model extends CI_Model {
 
     public function maxRegisters($params = null) {
         try {
-            $this->db->select("COUNT(id_praga) AS qtn");
+            $this->db->select("COUNT(".self::_pK.") AS qtn");
             $this->db->from(self::_tbname);
             if (!empty($params[self::_pK])) {
                 $this->db->where(self::_pK, $params[self::_pK]);
@@ -175,8 +175,8 @@ class Praga_model extends CI_Model {
             }
             //exclui a medico
             $this->db->start_cache();
-            $this->db->where('id_praga', $id);
-            $query = $this->db->delete('tb_praga');
+            $this->db->where(self::_pK, $id);
+            $query = $this->db->delete(self::_tbname);
             $this->db->stop_cache();
             $this->db->flush_cache();
         } catch (Exception $exc) {

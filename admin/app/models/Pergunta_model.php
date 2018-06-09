@@ -1,14 +1,16 @@
 <?php
 
-class PPergunta_model extends CI_Model {
+class Pergunta_model extends CI_Model {
 
-    const _tbname = 'tb_praga';
-    const _pK = 'id_praga';
+    const _tbname = 'tb_pergunta';
+    const _pK = 'id_pergunta';
     const _ind = array(
-        '(string)' => 'tx_nomecientifico',
-        '(string)' => 'tx_nomecomum',
-        '(string)' => 'tx_descricao',
-        '(int)' => 'id_pagina'
+        '(string)' => 'tx_nome',
+        '(string)' => 'tx_email',
+        '(string)' => 'tx_pergunta',
+        '(int)' => 'id_pagina',
+        '(int)' => 'dt_pergunta',
+        '(int)' => 'st_ativa'
     );
 
     public function __construct() {
@@ -91,10 +93,6 @@ class PPergunta_model extends CI_Model {
                  }
             }
 
-            if (!empty($params['tx_nomepraga'])) {
-                $this->db->or_like('tx_nomecomum', $params['tx_nomepraga']);
-                $this->db->or_like('tx_nomecientifico', $params['tx_nomepraga']);
-            }
 
             if (!empty($params['order'])) {
                 $this->db->order_by($params['order']);
@@ -123,10 +121,10 @@ class PPergunta_model extends CI_Model {
 
     public function maxRegisters($params = null) {
         try {
-            $this->db->select("COUNT(id_praga) AS qtn");
+            $this->db->select("COUNT(id_pergunta) AS qtn");
             $this->db->from(self::_tbname);
-            if (!empty($params['id_praga'])) {
-                $this->db->where('id_praga', $params['id_praga']);
+            if (!empty($params['id_pergunta'])) {
+                $this->db->where('id_pergunta', $params['id_pergunta']);
             }
 
             if (!empty($params['tx_nomepraga'])) {
@@ -151,8 +149,8 @@ class PPergunta_model extends CI_Model {
             }
             //exclui a medico
             $this->db->start_cache();
-            $this->db->where('id_praga', $id);
-            $query = $this->db->delete('tb_praga');
+            $this->db->where('id_pergunta', $id);
+            $query = $this->db->delete('tb_pergunta');
             $this->db->stop_cache();
             $this->db->flush_cache();
         } catch (Exception $exc) {

@@ -1,5 +1,11 @@
 
-
+<?php 
+if(!empty($erro)){
+    echo '<pre>';
+    print_r($erro);
+    die();
+}
+?>
 <div class="login-box">
     <div class="login-logo">
         <a href="../../index2.html"><b>AgroHelp </b><br>Login de voluntario</a>
@@ -81,7 +87,7 @@
 
                             </div><!-- /.col -->
                             <div class="col-xs-4">
-                                <button type="button" class="btn btn-primary btn-block btn-flat" onclick="enviarCadastro();">Enviar</button>
+                                <button type="submit" class="btn btn-primary btn-block btn-flat" >Enviar</button>
                             </div><!-- /.col -->
                         </div>
                     </form> 
@@ -95,6 +101,85 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div><!-- /.example-modal -->
+<!--<div class="modal ">-->
+<div class="modal modal-primary img-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Praga</h4>
+            </div>
+            <div class="modal-body-img">
+                <center><img src=""  class="img-modal-destino"  width="100%" height="100%" > </center>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--</div> /.example-modal -->
+
+<div class="example-modal">
+    <div class="modal modal-warning">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal Warning</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>-->
+                    <button type="button" class="btn btn-outline confirmModal" data-dismiss="modal">OK</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div><!-- /.example-modal -->
+
+<div class="example-modal">
+    <div class="modal modal-success">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal Success</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>-->
+                    <button type="button" class="btn btn-outline confirmModal"  data-dismiss="modal">OK</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div><!-- /.example-modal -->
+
+<div class="example-modal">
+    <div class="modal modal-danger">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal Danger</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>-->
+                    <button type="button" class="btn btn-outline confirmModal" data-dismiss="modal">OK</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div><!-- /.example-modal -->
+
 <!-- jQuery 2.1.4 -->
 <script src="<?php echo base_url('assets') ?>/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.2 JS -->
@@ -102,54 +187,78 @@
 <!-- iCheck -->
 <script src="<?php echo base_url('assets') ?>/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 <script>
-                                    /**
-                                     * Comment
-                                     */
-                                    function enviarCadastro() {
-                                        $('#formcadastro').submit();
-                                    }
-                                    $(function () {
-                                        $('#formcadastro').submit(function (e) {
-                                            e.preventDefault();
-                                            form = $('#formcadastro').serializeArray();
-                                            if ($('#usuario'))
-                                                console.log(form);
-                                        });
-                                    });
-                                    $('#usuario-tx_senha_usuario_rep').keyup(function () {
+            /**
+             * Comment
+             */
+            function enviarCadastro() {
+                $('#formcadastro').submit();
+            }
+            /**
+             * Comment
+             */
+            function modalOpen(modal, mensagem, titulo) {
+                $('.modal-' + modal).modal('show');
+                $('.modal-' + modal + ' .modal-body').html(mensagem);
+                $('.modal-' + modal + ' .modal-title').html(titulo);
+            }
+            /**
+             * Comment
+             */
+            function modalClose(modal) {
+                $('.modal-' + modal).modal('hide');
+            }
 
-                                        $('#usuario-tx_senha_usuario_rep').val();
-                                        console.log($('#usuario-tx_senha_usuario').val());
-                                        console.log($('#usuario-tx_senha_usuario_rep').val());
-                                        if ($('#usuario-tx_senha_usuario_rep').val() == $('#usuario-tx_senha_usuario').val()) {
-                                            console.log('funcionou');
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-error');
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-success');
-                                        } else {
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-success');
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-error');
-                                        }
+<?php
+if (!empty($danger)) {
+    echo "$('.modal-danger').modal();";
+    echo "$('.modal-danger .modal-body').html('{$danger['texto']}');";
+    echo "$('.modal-danger .modal-title').modal('{$danger['titulo']}');";
+}
+if (!empty($alerta)) {
+    echo "$('.modal-warning').modal();";
+    echo "$('.modal-warning .modal-body').html('{$alerta['texto']}');";
+    echo "$('.modal-warning .modal-title').html('{$alerta['titulo']}');";
+}
+if (!empty($sucess)) {
+    echo "$('.modal-success').modal();";
+    echo "$('.modal-successs .modal-body').html('{$sucess['texto']}');";
+    echo "$('.modal-successs .modal-title').html('{{$sucess['titulo']}}');";
+}
+?>
+            $('#usuario-tx_senha_usuario_rep').keyup(function () {
 
-                                    });
-                                    $('#usuario-tx_senha_usuario').keyup(function () {
-                                        if ($('#usuario-tx_senha_usuario_rep').val() == $('#usuario-tx_senha_usuario').val()) {
-                                            console.log('funcionou');
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-error');
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-success');
-                                        } else {
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-success');
-                                            $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-error');
-                                        }
+                $('#usuario-tx_senha_usuario_rep').val();
+                console.log($('#usuario-tx_senha_usuario').val());
+                console.log($('#usuario-tx_senha_usuario_rep').val());
+                if ($('#usuario-tx_senha_usuario_rep').val() == $('#usuario-tx_senha_usuario').val()) {
+                    console.log('funcionou');
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-error');
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-success');
+                } else {
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-success');
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-error');
+                }
 
-                                    });
-                                    $('.modal-novo-registro').on('shown.bs.modal', function () {
-                                        $('.modal-novo-registro').trigger('focus')
-                                    })
-                                    $(function () {
-                                        $('input').iCheck({
-                                            checkboxClass: 'icheckbox_square-blue',
-                                            radioClass: 'iradio_square-blue',
-                                            increaseArea: '20%' // optional
-                                        });
-                                    });
+            });
+            $('#usuario-tx_senha_usuario').keyup(function () {
+                if ($('#usuario-tx_senha_usuario_rep').val() == $('#usuario-tx_senha_usuario').val()) {
+                    console.log('funcionou');
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-error');
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-success');
+                } else {
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').removeClass('has-success');
+                    $('#usuario-tx_senha_usuario_rep').parent('.form-group').addClass('has-error');
+                }
+
+            });
+            $('.modal-novo-registro').on('shown.bs.modal', function () {
+                $('.modal-novo-registro').trigger('focus')
+            })
+            $(function () {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' // optional
+                });
+            });
 </script>

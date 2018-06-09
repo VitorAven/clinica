@@ -15,11 +15,11 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo site_url('praga'); ?>">Pragas</a></li>
+        <li><a href="<?php echo site_url('pergunta'); ?>">Perguntas</a></li>
         <li class="active">
             <?php
             if (!empty($populateForm)) {
-                echo $populateForm['praga']['tx_nomecomum'];
+                echo $populateForm['pergunta']['tx_nome'];
             } else {
                 echo 'Inserindo';
             }
@@ -42,22 +42,29 @@
                 <!-- form start -->
 
                 <form role="form" method="post" action="" enctype="multipart/form-data" >
-                    <input type="hidden" name="praga[id_praga]" id="praga-id_praga">
+                    <input type="hidden" name="pergunta[id_pergunta]" id="pergunta-id_pergunta">
                     <div class="box-body">
                         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">Nome Comum</label>
-                            <input type="text" class="form-control" id="praga-tx_nomecomum" name="praga[tx_nomecomum]" placeholder="Digite o Nome" value="" required>
+                            <label for="exampleInputNome">Nome</label>
+                            <input type="text" class="form-control" id="pergunta-tx_nome" name="pergunta[tx_nome]" placeholder="Digite o Nome" value="" readonly="">
                         </div>
                         <div class="form-group col-lg-12  col-md-12 col-sm-12 col-xs-12">
-                            <label for="exampleInputNome">Nome Cientifico</label>
-                            <input type="text" class="form-control" id="praga-tx_nomecientifico" name="praga[tx_nomecientifico]" placeholder="Digite o Sobrenomeome" value="" required>
+                            <label for="exampleInputNome">Data pergunta</label>
+                            <input type="text" class="form-control " data-date-format="mm/dd/yyyy" id="pergunta-dt_pergunta" name="pergunta[dt_pergunta]" placeholder="Digite o Sobrenomeome" value=""  readonly="">
                         </div>
+                        <div class="form-group col-lg-12  col-md-12 col-sm-12 col-xs-12">   
+                            <label for="exampleInputNome">Pergunta</label>
+
+                            <textarea id="pergunta-tx_pergunta" name="pergunta[tx_pergunta]" class="pergunta-tx_pergunta" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" readonly=""></textarea>
+                        </div>
+
+
 
                         <div class="form-group col-lg-12  col-md-12 col-sm-12 col-xs-12">
 
                             <div class='box'>
                                 <div class='box-header'>
-                                    <h3 class='box-title'>Descrição<small>da pragas</small></h3>
+                                    <h3 class='box-title'>Resposta<small><br>Entes de enviar revise se está nas normas</small></h3>
                                     <!-- tools box -->
                                     <!--                                    <div class="pull-right box-tools">
                                                                             <button class="btn btn-default btn-sm" data-widget='collapse' data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
@@ -66,7 +73,7 @@
                                 </div><!-- /.box-header -->
                                 <div class='box-body pad'>
 
-                                    <textarea id="praga-tx_descricao" name="praga[tx_descricao]" class="praga-tx_descricao" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                    <textarea id="pergunta-tx_descricao" name="pergunta[tx_descricao]" class="pergunta-tx_descricao" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 
                                 </div>
                             </div>
@@ -76,26 +83,13 @@
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">
-                        <?php
-                        if (!empty($populateForm)) {
-                            ?>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <button type="button" class="btn btn-danger btnExcluir">Excluir</button>
-                                <button type="submit" class="btn btn-primary">Salvar</button>
-                            </div>
-                            <?php
-                        } else {
-                            ?>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <button type="submit" class="btn btn-primary">Inserir</button>
-                            </div>
-                            <?php
-                        }
-                        ?>
 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-                            <a href="<?php echo site_url('praga'); ?>" class="btn btn-success">Voltar</a>
+                            <a href="<?php echo site_url('pergunta'); ?>" class="btn btn-success">Voltar</a>
                         </div>
                     </div>
                 </form>
@@ -115,18 +109,18 @@ if (!empty($populateForm)) {
             $('.modal-danger .confirmModal').click(function () {
                 $.ajax({
                     method: 'POST',
-                    url: '<?php echo site_url('praga/excluir') ?>',
-                    data: {id_praga: $('#praga-id_praga').val()}
+                    url: '<?php echo site_url('pergunta/excluir') ?>',
+                    data: {id_pergunta: $('#pergunta-id_pergunta').val()}
                 }).done(function () {
-                    
-                     alert("done");
+
+                    alert("done");
                     modalClose('danger');
                     openModal('success', 'Excluido com sucesso', 'Sucesso');
                 }).fail(function () {
                     alert("error");
                 }).always(function () {
-                     alert("complete");
-                    window.location.replace("<?php echo site_url('praga'); ?>");
+                    alert("complete");
+                    window.location.replace("<?php echo site_url('pergunta'); ?>");
                 });
             });
             $('.modal-success .confirmModal').click(function () {
@@ -139,6 +133,6 @@ if (!empty($populateForm)) {
 }
 ?>
 
-        $(".praga-tx_descricao").wysihtml5();
+        $(".pergunta-tx_descricao").wysihtml5();
     });
 </script>
