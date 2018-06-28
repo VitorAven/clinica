@@ -4,11 +4,18 @@ class Praga_model extends CI_Model {
 
     const _tbname = 'tb_praga';
     const _pK = 'id_praga';
-    const _ind = array(
-        '(string)' => 'tx_nomecientifico',
-        '(string)' => 'tx_nomecomum',
-        '(string)' => 'tx_descricao',
-        '(int)' => 'id_pagina'
+       const _ind = array(
+        'tx_nomecientifico' => '(string)',
+        'tx_nomecomum' => '(string)',
+        'tx_descricao' => '(string)',
+        'id_pagina' => '(int)',
+        'st_milho' => '(int)',
+        'st_soja' => '(int)',
+        'st_arroz' => '(int)',
+        'st_feijao' => '(int)',
+        'st_algodao' => '(int)',
+        'nr_acesso' => '(int)'
+        
     );
 
     public function __construct() {
@@ -80,15 +87,20 @@ class Praga_model extends CI_Model {
             if (!empty($params[self::_pK])) {
                 $this->db->where(self::_pK, $params[self::_pK]);
             }    
-             //pega todos os campos default
-            foreach (self::_ind as $type => $indice){
-                 if (!empty($params[$indice])) {
-                     if($type =='(string)'){
-                         $this->db->like($indice, (string)$params[$indice]);
-                     }elseif($type=='(int)'){
-                         $this->db->where($indice, (int)$params[$indice]);
-                     }
-                 }
+            
+            //pega todos os campos default
+            foreach (self::_ind as $indice => $type) {
+                if (!empty($params[$indice])) {
+                    if ($type == '(string)') {
+                        $this->db->like($indice, (string) $params[$indice]);
+                    } elseif ($type == '(int)') {
+                        $this->db->where($indice, (int) $params[$indice]);
+                    }
+                }
+            }
+           
+            if (!empty($params['mais_acesso'])) {
+                $this->db->where($params['mais_acesso']);
             }
 
             if (!empty($params['tx_nomepraga'])) {

@@ -81,16 +81,16 @@ class Pergunta_model extends CI_Model {
             $this->db->from(self::_tbname);
             if (!empty($params[self::_pK])) {
                 $this->db->where(self::_pK, $params[self::_pK]);
-            }    
-             //pega todos os campos default
-            foreach (self::_ind as $type => $indice){
-                 if (!empty($params[$indice])) {
-                     if($type =='(string)'){
-                         $this->db->like($indice, (string)$params[$indice]);
-                     }elseif($type=='(int)'){
-                         $this->db->where($indice, (int)$params[$indice]);
-                     }
-                 }
+            }
+            //pega todos os campos default
+            foreach (self::_ind as $type => $indice) {
+                if (!empty($params[$indice])) {
+                    if ($type == '(string)') {
+                        $this->db->like($indice, (string) $params[$indice]);
+                    } elseif ($type == '(int)') {
+                        $this->db->where($indice, (int) $params[$indice]);
+                    }
+                }
             }
 
 
@@ -99,7 +99,7 @@ class Pergunta_model extends CI_Model {
             }
 
             if (!empty($params['page']) && !empty($params['page_fim'])) {
-                $this->db->limit($params['page'],$params['page_fim']);
+                $this->db->limit($params['page'], $params['page_fim']);
             } elseif (!empty($params['page'])) {
                 $this->db->limit($params['page']);
             }
@@ -112,7 +112,22 @@ class Pergunta_model extends CI_Model {
                 echo '<pre>';
                 print_r($this->db->last_query());
                 die();
-            } 
+            }
+        } catch (Exception $ex) {
+            return array('erro' => $ex);
+        }
+        return $data;
+    }
+
+    public function getDataPerguntasPorPraga() {
+        try {
+            $this->db->select("tb_praga.*, COUNT(id_pergunta) AS qtn");
+            $this->db->from(self::_tbname);
+            $this->db->join("tb_praga", "tb_praga.id_praga = tb_pergunta.id_praga", 'INNER');
+            $this->db->group_by('tb_praga.id_praga');
+            $this->db->order_by('qtn', 'DESC');
+            
+            $data = $this->db->get()->result_array();
         } catch (Exception $ex) {
             return array('erro' => $ex);
         }
@@ -123,8 +138,8 @@ class Pergunta_model extends CI_Model {
         try {
             $this->db->select("COUNT(id_pergunta) AS qtn");
             $this->db->from(self::_tbname);
-            if (!empty($params['id_pergunta'])) {
-                $this->db->where('id_pergunta', $params['id_pergunta']);
+            if (!empty($params[self::_pK])) {
+                $this->db->where(self::_pK, $params[self::_pK]);
             }
 
             if (!empty($params['tx_nomepraga'])) {
@@ -149,8 +164,8 @@ class Pergunta_model extends CI_Model {
             }
             //exclui a medico
             $this->db->start_cache();
-            $this->db->where('id_pergunta', $id);
-            $query = $this->db->delete('tb_pergunta');
+            $this->db->where(self::_pK, $id);
+            $query = $this->db->delete(self::_tbname);
             $this->db->stop_cache();
             $this->db->flush_cache();
         } catch (Exception $exc) {

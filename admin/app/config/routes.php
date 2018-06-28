@@ -96,3 +96,21 @@ $route['pergunta/(:num)'] = 'pergunta/editar/$1';
 $route['pergunta/excluir/(:num)'] = 'pergunta/excluir/$1';
 
 $route['pergunta/page/(:num)'] = 'pergunta';
+
+
+
+$route['menu/list'] = 'menu';
+$route['menu/add'] = 'menu/adicionar';
+$route['menu/(:num)'] = 'menu/editar/$1';
+$route['menu/excluir/(:num)'] = 'menu/excluir/$1';
+
+
+$route['permissao/list'] = 'permissao';
+$route['permissao/add'] = 'permissao/adicionar';
+$route['permissao/(:num)'] = 'permissao/editar/$1';
+$route['permissao/excluir/(:num)'] = 'permissao/excluir/$1';
+
+$route['relatorio/1'] = 'relatorio/rel1';
+$route['relatorio/2'] = 'relatorio/rel2';
+$route['relatorio/3'] = 'relatorio/rel3';
+$route['relatorio/4'] = 'relatorio/rel4';

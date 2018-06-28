@@ -1,5 +1,6 @@
 <?php
-$usuario = $this->data['usuario'];
+$usuarioLogado = $this->session->userdata;
+$usuario = $usuarioLogado['admin']
 ?>
 <!DOCTYPE html>
 <html>
@@ -172,57 +173,59 @@ $usuario = $this->data['usuario'];
                         </div>
                     </div>
 
+
                     <ul class="sidebar-menu">
                         <li class="header">Menu Principal</li>
-                        <li class="treeview">
-                            <a href="<?php echo site_url('praga') ?>">
-                                <i class="fa fa-bug"></i> <span>Pragas</span> <i class="fa fa-angle-right pull-right"></i>
-                            </a>
+                        <?php foreach ($usuarioLogado['permissao'] as $permi) { ?>
+                            <li class="treeview">
+                                <a href="<?php echo site_url($permi['tx_nome_controller']) ?>">
+                                    <i class="fa fa-list"></i> <span><?php echo $permi['tx_nome_menu'] ?></span> <i class="fa fa-angle-right pull-right"></i>
+                                </a>
 
-                        </li>
-                          <li class="treeview">
-                            <a href="<?php echo site_url('pergunta') ?>">
-                                <i class="fa fa-question"></i> <span>Perguntas</span> <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-
-                        </li>
-                        <!--<li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-calendar"></i> <span>Consultas</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('consulta/add') ?>"><i class="fa fa-plus-circle"></i> Nova Consulta</a></li>
-                                <li><a href="<?php echo site_url('consulta/list') ?>"><i class="fa fa-list"></i> Listar Consultas</a></li>
-                            </ul>
-                        </li>-->
-                      
-                        <!--<li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-image"></i> <span>Banners</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-
-                                <li><a href="<?php echo site_url("banner"); ?>/list"><i class="fa fa-list"></i> Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bullhorn"></i> <span>Notícias</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('noticia') ?>/add"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
-                                <li><a href="<?php echo site_url('noticia') ?>/list"><i class="fa fa-list"></i> Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-image"></i> <span>Galeria</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('galeria') ?>/add"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
-                                <li><a href="<?php echo site_url('galeria') ?>/list"><i class="fa fa-list"></i> Listar</a></li>
-                            </ul>
-                        </li>-->
+                            </li>
+                        <?php } ?>
+                        <!--
+                        <?php if ($usuario['admin']) { ?>
+                                                        <li class="treeview">
+                                                            <a href="#">
+                                                                <i class="fa fa-calendar"></i> <span>Relatorios</span> <i class="fa fa-angle-left pull-right"></i>
+                                                            </a>
+                                                            <ul class="treeview-menu">
+                                                                <li><a href="<?php echo site_url('relatorio/1') ?>"><i class="fa fa-list"></i>Rel. de Acesso por praga</a></li>
+                                                                <li><a href="<?php echo site_url('relatorio/2') ?>"><i class="fa fa-list"></i>Rel. de perguntas por praga</a></li>
+                                                             <li><a href="<?php echo site_url('relatorio/2') ?>"><i class="fa fa-list"></i>Rel. de pragas milho</a></li>
+                                                                   <li><a href="<?php echo site_url('relatorio/2') ?>"><i class="fa fa-list"></i>Rel. de perguntas</a></li>
+                                                                   <li><a href="<?php echo site_url('relatorio/2') ?>"><i class="fa fa-list"></i>Rel. de perguntas respondidas</a></li>
+                                                            </ul>
+                                                        </li>
+                        <?php } ?>
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-image"></i> <span>Banners</span> <i class="fa fa-angle-left pull-right"></i>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                        
+                                                        <li><a href="<?php echo site_url("banner"); ?>/list"><i class="fa fa-list"></i> Listar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-bullhorn"></i> <span>Notícias</span> <i class="fa fa-angle-left pull-right"></i>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="<?php echo site_url('noticia') ?>/add"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
+                                                        <li><a href="<?php echo site_url('noticia') ?>/list"><i class="fa fa-list"></i> Listar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-image"></i> <span>Galeria</span> <i class="fa fa-angle-left pull-right"></i>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="<?php echo site_url('galeria') ?>/add"><i class="fa fa-plus-circle"></i> Adicionar</a></li>
+                                                        <li><a href="<?php echo site_url('galeria') ?>/list"><i class="fa fa-list"></i> Listar</a></li>
+                                                    </ul>
+                                                </li>-->
                         <!--<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-files-o"></i>
@@ -615,10 +618,10 @@ if (!empty($alerta)) {
     echo "$('.modal-warning .modal-body').html({$alerta['texto']});";
     echo "$('.modal-warning .modal-title').html({$alerta['titulo']});";
 }
-if (!empty($sucess)) {
+if (!empty($success)) {
     echo "$('.modal-success').modal();";
-    echo "$('.modal-successs .modal-body').html({$sucess['texto']});";
-    echo "$('.modal-successs .modal-title').html({{$sucess['texto']}});";
+    echo "$('.modal-success .modal-body').html({$success['texto']});";
+    echo "$('.modal-success .modal-title').html({{$success['titulo']}});";
 }
 
 function percorreArray($array, $tx_caminho) {

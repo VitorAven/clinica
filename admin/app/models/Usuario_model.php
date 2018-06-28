@@ -8,17 +8,14 @@ class Usuario_model extends CI_Model {
      */
     const _tbname = 'tb_usuario';
     const _pK = 'id_usuario';
-    
-     const _ind = array(
+    const _ind = array(
         'tx_nome_usuario' => '(string)',
         'tx_email_usuario' => '(string)',
         'tx_senha_usuario' => '(string)',
         'tx_login_usuario' => '(string)',
         'dt_nasc_usuario' => '(int)',
         'st_ativo_usuario' => '(int)'
-        
     );
- 
 
     public function salvar($post) {
         unset($data);
@@ -80,12 +77,10 @@ class Usuario_model extends CI_Model {
                     $this->db->join('tb_menu', 'tb_menu.id_menu = tb_permissao.id_menu');
                     $this->db->group_by('tb_permissao.id_menu');
                     $result['permissoes'] = $this->db->get('tb_permissao')->result_array();
-                    $result['teste'] = '1';
                 } elseif ($query->is_suporte) {
                     $this->db->join('tb_menu', 'tb_menu.id_menu = tb_permissao.id_menu');
                     $this->db->group_by('tb_permissao.id_menu');
                     $result['permissoes'] = $this->db->get('tb_permissao')->result_array();
-                    $result['teste'] = '2';
                 } else {
                     $result['permissoes'] = null;
                 }
@@ -110,7 +105,8 @@ class Usuario_model extends CI_Model {
             if (!empty($params[self::_pK])) {
                 $this->db->where(self::_pK, $params[self::_pK]);
             }
-                //pega todos os campos default
+            //pega todos os campos default
+            //pega todos os campos default
             foreach (self::_ind as $indice => $type) {
                 if (!empty($params[$indice])) {
                     if ($type == '(string)') {
@@ -120,6 +116,7 @@ class Usuario_model extends CI_Model {
                     }
                 }
             }
+
 
             if (!empty($params['order'])) {
                 $this->db->order_by($params['order']);
@@ -150,7 +147,11 @@ class Usuario_model extends CI_Model {
         try {
             $this->db->select("COUNT(" . self::_pK . ") AS qtn");
             $this->db->from(self::_tbname);
-            foreach (self::_ind as $type => $indice) {
+            if (!empty($params[self::_pK])) {
+                $this->db->where(self::_pK, $params[self::_pK]);
+            }
+            //pega todos os campos default
+            foreach (self::_ind as $indice => $type) {
                 if (!empty($params[$indice])) {
                     if ($type == '(string)') {
                         $this->db->like($indice, (string) $params[$indice]);
@@ -159,6 +160,8 @@ class Usuario_model extends CI_Model {
                     }
                 }
             }
+
+
 
             $data = $this->db->get()->row();
 //             echo '<pre>';
@@ -177,8 +180,8 @@ class Usuario_model extends CI_Model {
             }
             //exclui a medico
             $this->db->start_cache();
-            $this->db->where('id_pergunta', $id);
-            $query = $this->db->delete('tb_pergunta');
+            $this->db->where(self::_pK, $id);
+            $query = $this->db->delete(self::_tbname);
             $this->db->stop_cache();
             $this->db->flush_cache();
         } catch (Exception $exc) {

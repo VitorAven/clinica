@@ -2,170 +2,131 @@
 
 class Menu_model extends CI_Model {
 
-    function listarTodos() {
-        unset($query);
-        $query = $this->db->get('tb_menu')->result_array();
-        return $query;
+    const _tbname = 'tb_menu';
+    const _pK = 'id_menu';
+    const _ind = array(
+        'tx_nome_menu' => '(string)',
+        'tx_nome_controller' => '(string)',
+        'id_menu_pai' => '(int)'
+    );
+
+    public function __construct() {
+        parent::__construct();
     }
 
-    function listarTodasImg($id) {
-        unset($query);
-        
-        $this->db->where('id_galeria', $id);
-        $query = $this->db->get('imagens')->result_array();
+    public function salvar($post) {
+        unset($data);
+        $this->db->trans_start();
+        try {
+            if (!empty($post[self::_pK])) {
+                $id = $post[self::_pK];
+                unset($post[self::_pK]);
 
-        return $query;
-    }
+                $data = $this->db->update(self::_tbname, $post, self::_pK . "=" . $id);
+            } else {
+                $data = $this->db->insert(self::_tbname, $post);
+                $id = $this->db->insert_id();
+            }
 
-    function listarImg($id) {
-        unset($query);
+            $this->db->trans_complete();
 
-        $this->db->where('id', $id);
-        $query = $this->db->get('imagens')->row();
-
-        return $query;
-    }
-    function listar($id) {
-        unset($query);
-
-        $this->db->where('id', $id);
-        $query = $this->db->get('galeria')->row();
-
-        return $query;
-    }
-
-    function adicionar($post) {
-        unset($query);
-
-        if (!$post['ativo']) {
-            $post['ativo'] = 0;
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+            } else {
+                $this->db->trans_commit();
+            }
+        } catch (Exception $ex) {
+            return array('erro' => $ex);
         }
-       
-
-        $dados = array(
-            'nome' => $post['nome'],
-            'capa' => $post['img'],
-            'ativo' => $post['ativo']
-        );
-        $query = $this->db->insert('galeria', $dados);
-
-        return $query;
+        return $id;
     }
-    function adicionarImg($post) {
-        unset($query);
 
-        if (!$post['ativo']) {
-            $post['ativo'] = 0;
+    public function getDataGrid($params = null) {
+        try {
+            $this->db->select("*");
+            $this->db->from(self::_tbname);
+            if (!empty($params[self::_pK])) {
+                $this->db->where(self::_pK, $params[self::_pK]);
+            }
+            //pega todos os campos default
+            foreach (self::_ind as $indice => $type) {
+                if (!empty($params[$indice])) {
+                    if ($type == '(string)') {
+                        $this->db->like($indice, (string) $params[$indice]);
+                    } elseif ($type == '(int)') {
+                        $this->db->where($indice, (int) $params[$indice]);
+                    }
+                }
+            }
+
+
+            if (!empty($params['order'])) {
+                $this->db->order_by($params['order']);
+            }
+
+            if (!empty($params['page']) && !empty($params['page_fim'])) {
+                $this->db->limit($params['page'], $params['page_fim']);
+            } elseif (!empty($params['page'])) {
+                $this->db->limit($params['page']);
+            }
+            if (!empty($params['limit'])) {
+                $this->db->limit($params['limit']);
+            }
+
+            $data = $this->db->get()->result_array();
+            if (!empty($params['debug'])) {
+                echo '<pre>';
+                print_r($this->db->last_query());
+                die();
+            }
+        } catch (Exception $ex) {
+            return array('erro' => $ex);
         }
-
-        $dados = array(
-            'nome' => $post['nome'],
-            'url' => $post['img'],
-            'id_galeria' => $post['id_galeria'],
-            'ativo' => $post['ativo']
-        );
-        $query = $this->db->insert('imagens', $dados);
-
-        return $query;
+        return $data;
     }
 
-    function editar($post) {
-        unset($query);
-        $id = $post['id'];
+    public function maxRegisters($params = null) {
+        try {
+            $this->db->select("COUNT(id_menu) AS qtn");
+            $this->db->from(self::_tbname);
+            if (!empty($params[self::_pK])) {
+                $this->db->where(self::_pK, $params[self::_pK]);
+            }
 
-        if (!isset($post['ativo'])) {
-            $post['ativo'] = 0;
+            //pega todos os campos default
+            foreach (self::_ind as $indice => $type) {
+                if (!empty($params[$indice])) {
+                    if ($type == '(string)') {
+                        $this->db->like($indice, (string) $params[$indice]);
+                    } elseif ($type == '(int)') {
+                        $this->db->where($indice, (int) $params[$indice]);
+                    }
+                }
+            }
+            $data = $this->db->get()->row();
+//             echo '<pre>';
+//           print_r($this->db->last_query());
+//           die();
+        } catch (Exception $ex) {
+            return array('erro' => $ex);
         }
-        if (isset($post['img'])) {
-            $dados = array(
-                'nome' => $post['nome'],
-                'capa' => $post['img'],
-                'ativo' => $post['ativo']
-            );
+        return $data;
+    }
+
+    public function excluir($id) {
+        try {
+            if (empty($id)) {
+                throw new Exception('Erro');
+            }
+            //exclui a medico
+            $this->db->start_cache();
+            $this->db->where(self::_pK, $id);
+            $query = $this->db->delete(self::_tbname);
+            $this->db->stop_cache();
+            $this->db->flush_cache();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
         }
-        if (!isset($post['img'])) {
-            $dados = array(
-                'nome' => $post['nome'],
-                'ativo' => $post['ativo']
-            );
-        }
-
-
-
-
-        $this->db->where('id', $id);
-        $query = $this->db->update('galeria', $dados);
-
-        return $query;
-    }
-
-    function desativar($id) {
-        unset($query);
-
-        $dados = array(
-            'ativo' => '0'
-        );
-
-        $this->db->where('id', $id);
-        $query = $this->db->update('galeria', $dados);
-
-        return $query;
-    }
-
-    function ativar($id) {
-        unset($query);
-
-        $dados = array(
-            'ativo' => '1'
-        );
-
-        $this->db->where('id', $id);
-        $query = $this->db->update('galeria', $dados);
-
-        return $query;
-    }
-
-    function excluir($id) {
-        unset($query);
-
-        $this->db->where('id', $id);
-        $query = $this->db->delete('galeria');
-
-        return $query;
-    }
-    
-    
-    function desativarImg($id) {
-        unset($query);
-
-        $dados = array(
-            'ativo' => '0'
-        );
-
-        $this->db->where('id', $id);
-        $query = $this->db->update('imagens', $dados);
-
-        return $query;
-    }
-
-    function ativarImg($id) {
-        unset($query);
-
-        $dados = array(
-            'ativo' => '1'
-        );
-
-        $this->db->where('id', $id);
-        $query = $this->db->update('imagens', $dados);
-
-        return $query;
-    }
-
-    function excluirImg($id) {
-        unset($query);
-
-        $this->db->where('id', $id);
-        $query = $this->db->delete('imagens');
 
         return $query;
     }

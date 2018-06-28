@@ -3,60 +3,120 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Menu  extends CI_Controller {
+class Menu extends CI_Controller {
 
     /**
      * @author Vitor Hugo Bassetto <vitorhugobassetto@gmail.com>
-     * 
+     * Classe controller, cadastro e alteração das informações da menus,
+     * CRUD menu.
      */
-    public function index() {     
+    public function index() {
+//warning, success, danger
 
-        try {
-            $this->data['titulo'] = "Menu do sistema";
-            $this->data['admin_name'] = "Menu";
-
-            $crud = new grocery_CRUD();
-
-            $crud->set_theme('datatables');
-            $crud->set_table('tb_menu');
-            $crud->set_subject('Menu');
-            $crud->fields(
-                    'tx_nome_menu', 'tx_nome_controler', 'id_menu_pai');
-            $crud->required_fields(
-                    'tx_nome_menu', 'tx_nome_controler'
-            );
-            $crud->columns(
-                    'tx_nome_menu', 'tx_nome_controler', 'id_menu_pai'
-            );
-            $crud->set_relation('id_menu_pai', 'tb_menu', 'tx_nome_menu');
-            $crud->display_as('tx_nome_menu', 'Nome de exibição');
-            $crud->display_as('tx_nome_controler', 'Nome da Controler');
-            $crud->display_as('id_menu_pai', 'Menu Pai');
-            
-            $crud->order_by('id_menu');
-
-//            $crud->fields('nome');
-//            $crud->edit_fields('nome');
-          //  $crud->callback_before_insert(array($this, 'geraSenha'));
-           // $crud->callback_before_update(array($this, 'geraSenha'));
-
-
-            $this->data['crud'] = $crud->render();
-        } catch (Exception $e) {
-            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
+        $this->load->model('Menu_model', 'menu');
+        $dataPergunta = array();
+        $params = $this->input->post(null, true);
+        if (!empty($params['menu'])) {
+            $dataPergunta = $params['menu'];
         }
+//        echo '<pre>';
+//        print_r($dataPergunta);
+//        die();
+        $qtnRegistros = $this->menu->maxRegisters($dataPergunta);
 
-        $this->load->view('layouts/layout',  $this->data);
-    }
-    public function getMenuExibir(){
-        if (!$this->sis_login->_isLogado()) {
-            redirect(site_url("/login"));
+
+        $this->load->library('pagination');
+        $config['base_url'] = site_url('menu/page');
+        $config['total_rows'] = $qtnRegistros->qtn;
+        $config['per_page'] = 10;
+
+
+        if (!empty($this->uri->segment('3'))) {
+            $pagina = $this->uri->segment('3');
         } else {
-            $data['usuario'] = $this->session->userdata;
+            $pagina = (int) 0;
         }
-        return 'teste666';
+
+        $this->pagination->initialize($config);
+//        $dataPergunta['debug'] = true;
+        $dataPergunta['page_fim'] = $pagina;
+        $dataPergunta['page'] = $config['per_page'];
+        $dataPergunta['order'] = 'id_menu DESC';
+        $menus = $this->menu->getDataGrid($dataPergunta);
+
+//        $data['jquery'] = " $('.adicinarNovaPraga').click(function(){
+//       console.log('teste');
+//    });";
+        $data['jquery'] = '';
+        $data['populateForm'] = $params;
+        $data['lista'] = $menus;
+        $data['pagi'] = $this->pagination->create_links();
         
+        $this->layout->view('menu/list_view', $data);
     }
+
+    public function page() {
+        redirect('/menu');
+    }
+
+    public function adicionar() {
+        $this->load->model('Menu_model', 'menu');
+
+        $post = $this->input->post();
+        $data = array();
+
+        if (!empty($post['menu'])) {
+            $dataPraga = $post['menu'];
+            $id = $this->menu->salvar($dataPraga);
+
+            redirect('/menu/' . $id);
+        }
+        $this->layout->view('menu/form_view', $data);
+    }
+
+
+    public function editar($id_menu) {
+//        $data['mensagem'] = array('tipo' => 'success', 'titulo' => 'Sucesso!', 'texto' => 'Registro excluido com sucesso!');
+
+        $data['titulo'] = 'Menu';
+        $this->load->model('Menu_model', 'menu');
+        
+        $post = $this->input->post();
+
+        if (!empty($post['menu'])) {
+
+            $dataMenu = $post['menu'];
+
+            $salvar = $this->menu->salvar($dataMenu);
+            $data['mensagem'] = array('tipo' => 'success', 'titulo' => 'Sucesso!', 'texto' => 'Registro excluido com sucesso!');
+        }
+        // verifica se a menu tem resposta
+        
+        $dadosMenu['menu'] = current($this->menu->getDataGrid(array('id_menu' => $id_menu, 'limit' => 1)));
+//        echo '<pre>';
+//        print_r($dadosMenu);
+//        die();
+        if (!empty($dadosMenu)) {
+            $data['populateForm'] = $dadosMenu;
+        }
+
+        $this->layout->view('menu/form_view', $data);
+    }
+
+   
+
+    public function excluir() {
+        //warning, success, danger
+
+        $post = $this->input->post();
+
+        if (!empty($post['id_menu'])) {
+            $this->load->model('menu_model', 'menu');
+            $alterarOrdem = $this->menu->excluir($post['id_menu']);
+        }
+        return true;
+    }
+
 }
 
 /* End of file welcome.php */

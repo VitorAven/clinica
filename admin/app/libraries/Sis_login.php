@@ -58,13 +58,14 @@ class Sis_login {
          */
      
         if (!empty($usuario) && ($permissoes != null)) {
-
+            
             $admin = array(
                 'sessao' => sha1(date('Y-m-d') . $usuario->tx_login_usuario),
                 'email' => $usuario->tx_email_usuario,
                 'nome' => $usuario->tx_nome_usuario,
                 'id' => $usuario->id_usuario,
-                'login' => $usuario->tx_login_usuario
+                'login' => $usuario->tx_login_usuario,
+                'admin' =>$usuario->is_suporte
             );            
             $this->ci->session->set_userdata('permissao',$permissoes);
             $this->ci->session->set_userdata('admin',$admin);

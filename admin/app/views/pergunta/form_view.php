@@ -73,7 +73,7 @@
                                 </div><!-- /.box-header -->
                                 <div class='box-body pad'>
 
-                                    <textarea id="pergunta-tx_descricao" name="pergunta[tx_descricao]" class="pergunta-tx_descricao" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                    <textarea id="pergunta-tx_resposta" name="pergunta[tx_resposta]" class="pergunta-tx_resposta" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 
                                 </div>
                             </div>
@@ -100,39 +100,9 @@
 <script>
 
     $(function () {
-<?php
-if (!empty($populateForm)) {
-    ?>
-            $('.btnExcluir').click(function () {
-                modalOpen('danger', 'Deseja realmente remover este registro?', 'Excluir');
-            });
-            $('.modal-danger .confirmModal').click(function () {
-                $.ajax({
-                    method: 'POST',
-                    url: '<?php echo site_url('pergunta/excluir') ?>',
-                    data: {id_pergunta: $('#pergunta-id_pergunta').val()}
-                }).done(function () {
 
-                    alert("done");
-                    modalClose('danger');
-                    openModal('success', 'Excluido com sucesso', 'Sucesso');
-                }).fail(function () {
-                    alert("error");
-                }).always(function () {
-                    alert("complete");
-                    window.location.replace("<?php echo site_url('pergunta'); ?>");
-                });
-            });
-            $('.modal-success .confirmModal').click(function () {
-                modalClose('success');
-            });
-    <?php
-} else {
-    ?>
-    <?php
-}
-?>
 
-        $(".pergunta-tx_descricao").wysihtml5();
+
+//        $(".pergunta-tx_descricao").wysihtml5();
     });
 </script>

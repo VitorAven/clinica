@@ -86,6 +86,37 @@ class CI_Controller {
             }
         } else {
             unset($this->data);
+
+            $permissoes = $this->session->userdata['permissao'];
+
+            $possuiAcesso = false;
+            
+            
+            if (!empty($this->uri->segments[1])) {
+                $tx_nomecontroller = $this->uri->segments[1];
+               
+                if (trim($tx_nomecontroller) != 'logout') {
+                    foreach ($permissoes as $perPage) {
+                        $tx_nome_controller = explode('/', $perPage['tx_nome_controller']);
+                        if ($tx_nome_controller[0] == $tx_nomecontroller) {
+                            $possuiAcesso = true;
+                        }                      
+                    }
+                } else {
+                    $possuiAcesso = true;
+                }
+            } else {
+                $possuiAcesso = true;
+            }
+            
+                       
+            if (!$possuiAcesso) {
+                if (current_url() != site_url()) {
+                    redirect(site_url());
+                }
+            }
+
+
             $this->data['usuario'] = $this->session->userdata('admin');
             $this->data['permissao'] = $this->session->userdata('permissao');
         }
@@ -99,10 +130,7 @@ class CI_Controller {
         //        $lib[] = $per['tx_nome_controler'];
         //    }
         //}
-
-
-        
-        }
+    }
 
     // --------------------------------------------------------------------
 

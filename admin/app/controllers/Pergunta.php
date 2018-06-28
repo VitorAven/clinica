@@ -78,15 +78,37 @@ class Pergunta extends CI_Controller {
 
         $data['titulo'] = 'Pergunta';
         $this->load->model('Pergunta_model', 'pergunta');
+        $this->load->model('Resposta_model', 'resposta');
         $post = $this->input->post();
 
-        if ($post) {
-            $salvar = $this->pergunta->salvar($post['pergunta']);
+        if (!empty($post['pergunta'])) {
+
+            $admin = $this->session->userdata['admin'];
+
+            $dataPergunta = $post['pergunta'];
+            $dataResposta = array(
+                'id_usuario' => $admin['id'],
+                'dt_datahora' => date('Y-m-d H:i:s'),
+                'id_pergunta' => $dataPergunta['id_pergunta'],
+                'tx_resposta' => $dataPergunta['tx_resposta'],
+            );
+
+            $salvar = $this->resposta->salvar($dataResposta);
             $data['mensagem'] = array('tipo' => 'success', 'titulo' => 'Sucesso!', 'texto' => 'Registro excluido com sucesso!');
         }
-
+        // verifica se a pergunta tem resposta
+        $resposta = $this->resposta->getDataGrid(array('id_pergunta' => $id_pergunta));
+        $resposta = current($resposta);
+//        echo '<pre>';
+//        print_r($resposta);
+//        die();
+        
         $dadosPergunta['pergunta'] = current($this->pergunta->getDataGrid(array('id_pergunta' => $id_pergunta, 'limit' => 1)));
+        $dadosPergunta['pergunta']['tx_resposta'] = $resposta['tx_resposta'];
         $dadosPergunta['pergunta']['dt_pergunta'] = date('d/m/Y H:i:s', strtotime($dadosPergunta['pergunta']['dt_pergunta']));
+//        echo '<pre>';
+//        print_r($dadosPergunta);
+//        die();
         if (!empty($dadosPergunta)) {
             $data['populateForm'] = $dadosPergunta;
         }
