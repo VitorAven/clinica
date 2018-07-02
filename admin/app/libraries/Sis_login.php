@@ -42,7 +42,7 @@ class Sis_login {
             return false;            
         }
         
-         $permissoes = $result['permissoes'];
+        $permissoes = $result['permissoes'];
         $usuario = $result['usuario'];
         
         /* Array ( 

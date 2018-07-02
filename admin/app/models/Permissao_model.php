@@ -51,7 +51,7 @@ class Permissao_model extends CI_Model {
             //pega todos os campos default
             $this->db->join("tb_usuario", "tb_usuario.id_usuario = " . self::_tbname . ".id_usuario", 'left');
             $this->db->join("tb_menu", "tb_menu.id_menu = " . self::_tbname . ".id_menu", 'left');
-            $this->db->where("is_suporte !=", 1);
+            $this->db->where("tb_usuario.is_suporte !=", 1);
             foreach (self::_ind as $type => $indice) {
                 if (!empty($params[$indice])) {
                     if ($type == '(string)') {
@@ -95,6 +95,10 @@ class Permissao_model extends CI_Model {
             if (!empty($params[self::_pK])) {
                 $this->db->where(self::_pK, $params[self::_pK]);
             }
+
+            $this->db->join("tb_usuario", "tb_usuario.id_usuario = " . self::_tbname . ".id_usuario", 'left');
+            $this->db->join("tb_menu", "tb_menu.id_menu = " . self::_tbname . ".id_menu", 'left');
+            $this->db->where("is_suporte !=", 1);
 
             //pega todos os campos default
             foreach (self::_ind as $type => $indice) {

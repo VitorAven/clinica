@@ -60,8 +60,7 @@ $route['login'] = 'usuario/login';
 $route['logout'] = 'usuario/logout';
 $route['alterar-senha'] = 'usuario/alterarsenha';
 $route['usuario/adicionar'] = 'usuario/adicionar';
-$route['usuario/(:num)/editar'] = 'usuario/editar/$1';
-$route['usuario/(:num)/editar'] = 'usuario/editar/$1';
+$route['usuario/(:num)'] = 'usuario/editar/$1';
 $route['usuario/(:num)/excluir'] = 'usuario/excluir/$1';
 
 /* Funcionários*/

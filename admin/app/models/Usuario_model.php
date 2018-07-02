@@ -68,11 +68,11 @@ class Usuario_model extends CI_Model {
                 }
             }
         }
-        $this->db->where("st_ativo_usuario = 1");
+//        $this->db->where("st_ativo_usuario = 1");
         $query = $this->db->get(self::_tbname)->row();
         if (!empty($query)) {
             if (!empty($params['senha']) && !empty($params['login'])) {
-                if (!$query->id_usuario && !$query->is_suporte) {
+                if (!$query->is_suporte) {
                     $this->db->where('tb_permissao.id_usuario = ' . $query->id_usuario);
                     $this->db->join('tb_menu', 'tb_menu.id_menu = tb_permissao.id_menu');
                     $this->db->group_by('tb_permissao.id_menu');
@@ -116,7 +116,7 @@ class Usuario_model extends CI_Model {
                     }
                 }
             }
-
+            $this->db->where('is_suporte !=',1);
 
             if (!empty($params['order'])) {
                 $this->db->order_by($params['order']);
